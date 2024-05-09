@@ -14,6 +14,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Checkbox from "expo-checkbox";
 import Location from "./Location";
+import PopUpModal from "../../modals/PopUpModal";
 // import PopUpModal from "@/app/(main)/(home)/(modals)/PopUpModal";
 
 const CustomInput = ({
@@ -246,7 +247,7 @@ const CustomInput = ({
                     style={{ height: "92%" }}
                   >
                     <Location
-                      values={value} // Adjust based on your data structure
+                      values={value} 
                       onLocationChange={onLocationChange}
                     />
                   </View>

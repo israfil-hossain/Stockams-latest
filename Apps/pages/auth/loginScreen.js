@@ -10,7 +10,6 @@ import {
 
 import { Formik } from "formik";
 import { Alert } from "react-native";
-import { Link, useRouter } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 import {
   looper,
@@ -25,39 +24,55 @@ import CustomInput from "../../components/global/common/CommonInput";
 
 import { useToast } from "react-native-toast-notifications";
 import { signinValidationSchema } from "../../components/global/auth/validation/signinValidationSchema";
+import { useMutation } from "@tanstack/react-query";
+import adminAPI from "../../../api/adminAPI";
+import { API } from "../../../api/endpoints";
+import adminQueryClient from "../../../api/adminQueryClient";
+import { setAccessToken, setRefreshToken } from "../../utils/localStorageUtils";
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [tab, setTab] = useState("RENTER");
   const navigation = useNavigation();
-  // const toast = useToast();
+  const toast = useToast();
 
-  // const { mutateAsync: signInMutation, isLoading: isSigninLoading } =
-  //   useMutation((payload) => adminAPI.post(API.Login, payload));
+
+  const { mutateAsync: signInMutation, isLoading: isSigninLoading } =
+    useMutation({
+      mutationFn: (payload) => {
+        return adminAPI.post(API.Login, payload);
+      },
+    });
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
-    // try {
-    //   setSubmitting(true);
-    //   const response = await signInMutation({ ...values, role: tab });
-    //   if (response?.data?.data) {
-    //     await setAccessToken(response.data.data?.accessToken);
-    //     await setRefreshToken(response.data.data?.refreshToken);
-    //     // await setUserRole(userRole && userRole);
-    //     // queryClient.resetQueries();
-    //     // toast.show("Signin Successfully ! 👋", { type: "success" });
-    //   }
-    //   setSubmitting(false);
-    // } catch (err) {
-    //   toast.show("Something went wrong 👋", {
-    //     type: "danger",
-    //   });
-    //   setErrors(err);
-    //   setSubmitting(false);
-    // }
+    try {
+      setSubmitting(true);
+      const payload = {
+        ...values, 
+        role:tab
+      }
+      const response = await signInMutation(payload);
+      console.log(response)
+      if (response?.data?.data) {
+        await setAccessToken(response.data.data?.accessToken);
+        await setRefreshToken(response.data.data?.refreshToken);
+        // await setUserRole(userRole && userRole);
+        adminQueryClient.resetQueries();
+        toast.show("Signin Successfully ! 👋", { type: "success" });
+      }
+      setSubmitting(false);
+    } catch (err) {
+      toast.show("Something went wrong 👋", {
+        type: "danger",
+      });
+      console.log("Error ===> ",err)
+      setErrors(err);
+      setSubmitting(false);
+    }
   };
   return (
     <View style={styles.container} className="bg-red-500">
-      {/* {isSigninLoading && <CommonProgress />} */}
+      {isSigninLoading && <CommonProgress />}
       <View style={styles.backgroundImageContainer}>
         <Image source={looper} style={styles.backgroundImage} />
       </View>
@@ -68,7 +83,6 @@ const LoginScreen = () => {
           style={styles.logo}
         />
       </View>
-      {/* <Image source={logo} style={} /> */}
       <ScrollView style={styles.scrollView}>
         <Formik
           initialValues={{ email: "", password: "", role: "RENTER" }}
@@ -175,7 +189,9 @@ const LoginScreen = () => {
                     {`Don’t have an account`}
                   </Text>
 
-                  <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Signup")}
+                  >
                     <Text style={styles.createAccountText}>CREATE ACCOUNT</Text>
                   </TouchableOpacity>
                 </View>

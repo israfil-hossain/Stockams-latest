@@ -1,5 +1,6 @@
-import adminAPI from "@/api/adminAPI";
+
 import { useMutation } from "@tanstack/react-query";
+import adminAPI from "../../api/adminAPI";
 
 const useUpdate = ({
   endpoint = "",

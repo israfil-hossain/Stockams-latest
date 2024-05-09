@@ -27,6 +27,8 @@ import CustomInput from "../../components/global/common/CommonInput";
 
 import { useToast } from "react-native-toast-notifications";
 import { signupValidationSchema } from "../../components/global/auth/validation/signupValidationSchema";
+import adminAPI from "../../../api/adminAPI";
+import { API } from "../../../api/endpoints";
 
 const SignupScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,22 +37,36 @@ const SignupScreen = () => {
 
   const toast = useToast();
 
+
   const { mutateAsync: signUpMutation, isLoading: isSigninLoading } =
-    useMutation((payload) => adminAPI.post(API.SignUp, payload));
+    useMutation({
+      mutationFn: (payload) => {
+        return adminAPI.post(API.SignUp, payload);
+      },
+    });
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       setSubmitting(true);
-      const response = await signUpMutation({ ...values, role: tab });
+      console.log({ values });
+      const payload = {
+        ...values,
+        role: tab,
+      };
+      const response = await signUpMutation(payload);
+      console.log("Sunmitted");
+      console.log(response);
       if (response?.data?.data) {
         toast.show("Signup Successfully ! 👋", { type: "success" });
-        router.replace("/login");
+        // router.replace("/login");
+        navigation.navigate("Login");
       }
       setSubmitting(false);
     } catch (err) {
       toast.show("Something went wrong 👋", {
         type: "danger",
       });
+      console.log({ err });
       setSubmitting(false);
       setErrors(err);
     }
@@ -74,7 +90,7 @@ const SignupScreen = () => {
             phoneNumber: "",
             dateOfBirth: "",
             address: "",
-            countryCode: "",
+            countryCode:"",
           }}
           onSubmit={handleSubmit}
           validationSchema={signupValidationSchema}
@@ -129,7 +145,6 @@ const SignupScreen = () => {
                 type="text"
               />
               <CustomInput
-              
                 icon="phone-portrait-outline"
                 placeholder="Enter your Phone Number"
                 autoCapitalize="none"
@@ -197,6 +212,22 @@ const SignupScreen = () => {
                 value={values.password}
                 passwordIcon={true}
                 setShowPassword={setShowPassword}
+                type="text"
+              />
+
+              <CustomInput
+                icon="location"
+                placeholder="Enter your Address"
+                autoCapitalize="none"
+                keyboardAppearance="dark"
+                returnKeyType="next"
+                returnKeyLabel="next"
+                label="Address"
+                onBlur={handleBlur("address")}
+                error={errors.address}
+                touched={touched.address}
+                onChangeText={handleChange("address")}
+                value={values.address}
                 type="text"
               />
 

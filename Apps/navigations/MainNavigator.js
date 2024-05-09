@@ -49,9 +49,9 @@ const RentalTabNavigator = () => {
           ),
         }}
       />
-      {/* <RentalTab.Screen name="Search" component={SearchScreen} />
+      <RentalTab.Screen name="Search" component={SearchScreen} />
       <RentalTab.Screen name="Message" component={MessageScreen} />
-      <RentalTab.Screen name="Profile" component={ProfileScreen} /> */}
+      <RentalTab.Screen name="Profile" component={ProfileScreen} />
     </RentalTab.Navigator>
   );
 };
