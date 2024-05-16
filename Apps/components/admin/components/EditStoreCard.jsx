@@ -16,9 +16,6 @@ import { useToast } from "react-native-toast-notifications";
 const EditStoreCard = ({
   rentData,
   refetch,
-}: {
-  rentData: any;
-  refetch?: any;
 }) => {
   const data = rentData || {};
   const toast = useToast();
@@ -38,7 +35,7 @@ const EditStoreCard = ({
     },
   });
 
-  const deleteItem = (item: any) => {
+  const deleteItem = (item) => {
     console.log("item:", item);
     Alert.alert("Are you sure?", "You want to Delete this item?", [
       {
@@ -80,8 +77,8 @@ const EditStoreCard = ({
       {/* Review section  */}
       <View className="w-28 h-[37px] p-2 right-24 top-7 absolute bg-white rounded-lg justify-between flex flex-row items-center ">
         <AntDesign name="staro" size={16} color="orange" />
-        <Text className="text-sm font-bold">{data?.averageRating}</Text>
-        <Text className="text-[9px] text-gray-400 pl-1">
+        <Text className="text-sm font-[outfit-medium] ">{data?.averageRating}</Text>
+        <Text className="text-[9px] text-gray-400 font-[outfit-medium] pl-1">
           {data?.reviewCount} reviews
         </Text>
       </View>
@@ -105,7 +102,7 @@ const EditStoreCard = ({
             source={{
               uri: data?.ownerProfilePicture,
             }}
-            className="w-5 h-5"
+            className="w-5 h-5 rounded-full"
           />
         ) : (
           <Ionicons

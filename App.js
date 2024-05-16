@@ -6,9 +6,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import SplashScreen from "./Apps/pages/splashScreen";
 import { ToastProvider } from "react-native-toast-notifications";
 import MainNavigator from "./Apps/navigations/MainNavigator";
-import adminQueryClient from "./api/adminQueryClient";
+
 import { QueryClientProvider } from "@tanstack/react-query";
 import AuthUserProvider from "./Apps/context/AuthUserProvider";
+import CommonProgress from "./Apps/components/global/progress/CommonProgress";
+import { adminQueryClient } from "./api";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -26,7 +28,7 @@ export default function App() {
   }, []);
 
   if (!fontsLoaded) {
-    return <Text>Loading fonts...</Text>;
+    return <CommonProgress />
   }
 
   return (
@@ -44,7 +46,7 @@ export default function App() {
           >
             {/* <SplashScreen /> */}
 
-            <NavigationContainer>
+            <NavigationContainer >
               <MainNavigator />
             </NavigationContainer>
             

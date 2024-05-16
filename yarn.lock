@@ -467,7 +467,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.24.0"
 
-"@babel/plugin-transform-arrow-functions@^7.0.0", "@babel/plugin-transform-arrow-functions@^7.0.0-0":
+"@babel/plugin-transform-arrow-functions@^7.0.0":
   version "7.24.1"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-arrow-functions/-/plugin-transform-arrow-functions-7.24.1.tgz#2bf263617060c9cc45bcdbf492b8cc805082bf27"
   integrity sha512-ngT/3NkRhsaep9ck9uj2Xhv9+xB1zShY3tM3g6om4xxCELwCDN4g4Aq5dRn48+0hasAql7s2hdBOysCfNpr4fw==
@@ -568,14 +568,6 @@
     "@babel/helper-create-regexp-features-plugin" "^7.22.5"
     "@babel/helper-plugin-utils" "^7.22.5"
 
-"@babel/plugin-transform-nullish-coalescing-operator@^7.0.0-0":
-  version "7.24.1"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-nullish-coalescing-operator/-/plugin-transform-nullish-coalescing-operator-7.24.1.tgz#0cd494bb97cb07d428bd651632cb9d4140513988"
-  integrity sha512-iQ+caew8wRrhCikO5DrUYx0mrmdhkaELgFa+7baMcVuhxIkN7oxt06CZ51D65ugIb1UWRQ8oQe+HXAVM6qHFjw==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.24.0"
-    "@babel/plugin-syntax-nullish-coalescing-operator" "^7.8.3"
-
 "@babel/plugin-transform-object-rest-spread@^7.12.13":
   version "7.24.5"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-object-rest-spread/-/plugin-transform-object-rest-spread-7.24.5.tgz#f91bbcb092ff957c54b4091c86bda8372f0b10ef"
@@ -585,15 +577,6 @@
     "@babel/helper-plugin-utils" "^7.24.5"
     "@babel/plugin-syntax-object-rest-spread" "^7.8.3"
     "@babel/plugin-transform-parameters" "^7.24.5"
-
-"@babel/plugin-transform-optional-chaining@^7.0.0-0":
-  version "7.24.5"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-optional-chaining/-/plugin-transform-optional-chaining-7.24.5.tgz#a6334bebd7f9dd3df37447880d0bd64b778e600f"
-  integrity sha512-xWCkmwKT+ihmA6l7SSTpk8e4qQl/274iNbSKRRS8mpqFR32ksy36+a+LWY8OXCCEefF8WFlnOHVsaDI2231wBg==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.24.5"
-    "@babel/helper-skip-transparent-expression-wrappers" "^7.22.5"
-    "@babel/plugin-syntax-optional-chaining" "^7.8.3"
 
 "@babel/plugin-transform-parameters@^7.0.0", "@babel/plugin-transform-parameters@^7.20.7", "@babel/plugin-transform-parameters@^7.22.15", "@babel/plugin-transform-parameters@^7.24.5":
   version "7.24.5"
@@ -679,7 +662,7 @@
     babel-plugin-polyfill-regenerator "^0.6.1"
     semver "^6.3.1"
 
-"@babel/plugin-transform-shorthand-properties@^7.0.0", "@babel/plugin-transform-shorthand-properties@^7.0.0-0":
+"@babel/plugin-transform-shorthand-properties@^7.0.0":
   version "7.24.1"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-shorthand-properties/-/plugin-transform-shorthand-properties-7.24.1.tgz#ba9a09144cf55d35ec6b93a32253becad8ee5b55"
   integrity sha512-LyjVB1nsJ6gTTUKRjRWx9C1s9hE7dLfP/knKdrfeH9UPtAGjYGgxIbFfx7xyLIEWs7Xe1Gnf8EWiUqfjLhInZA==
@@ -698,13 +681,6 @@
   version "7.24.1"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-sticky-regex/-/plugin-transform-sticky-regex-7.24.1.tgz#f03e672912c6e203ed8d6e0271d9c2113dc031b9"
   integrity sha512-9v0f1bRXgPVcPrngOQvLXeGNNVLc8UjMVfebo9ka0WF3/7+aVUHmaJVT3sa0XCzEFioPfPHZiOcYG9qOsH63cw==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.24.0"
-
-"@babel/plugin-transform-template-literals@^7.0.0-0":
-  version "7.24.1"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-template-literals/-/plugin-transform-template-literals-7.24.1.tgz#15e2166873a30d8617e3e2ccadb86643d327aab7"
-  integrity sha512-WRkhROsNzriarqECASCNu/nojeXCDTE/F2HmRgOzi7NGvyfYGq1NEjKBK3ckLfRgGc6/lPAqP0vDOSw3YtG34g==
   dependencies:
     "@babel/helper-plugin-utils" "^7.24.0"
 
@@ -747,7 +723,7 @@
     "@babel/plugin-transform-react-jsx-development" "^7.22.5"
     "@babel/plugin-transform-react-pure-annotations" "^7.24.1"
 
-"@babel/preset-typescript@^7.13.0", "@babel/preset-typescript@^7.16.7", "@babel/preset-typescript@^7.23.0":
+"@babel/preset-typescript@^7.13.0", "@babel/preset-typescript@^7.23.0":
   version "7.24.1"
   resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.24.1.tgz#89bdf13a3149a17b3b2a2c9c62547f06db8845ec"
   integrity sha512-1DBaMmRDpuYQBPWD8Pf/WEwCrtgRHxsZnP4mIy9G/X+hFfbI47Q2G4t1Paakld84+qsk2fSsUPMKg71jkoOOaQ==
@@ -3462,6 +3438,18 @@ expo-font@~12.0.4:
   dependencies:
     fontfaceobserver "^2.1.0"
 
+expo-image-loader@~4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-4.7.0.tgz#d403106822de80bda12d644c82b7a3b7983c0f0b"
+  integrity sha512-cx+MxxsAMGl9AiWnQUzrkJMJH4eNOGlu7XkLGnAXSJrRoIiciGaKqzeaD326IyCTV+Z1fXvIliSgNW+DscvD8g==
+
+expo-image-picker@^15.0.4:
+  version "15.0.4"
+  resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-15.0.4.tgz#b01121b26c88ee14bf49133160e408c1e7972b4d"
+  integrity sha512-Jo78o3DQfqpYC4fsnayxTEVGDFSbaNMwx5gQ2PPlEYMK5AmD5qexQjxhlxM1mZ0e1xkJKJfN7XEdcf53jW9vIg==
+  dependencies:
+    expo-image-loader "~4.7.0"
+
 expo-keep-awake@~13.0.1:
   version "13.0.1"
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-13.0.1.tgz#6c0a0d1fe388fe5a63e2089ade66798eba23f089"
@@ -6131,19 +6119,10 @@ react-native-maps@1.14.0:
   dependencies:
     "@types/geojson" "^7946.0.13"
 
-react-native-reanimated@3.10.0:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-3.10.0.tgz#7367f0ae9c79193315f4f1ef4d359bfac678a761"
-  integrity sha512-oiQiO+iJ8HTXTli94+Cl5R7nd+TzZf+3MYnMKWtnVDDCxFsqBgpkKO2Xp2ZhZyseXY/JDdH0//E7LlPQRRxpXg==
-  dependencies:
-    "@babel/plugin-transform-arrow-functions" "^7.0.0-0"
-    "@babel/plugin-transform-nullish-coalescing-operator" "^7.0.0-0"
-    "@babel/plugin-transform-optional-chaining" "^7.0.0-0"
-    "@babel/plugin-transform-shorthand-properties" "^7.0.0-0"
-    "@babel/plugin-transform-template-literals" "^7.0.0-0"
-    "@babel/preset-typescript" "^7.16.7"
-    convert-source-map "^2.0.0"
-    invariant "^2.2.4"
+react-native-progress-bar@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-progress-bar/-/react-native-progress-bar-0.1.2.tgz#2fbe32ed49d15e2a57a2b9d29b6d588a4fa1554e"
+  integrity sha512-qxz5hFVe8+9khbbfEGywJhh9Ns9nBcvgYbacLr+fwIbroJ773+OFr3v2Nz3B43qplNjBDOSA6b8tBW1eptCl9g==
 
 react-native-safe-area-context@^4.10.1:
   version "4.10.1"

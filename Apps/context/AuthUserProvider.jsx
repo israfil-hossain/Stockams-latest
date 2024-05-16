@@ -13,7 +13,7 @@ const AuthUserProvider = ({ children }) => {
     queryKey: ["/api/Authentication/GetLoggedInUser"],
   });
 
-  console.log({userData})
+  // console.log({userData})
   
 
   // React.useEffect(() => {

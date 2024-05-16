@@ -1,6 +1,5 @@
 // adminAPI.js
 import axios from "axios";
-import adminQueryClient from "./adminQueryClient";
 
 import {
   getAccessToken,
@@ -8,6 +7,7 @@ import {
   removeTokens,
   setAccessToken,
 } from "../Apps/utils/localStorageUtils";
+import { adminQueryClient } from ".";
 
 const ADMIN_BASE_URL = "https://space-rental-api.vercel.app";
 

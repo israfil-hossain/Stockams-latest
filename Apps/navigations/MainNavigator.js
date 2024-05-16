@@ -3,16 +3,27 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "../pages/auth/loginScreen";
 import SignupScreen from "../pages/auth/signupScreen";
 import BookingScreen from "../pages/rental/BookingScreen";
-import SearchScreen from "../pages/rental/SearchScreen";
 import ProfileScreen from "../pages/ProfileScreen";
 import MessageScreen from "../pages/rental/MessageScreen";
 import RentalsScreen from "../pages/owner/RentalsScreen";
 import AddSpaceScreen from "../pages/owner/AddSpaceScreen";
 import PaymentScreen from "../pages/owner/PaymentScreen";
 
-import { Foundation } from "@expo/vector-icons";
+import {
+  Ionicons,
+  Octicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
+
 import { useAuthUserContext } from "../context/AuthUserProvider";
-import { SplashScreen } from "expo-router";
+import { View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import MainHeader from "../components/global/header/MainHeader";
+import Colors from "../constants/Colors";
+import ProfileScreenNavigation from "./ProfileNavigation";
+import BookingScreenNavigation from "./BookingScreenNavigation";
+import SearchBookingScreenNavigation from "./SearchScreenNavigation";
 
 // Auth Stack
 const AuthStack = createStackNavigator();
@@ -38,20 +49,86 @@ const AuthNavigator = () => {
 const RentalTab = createBottomTabNavigator();
 
 const RentalTabNavigator = () => {
+  const navigation = useNavigation();
   return (
-    <RentalTab.Navigator>
+    <RentalTab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: Colors.primary,
+        tabBarStyle: { height: 65 },
+
+        tabBarLabelStyle: {
+          fontFamily: "outfit-medium",
+          fontSize: 10,
+          height: 24,
+          backgroundColor: "white",
+          alignContent: "center",
+          justifyContent: "space-around",
+        },
+        header: () => <MainHeader />,
+      }}
+      sceneContainerStyle={{
+        marginTop: 0,
+        backgroundColor: "#ffffff",
+      }}
+    >
+      <RentalTab.Screen
+        name="nearme"
+        component={BookingScreenNavigation}
+        options={{
+          tabBarLabel: "Near Me",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="my-location" size={24} color={color} />
+          ),
+        }}
+      />
+
+      <RentalTab.Screen
+        name="Message"
+        component={MessageScreen}
+        options={{
+          tabBarLabel: "Messages",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="message" size={24} color={color} />
+          ),
+        }}
+      />
+      <RentalTab.Screen
+        name="SearchScreen"
+        component={SearchBookingScreenNavigation}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color, size }) => (
+            <View className="bg-primary relative w-12 h-12 mt-4 flex justify-center items-center rounded-full ">
+              <Ionicons name="search" size={30} color={Colors.black} />
+            </View>
+          ),
+        }}
+      />
       <RentalTab.Screen
         name="Booking"
         component={BookingScreen}
         options={{
+          tabBarLabel: "Booking",
           tabBarIcon: ({ color, size }) => (
-            <Foundation name="home" size={size} color={color} />
+            <MaterialCommunityIcons
+              name="book-multiple-outline"
+              size={24}
+              color={color}
+            />
           ),
         }}
       />
-      <RentalTab.Screen name="Search" component={SearchScreen} />
-      <RentalTab.Screen name="Message" component={MessageScreen} />
-      <RentalTab.Screen name="Profile" component={ProfileScreen} />
+
+      <RentalTab.Screen
+        name="ProfileHome"
+        component={ProfileScreenNavigation}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color, size }) => (
+            <Octicons name="person" size={18} color={color} />
+          ),
+        }}
+      />
     </RentalTab.Navigator>
   );
 };
@@ -62,7 +139,11 @@ const OwnerTab = createBottomTabNavigator();
 const OwnerTabNavigator = () => {
   return (
     <OwnerTab.Navigator>
-      <OwnerTab.Screen name="Rental" component={RentalsScreen} />
+      <OwnerTab.Screen
+        name="Rental"
+        component={RentalsScreen}
+        options={{ headerShown: false }}
+      />
       <OwnerTab.Screen name="AddSpace" component={AddSpaceScreen} />
       <OwnerTab.Screen name="Payment" component={PaymentScreen} />
       <OwnerTab.Screen name="Profile" component={ProfileScreen} />
@@ -76,7 +157,11 @@ const MainStack = createStackNavigator();
 export default function MainNavigator() {
   const { userFound, userLoading, userRole } = useAuthUserContext();
   return (
-    <MainStack.Navigator initialRouteName="SplashScreen">
+    <MainStack.Navigator
+      screenOptions={{
+        header: () => <MainHeader />, // Set the global header component
+      }}
+    >
       {userFound ? (
         <>
           {userRole === "RENTER" ? (
@@ -92,11 +177,11 @@ export default function MainNavigator() {
               options={{ headerShown: false }}
             />
           )}
-          <MainStack.Screen
+          {/* <MainStack.Screen
             name="Profile"
             component={ProfileScreen}
             options={{ headerTitle: "Profile" }}
-          />
+          /> */}
         </>
       ) : (
         <MainStack.Screen

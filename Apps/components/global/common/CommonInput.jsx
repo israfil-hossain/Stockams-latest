@@ -163,8 +163,8 @@ const CustomInput = ({
               value={value}
               onChangeText={handleChangeText}
               multiline={true}
-              numberOfLines={10}
-              style={{ height: 50, textAlignVertical: "top" }}
+              numberOfLines={15}
+              style={{ height: 100, textAlignVertical: "top", marginTop:10 }}
               {...inputProps}
             />
           )}

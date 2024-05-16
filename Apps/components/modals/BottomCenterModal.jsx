@@ -2,7 +2,7 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { Modal, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const PopUpModal = ({ visible, onRequestClose, children }) => {
+const PopUpBottomModal = ({ visible, onRequestClose, children }) => {
  
   const [isModalVisible, setIsModalVisible] = useState(false);
   useEffect(() => {
@@ -33,16 +33,18 @@ const PopUpModal = ({ visible, onRequestClose, children }) => {
 
 const styles = StyleSheet.create({
   modalContainer: {
-    justifyContent: "center",
+    flex: 1,
+    justifyContent: "flex-end",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Transparent background
   },
   modalContent: {
-    flex: 1, // Make the content take up the remaining space
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
+    paddingBottom: 50, // Adjust this value as per your requirement to give space at the bottom
   },
 });
 
-export default PopUpModal;
+export default PopUpBottomModal;

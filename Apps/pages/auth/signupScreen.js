@@ -27,8 +27,9 @@ import CustomInput from "../../components/global/common/CommonInput";
 
 import { useToast } from "react-native-toast-notifications";
 import { signupValidationSchema } from "../../components/global/auth/validation/signupValidationSchema";
-import adminAPI from "../../../api/adminAPI";
+
 import { API } from "../../../api/endpoints";
+import { adminAPI } from "../../../api";
 
 const SignupScreen = () => {
   const [showPassword, setShowPassword] = useState(false);

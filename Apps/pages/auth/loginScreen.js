@@ -25,10 +25,11 @@ import CustomInput from "../../components/global/common/CommonInput";
 import { useToast } from "react-native-toast-notifications";
 import { signinValidationSchema } from "../../components/global/auth/validation/signinValidationSchema";
 import { useMutation } from "@tanstack/react-query";
-import adminAPI from "../../../api/adminAPI";
+
 import { API } from "../../../api/endpoints";
 import adminQueryClient from "../../../api/adminQueryClient";
 import { setAccessToken, setRefreshToken } from "../../utils/localStorageUtils";
+import { adminAPI } from "../../../api";
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -71,7 +72,7 @@ const LoginScreen = () => {
     }
   };
   return (
-    <View style={styles.container} className="bg-red-500">
+    <View style={styles.container} >
       {isSigninLoading && <CommonProgress />}
       <View style={styles.backgroundImageContainer}>
         <Image source={looper} style={styles.backgroundImage} />

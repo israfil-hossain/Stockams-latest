@@ -1,16 +1,17 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { Text, View, Image } from "react-native";
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
-const BackHeader: React.FC<any> = ({ Headertext }) => {
-  const router = useRouter();
+const BackHeader = ({ Headertext }) => {
+  const navigate = useNavigation(); 
   return (
     <View className="flex flex-row items-center space-x-2 bg-white  py-2 rounded-xl">
-      <TouchableOpacity className="ml-2" onPress={() => router.back()}>
+      <TouchableOpacity className="ml-2" onPress={() => navigate.goBack("")}>
         <Ionicons
-          name="ios-arrow-back-circle-outline"
+          name="arrow-back"
           size={26}
           color="#808080"
         />

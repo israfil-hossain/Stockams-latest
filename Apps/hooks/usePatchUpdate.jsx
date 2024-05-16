@@ -1,29 +1,35 @@
-
 import { useMutation } from "@tanstack/react-query";
-import adminAPI from "../../api/adminAPI";
+import { adminAPI } from "../../api";
+
+
 
 const usePatchUpdate = ({
   endpoint = "",
   isMultiPart = false,
-  onSuccess = () => {},
-  onError = () => {},
-  onSettled = () => {},
-} = {}) => {
-  const mutation = useMutation(
-    (data) =>
-      adminAPI.patch(endpoint, data, {
-        headers: {
-          "Content-Type": isMultiPart
-            ? "multipart/form-data"
-            : "application/json",
+  onSuccess,
+  onError,
+  onSettled,
+}) => {
+  const mutation = useMutation({
+    mutationFn: (data) => {
+      return adminAPI.patch(
+        endpoint,
+        data,
+        {
+          headers: {
+            "Content-Type": isMultiPart
+              ? "multipart/form-data"
+              : "application/json",
+          },
         },
-      }),
-    {
-      onSuccess,
-      onError,
-      onSettled,
-    }
-  );
+        {
+          onSuccess,
+          onError,
+          onSettled,
+        }
+      );
+    },
+  });
 
   return mutation;
 };

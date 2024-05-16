@@ -29,6 +29,8 @@ const CustomButton = ({
   disabled = false,
   rightIcon = false,
   type = "icon",
+  iconRight = false,
+  rounded = 10,
   isLoading,
   ...otherProps
 }) => {
@@ -36,7 +38,7 @@ const CustomButton = ({
     backgroundColor: disabled ? Colors?.gray2 : bg,
     width: size,
     height: height ? height : 40,
-    borderRadius: 10,
+    borderRadius: rounded,
     borderWidth: borderWidth ? borderWidth : 1,
     borderColor: Colors.primary,
     padding: padding ? padding : 5,
@@ -51,6 +53,7 @@ const CustomButton = ({
       style={buttonStyle}
       onPress={onPress}
       {...otherProps}
+      
     >
       {isLoading && (
         <View className={`flex flex-row justify-center  w-full items-center `}>
@@ -63,7 +66,7 @@ const CustomButton = ({
             (showIcon || rightIcon) && "px-4 space-x-3"
           }  items-center `}
         >
-          {showIcon && (
+          {showIcon  && (
             <>
               {type === "image" ? (
                 <View className="bg-white rounded-xl p-2">
