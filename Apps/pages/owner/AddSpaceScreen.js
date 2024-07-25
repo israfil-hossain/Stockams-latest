@@ -1,12 +1,13 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, BackHandler } from "react-native";
+import React from "react";
+import MainStepper from "../../components/admin/components/addspace/MainStepper";
 
 const AddSpaceScreen = () => {
   return (
     <View>
-      <Text>AddSpaceScreen</Text>
+      <MainStepper />
     </View>
-  )
-}
+  );
+};
 
-export default AddSpaceScreen
+export default AddSpaceScreen;

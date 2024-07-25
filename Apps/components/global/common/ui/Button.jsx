@@ -15,7 +15,6 @@ import {
 } from "react-native";
 import Colors from "../../../../constants/Colors";
 
-
 const CustomButton = ({
   bg,
   size,
@@ -53,20 +52,18 @@ const CustomButton = ({
       style={buttonStyle}
       onPress={onPress}
       {...otherProps}
-      
     >
-      {isLoading && (
+      {isLoading ? (
         <View className={`flex flex-row justify-center  w-full items-center `}>
           <ActivityIndicator size="small" color="#3C09BC" />
         </View>
-      )}
-      {!isLoading && (
+      ) : (
         <View
           className={`flex flex-row justify-around  w-full ${
             (showIcon || rightIcon) && "px-4 space-x-3"
           }  items-center `}
         >
-          {showIcon  && (
+          {showIcon && (
             <>
               {type === "image" ? (
                 <View className="bg-white rounded-xl p-2">

@@ -1,14 +1,14 @@
+import React, { Children, useCallback, useRef, useState } from "react";
+import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import {
   AntDesign,
   Feather,
-  FontAwesome,
   Ionicons,
   MaterialCommunityIcons,
   Octicons,
 } from "@expo/vector-icons";
 
-import React, { Children, useRef, useState } from "react";
-import { Alert } from "react-native";
 import {
   View,
   Image,
@@ -17,21 +17,29 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
+
 import BackHeader from "../../components/global/header/BackHeader";
 import CustomButton from "../../components/global/common/ui/Button";
-import CustomInput from "../../components/global/common/CommonInput";
-import CustomDropDown from "../../components/global/common/AutoDropDown";
-import { features } from "../../utils/features";
-import { useRoute } from '@react-navigation/native';
-import { API } from "../../../api/endpoints";
 
+import { useRoute } from "@react-navigation/native";
+import { API } from "../../../api/endpoints";
+import { useGet } from "../../hooks";
+import CommonBottomSheet from "../../components/modals/CommonBottomSheet";
+import { useSharedValue } from "react-native-reanimated";
+import BookingBottomCard from "../../components/host_rental_panel/components/BookingBottomCard";
 
 const SpaceOverviewScreen = () => {
+  const navigation = useNavigation();
   const [activeImage, setActiveImage] = useState(0);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIssOpen] = useState(true);
   const route = useRoute();
   const { id } = route.params; // Destructure the 'id' param
-  console.log("Id: ", id)
+
+  const issOpen = useSharedValue(false);
+
+  const toggleSheet = () => {
+    issOpen.value = !issOpen.value;
+  };
 
   const spaceOverViewAPI = `${API.GetSingleSpaceForRent}/${id}`;
 
@@ -40,107 +48,15 @@ const SpaceOverviewScreen = () => {
     isLoading: spaceTypeLoading,
   } = useGet({ endpoint: spaceOverViewAPI });
 
-  console.log("SpaceData",spaceRentData )
-  
-  const handlePresentModal = () => {};
+  console.log("Data : ===> ", spaceRentData?.data);
 
-  const options = [
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-    { title: "item1" },
-  ];
-
-  const images = [
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/beautiful-nature-mountain-scenery-with-flowers-free-photo.jpg?w=2210&quality=70",
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/camping-on-top-of-the-mountain-during-sunset-free-photo.jpg?w=2210&quality=70",
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/wooden-path-in-tropical-rain-forest-free-photo.jpg?w=2210&quality=70",
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/red-heart-tree-free-photo.jpg?w=2210&quality=70",
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/beautiful-nature-mountain-scenery-with-flowers-free-photo.jpg?w=2210&quality=70",
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/camping-on-top-of-the-mountain-during-sunset-free-photo.jpg?w=2210&quality=70",
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/wooden-path-in-tropical-rain-forest-free-photo.jpg?w=2210&quality=70",
-    "https://i0.wp.com/picjumbo.com/wp-content/uploads/red-heart-tree-free-photo.jpg?w=2210&quality=70",
-  ];
-  const subChildren = (
-    <View className="h-full w-full p-4 flex flex-col items-center justify-normal">
-      <View className="">
-        <Text className="text-[20px] font-bold">
-          From $111/month Including Tax
-        </Text>
-        <Text className="text-[14px] self-center">
-          Monthly rate including Insurance.
-        </Text>
-      </View>
-      <View className="h-[45px] w-full bg-[#B3FAFF] rounded-xl items-center justify-center mt-4">
-        <Text className="text-[15px] font-bold self-center">
-          7 Self0-Storage boxes.
-        </Text>
-      </View>
-      <View className="h-auto w-full flex flex-col justify-center items-center mt-4">
-        <View className="flex flex-row w-full items-center justify-between">
-            <View className="w-[48%] rounded-xl ">
-              <Text className="text-[13px]">Start Date</Text>
-              <CustomInput
-                icon="md-calendar"
-                placeholder="Enter Date"
-                autoCapitalize="none"
-                keyboardAppearance="dark"
-                returnKeyType="next"
-                returnKeyLabel="next"
-                label="Date"
-                type="date"
-              />
-          </View>
-          <View className=" w-[48%] rounded-xl">
-            <View className="flex flex-col">
-              <Text className="text-[13px]">Rental Duration</Text>
-              <CustomDropDown
-                title="2 Months"
-                data={options}
-                height={38}
-                marginTop={2}
-              />
-            </View>
-          </View>
-        </View>
-        <View className="mt-5 self-center">
-          <CustomButton
-            text="Book Now"
-            size={350}
-            height={45}
-            padding={0}
-            bg={Colors.primary}
-            onPress={() => {}}
-          />
-        </View>
-        <TouchableOpacity className="h-[45px] w-full mt-5 border-[1px] border-primary rounded-xl flex flex-row justify-center items-center space-x-2">
-          <Text>Call Now</Text>
-          <Ionicons name="call-outline" size={17} color="black" />
-          <Text>(989) 6654 6665</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
 
   const handleImageClick = (index) => {
     setActiveImage(index);
   };
 
   return (
-    <View
-    >
+    <View>
       <BackHeader Headertext="Back" />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -151,7 +67,9 @@ const SpaceOverviewScreen = () => {
           {/* For Banner and Image Section  */}
           <View>
             <Image
-              source={{ uri: images[activeImage] }}
+              source={{
+                uri: spaceRentData?.data?.spaceImages[activeImage]?.url,
+              }}
               style={styles.banner}
             />
             <TouchableOpacity className="w-[100px] h-[37px] px-2 left-5 top-5 absolute bg-tertiary rounded-xl justify-around flex flex-row items-center">
@@ -174,7 +92,7 @@ const SpaceOverviewScreen = () => {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.scrollContainer}
             >
-              {images.map((image, index) => (
+              {spaceRentData?.data?.spaceImages?.map((image, index) => (
                 <TouchableOpacity
                   key={index}
                   onPress={() => handleImageClick(index)}
@@ -186,16 +104,23 @@ const SpaceOverviewScreen = () => {
                     },
                   ]}
                 >
-                  <Image source={{ uri: image }} style={styles.thumbnail} />
+                  <Image
+                    source={{ uri: image?.url }}
+                    style={styles.thumbnail}
+                  />
                 </TouchableOpacity>
               ))}
             </ScrollView>
           </View>
 
           <View className="flex flex-row justify-between">
-            <Text className="text-[15px] font-bold">Diamond field storage</Text>
+            <Text className="text-[15px] font-bold">
+              {spaceRentData?.data?.name}
+            </Text>
             <View className="flex flex-row items-center">
-              <Text className="text-[18px] font-bold">$74</Text>
+              <Text className="text-[18px] font-bold">
+                ${spaceRentData?.data?.pricePerMonth}
+              </Text>
               <Text className="text-[12px] font-normal text-gray-600">
                 {" "}
                 /month
@@ -207,7 +132,7 @@ const SpaceOverviewScreen = () => {
             <Octicons name="location" size={20} color="#757575" />
             <Text className="text-gray-600 py-2">
               {" "}
-              Chodkiewicza Karola 111, Chorzow 41-506
+              {spaceRentData?.data?.location}
             </Text>
           </View>
 
@@ -265,61 +190,77 @@ const SpaceOverviewScreen = () => {
               amet.
             </Text>
           </View>
-          <View className="w-full mt-5 h-80">
+          <View className="w-full mt-5 flex-col space-y-5">
             <Text className="text-[18px] font-bold">Features </Text>
             <View className="flex flex-row justify-start items-center w-full h-auto space-x-6 ">
-              <View>
-                <Text className=" mt-5 font-normal">Storage Conditions</Text>
+              <View className="items-center">
+                <Text className=" font-normal w-[150px]">
+                  Storage Conditions
+                </Text>
               </View>
-              <View className="flex flex-row justify-center space-x-2 mt-5">
-                <Feather name="check" size={24} color="#37CF02" />
-                <Text>{features.storageConditions}</Text>
+              <View className="flex flex-row justify-start space-x-2  items-center">
+                {spaceRentData?.data?.storageConditions?.map((item) => (
+                  <View key={item?._id} className="flex-row space-x-2">
+                    <Feather name="check" size={20} color="#37CF02" />
+                    <Text>{item?.name}</Text>
+                  </View>
+                ))}
               </View>
             </View>
-            <View className="flex flex-row justify-start mt-6 w-full h-auto space-x-5">
-              <View>
-                <Text className="font-normal">Unloading & Moving</Text>
+            <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
+              <View className="items-center">
+                <Text className="font-normal w-[150px]">
+                  Unloading & Moving
+                </Text>
               </View>
-              <View className="flex flex-col justify-start items-start">
-                <View className="flex flex-row justify-center space-x-2 ">
-                  <Feather name="check" size={24} color="#37CF02" />
-                  <Text>{features.unloadingAndMoving.carPark}</Text>
-                </View>
-                <View className="flex flex-row justify-center space-x-2 ">
-                  <Feather name="check" size={24} color="#37CF02" />
-                  <Text>{features.unloadingAndMoving.hgvAccess}</Text>
-                </View>
-                <View className="flex flex-row justify-center space-x-2">
-                  <Feather name="check" size={24} color="#37CF02" />
-                  <Text>{features.unloadingAndMoving.insideLighting}</Text>
-                </View>
+              <View className="flex flex-col justify-start space-x-2 items-start">
+                {spaceRentData?.data?.unloadingMovings?.map((item) => (
+                  <View
+                    key={item?._id}
+                    className="flex-row space-x-2 justify-center items-center"
+                  >
+                    <Feather name="check" size={20} color="#37CF02" />
+                    <Text>{item?.name}</Text>
+                  </View>
+                ))}
               </View>
             </View>
 
-            <View className="flex flex-row mt-6 w-full h-auto">
-              <View>
-                <Text className="font-normal">Security</Text>
+            <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
+              <View className="items-center">
+                <Text className="font-normal w-[150px]">Security</Text>
               </View>
-              <View className="flex flex-col justify-start items-start left-[95px]">
-                <View className="flex flex-row justify-center space-x-2 ">
-                  <Feather name="check" size={24} color="#37CF02" />
-                  <Text>{features.security.accessControl}</Text>
-                </View>
-                <View className="flex flex-row justify-center space-x-2 ">
-                  <Feather name="check" size={24} color="#37CF02" />
-                  <Text>{features.security.videoSurveillance}</Text>
-                </View>
-                <View className="flex flex-row justify-center space-x-2">
-                  <Feather name="check" size={24} color="#37CF02" />
-                  <Text>{features.security.alarm}</Text>
-                </View>
-                <View className="flex flex-row justify-center space-x-2">
-                  <Feather name="check" size={24} color="#37CF02" />
-                  <Text>{features.security.fireSafety}</Text>
-                </View>
+              <View className="flex flex-col justify-start space-x-2 items-start ">
+                {spaceRentData?.data?.spaceSecurities?.map((item) => (
+                  <View
+                    key={item?._id}
+                    className="flex-row space-x-2 justify-center items-center"
+                  >
+                    <Feather name="check" size={20} color="#37CF02" />
+                    <Text>{item?.name}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+
+            <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
+              <View className="items-center">
+                <Text className="font-normal w-[150px]">Schedule</Text>
+              </View>
+              <View className="flex flex-col justify-start space-x-2 items-start ">
+                {spaceRentData?.data?.spaceSchedules?.map((item) => (
+                  <View
+                    key={item?._id}
+                    className="flex-row space-x-2 justify-start items-center"
+                  >
+                    <Feather name="check" size={20} color="#37CF02" />
+                    <Text>{item?.name}</Text>
+                  </View>
+                ))}
               </View>
             </View>
           </View>
+
           <View className="flex flex-col mt-5 w-full h-auto mb-4 space-y-4">
             <View className="flex flex-row justify-between bg-white border-primary border rounded-lg w-full h-[48px] items-center p-2">
               <Text className="text-[#ABB0B6] text-[15px] font-normal">
@@ -342,32 +283,43 @@ const SpaceOverviewScreen = () => {
             <View className="items-center">
               <CustomButton
                 text="View Review"
-                size={352}
+                size={"100%"}
                 height={45}
                 bg={Colors.white}
-                onPress={() => Alert.alert("Review")}
+                onPress={() =>
+                  navigation.navigate("spaceReview", {
+                    id: `${spaceRentData?.data?._id}`,
+                  })
+                }
               />
             </View>
           </View>
         </View>
+
         <View className="w-full h-auto rounded-t-3xl drop-shadow-2xl shadow-black mb-20">
           <View className="m-4">
-            <Text className="text-[15px] font-normal">Select Space</Text>
-            <View className="w-full mb-4">
-              {/* <CustomDropDown
+            {/* <Text className="text-[15px] font-normal">Select Space</Text> */}
+
+            {/* <CustomDropDown
                 title="8.5m2 111$ month including tax $75"
                 data={options}
               /> */}
-            </View>
+
             <CustomButton
               text="Book Now"
-              size={345}
+              size={"100%"}
               height={45}
               bg={Colors.primary}
-              onPress={() => {}}
+              onPress={toggleSheet}
             />
           </View>
         </View>
+
+        <CommonBottomSheet isOpen={issOpen} toggleSheet={toggleSheet} >
+          <BookingBottomCard data={spaceRentData?.data}/>
+        </CommonBottomSheet>
+
+       
       </ScrollView>
     </View>
   );

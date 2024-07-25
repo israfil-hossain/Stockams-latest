@@ -1,10 +1,27 @@
 import { AntDesign } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
-import { Modal, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Modal, View, Text, StyleSheet, TouchableOpacity,Animated } from "react-native";
 
 const PopUpBottomModal = ({ visible, onRequestClose, children }) => {
- 
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const fadeAnim = useRef( new Animated.Value(0).current); 
+
+  const slideUp = () => {
+    Animated.timing(slideUp, {
+      toValue: 1, 
+      duration: 1500, 
+      usenativeDriver : true, 
+    }).start();
+  }
+
+  const slideDown = () => {
+    Animated.timing(slideDown, {
+      toValue: 0, 
+      duration: 3000, 
+      useNativeDriver: true, 
+    }).start();
+  }
   useEffect(() => {
     setIsModalVisible(visible);
   }, [visible]);
@@ -22,7 +39,7 @@ const PopUpBottomModal = ({ visible, onRequestClose, children }) => {
     >
       <View style={styles.modalContainer}>
         <TouchableOpacity onPress={handleClose}>
-          <AntDesign name="closecircle" size={32} color="red" />
+          <AntDesign name="closecircle" size={40} color="red" />
         </TouchableOpacity>
 
         <View style={styles.modalContent}>{children}</View>

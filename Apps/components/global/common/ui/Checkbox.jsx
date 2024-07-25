@@ -1,20 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Checkbox } from "expo-checkbox"; // Import Checkbox from expo-checkbox
 
-import Colors from "@/constants/Colors";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
-interface CheckBoxProps {
-  index?: any;
-  values?: any;
-  label: string;
-  handleCheckedChange?: any;
-  items?: any;
+import Colors from "../../../../constants/Colors";
 
-}
-
-const CommonCheckBox: React.FC<CheckBoxProps> = ({
+const CommonCheckBox = ({
   index,
   values,
   handleCheckedChange,
@@ -30,11 +21,11 @@ const CommonCheckBox: React.FC<CheckBoxProps> = ({
         value={values?.includes(items?.value)}
         onValueChange={() => handleCheckedChange(items?.value)}
         className="rounded-md w-5 h-5 mr-1 ml-1"
-        color={values && values.includes(items?.value) ? Colors.primary : Colors.grey}
+        color={
+          values && values.includes(items?.value) ? Colors.primary : Colors.grey
+        }
       />
-      <Text className="text-md font-[700] text-gray-600 px-2">
-        {label}
-      </Text>
+      <Text className="text-md font-[700] text-gray-600 px-2">{label}</Text>
     </TouchableOpacity>
   );
 };

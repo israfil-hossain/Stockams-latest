@@ -1,12 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import LoginScreen from "../pages/auth/loginScreen";
-import SignupScreen from "../pages/auth/signupScreen";
+import LoginScreen from "../pages/auth/LoginScreen";
+import SignupScreen from "../pages/auth/SignupScreen";
 import BookingScreen from "../pages/rental/BookingScreen";
-import ProfileScreen from "../pages/ProfileScreen";
 import MessageScreen from "../pages/rental/MessageScreen";
 import RentalsScreen from "../pages/owner/RentalsScreen";
-import AddSpaceScreen from "../pages/owner/AddSpaceScreen";
 import PaymentScreen from "../pages/owner/PaymentScreen";
 
 import {
@@ -24,13 +22,18 @@ import Colors from "../constants/Colors";
 import ProfileScreenNavigation from "./ProfileNavigation";
 import BookingScreenNavigation from "./BookingScreenNavigation";
 import SearchBookingScreenNavigation from "./SearchScreenNavigation";
+import HomeScreen from "../pages/owner/HomeScreen";
+import CommonProgress from "../components/global/progress/CommonProgress";
+import { getAccessToken } from "../utils/localStorageUtils";
+import SpaceCreateNavigation from "./CreateSpaceNavigator";
+import AddSpaceScreen from "../pages/owner/AddSpaceScreen";
 
 // Auth Stack
 const AuthStack = createStackNavigator();
 
 const AuthNavigator = () => {
   return (
-    <AuthStack.Navigator>
+    <AuthStack.Navigator initialRouteName="LoginScreen">
       <AuthStack.Screen
         name="Login"
         component={LoginScreen}
@@ -70,9 +73,10 @@ const RentalTabNavigator = () => {
         marginTop: 0,
         backgroundColor: "#ffffff",
       }}
+      initialRouteName="Nearme"
     >
       <RentalTab.Screen
-        name="nearme"
+        name="Nearme"
         component={BookingScreenNavigation}
         options={{
           tabBarLabel: "Near Me",
@@ -138,15 +142,83 @@ const OwnerTab = createBottomTabNavigator();
 
 const OwnerTabNavigator = () => {
   return (
-    <OwnerTab.Navigator>
+    <OwnerTab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: Colors.primary,
+        tabBarStyle: { height: 65 },
+
+        tabBarLabelStyle: {
+          fontFamily: "outfit-medium",
+          fontSize: 10,
+          height: 24,
+          backgroundColor: "white",
+          alignContent: "center",
+          justifyContent: "space-around",
+        },
+        header: () => <MainHeader />,
+      }}
+      sceneContainerStyle={{
+        marginTop: 0,
+        backgroundColor: "#ffffff",
+      }}
+      initialRouteName="Home"
+    >
       <OwnerTab.Screen
-        name="Rental"
-        component={RentalsScreen}
-        options={{ headerShown: false }}
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="home" size={24} color={color} />
+          ),
+        }}
       />
-      <OwnerTab.Screen name="AddSpace" component={AddSpaceScreen} />
-      <OwnerTab.Screen name="Payment" component={PaymentScreen} />
-      <OwnerTab.Screen name="Profile" component={ProfileScreen} />
+      <OwnerTab.Screen
+        name="RentalsOwner"
+        component={SpaceCreateNavigation}
+        options={{
+          tabBarLabel: "Rentals",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="car-rental" size={24} color={color} />
+          ),
+        }}
+      />
+      <OwnerTab.Screen
+        name="AddSpace"
+        component={AddSpaceScreen}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color, size }) => (
+            <View className="bg-primary relative w-12 h-12 mt-4 flex justify-center items-center rounded-full ">
+              <Ionicons
+                name="add-circle-sharp"
+                size={40}
+                color={Colors.black}
+              />
+            </View>
+          ),
+        }}
+      />
+      <OwnerTab.Screen
+        name="Payment"
+        component={PaymentScreen}
+        options={{
+          tabBarLabel: "Payments",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="payment" size={18} color={color} />
+          ),
+        }}
+      />
+      <OwnerTab.Screen
+        name="ProfileOwner"
+        component={ProfileScreenNavigation}
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color, size }) => (
+            <Octicons name="person" size={18} color={color} />
+          ),
+        }}
+      />
     </OwnerTab.Navigator>
   );
 };
@@ -156,40 +228,40 @@ const MainStack = createStackNavigator();
 
 export default function MainNavigator() {
   const { userFound, userLoading, userRole } = useAuthUserContext();
+  console.log("UserRole : ", userRole); 
+
+  if (userLoading) {
+    return <CommonProgress />;
+  }
+
   return (
     <MainStack.Navigator
       screenOptions={{
         header: () => <MainHeader />, // Set the global header component
       }}
+      initialRouteName={
+        userFound
+          ? userRole === "RENTER"
+            ? "RentalTabs"
+            : "OwnerTabs"
+          : "AuthTabs"
+      }
     >
-      {userFound ? (
-        <>
-          {userRole === "RENTER" ? (
-            <MainStack.Screen
-              name="RentalTabs"
-              component={RentalTabNavigator}
-              options={{ headerShown: false }}
-            />
-          ) : (
-            <MainStack.Screen
-              name="OwnerTabs"
-              component={OwnerTabNavigator}
-              options={{ headerShown: false }}
-            />
-          )}
-          {/* <MainStack.Screen
-            name="Profile"
-            component={ProfileScreen}
-            options={{ headerTitle: "Profile" }}
-          /> */}
-        </>
-      ) : (
-        <MainStack.Screen
-          name="AuthTabs"
-          component={AuthNavigator}
-          options={{ headerShown: false }}
-        />
-      )}
+      <MainStack.Screen
+        name="AuthTabs"
+        component={AuthNavigator}
+        options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="RentalTabs"
+        component={RentalTabNavigator}
+        options={{ headerShown: false }}
+      />
+      <MainStack.Screen
+        name="OwnerTabs"
+        component={OwnerTabNavigator}
+        options={{ headerShown: false }}
+      />
     </MainStack.Navigator>
   );
 }

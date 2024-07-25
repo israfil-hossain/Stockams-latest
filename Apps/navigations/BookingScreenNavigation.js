@@ -3,6 +3,7 @@ import React from "react";
 
 import NearMeScreen from "../pages/rental";
 import SpaceOverviewScreen from "../pages/rental/SpaceOverviewScreen";
+import SpaceReviewScreen from "../pages/rental/SpaceReviewScreen";
 
 const BookingStack = createStackNavigator();
 
@@ -18,6 +19,11 @@ export default function BookingScreenNavigation() {
         name="spaceOverview"
         component={SpaceOverviewScreen}
       />
+      <BookingStack.Screen
+        name="spaceReview"
+        component={SpaceReviewScreen}
+      />
+
     </BookingStack.Navigator>
   );
 }

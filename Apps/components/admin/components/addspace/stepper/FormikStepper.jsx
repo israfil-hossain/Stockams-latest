@@ -1,24 +1,13 @@
 // FormikStepper.tsx
 import React, { useState } from "react";
-import { View, Button, Text } from "react-native";
+import { View, Button, Text, ScrollView } from "react-native";
 import { Formik } from "formik";
-import { FormikStepProps } from "./FormikStep";
 import Stepper from "./Stepper";
-import { ScrollView } from "react-native-gesture-handler";
-import CustomButton from "@/components/global/common/ui/Button";
-import Colors from "@/constants/Colors";
 
-interface FormikStepperProps {
-  initialValues: any;
-  onSubmit: (values: any) => void;
-  steps: any;
-}
+import CustomButton from "../../../../global/common/ui/Button";
+import Colors from "../../../../../constants/Colors";
 
-export function FormikStepper({
-  initialValues,
-  onSubmit,
-  steps,
-}: FormikStepperProps): React.JSX.Element {
+export function FormikStepper({ initialValues, onSubmit, steps }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [completed, setCompleted] = useState(false);
 
@@ -31,7 +20,7 @@ export function FormikStepper({
     return currentStep === steps.length - 1;
   }
 
-  const handleNext = async (formikProps: any) => {
+  const handleNext = async (formikProps) => {
     const isLastStep = currentStep === steps.length - 1;
     const isValid = await formikProps.validateForm();
 
@@ -67,11 +56,11 @@ export function FormikStepper({
           <View className="w-[100%] px-4 flex flex-row justify-center items-center">
             <Stepper
               currentStep={currentStep}
-              steps={steps.map((step: any) => step.props.label)}
+              steps={steps.map((step) => step.props.label)}
             />
           </View>
           <View className="h-full mb-20 w-[100%] ">
-            {steps.map((step: any, index: any) => (
+            {steps.map((step, index) => (
               <View
                 key={index}
                 style={{
@@ -106,9 +95,7 @@ export function FormikStepper({
               />
             </View>
           </View>
-          <View>
-            
-          </View>
+          <View></View>
         </ScrollView>
       )}
     </Formik>

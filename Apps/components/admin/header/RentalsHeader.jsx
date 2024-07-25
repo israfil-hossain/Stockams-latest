@@ -1,12 +1,15 @@
-import { Alert, Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useState } from "react";
+import CustomButton from "../../global/common/ui/Button";
 
-import Colors from "@/constants/Colors";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import CustomButton from "@/components/global/common/ui/Button";
-
-const RentalsHeader = ({tab,setTab}:{tab:any,setTab:any}) => {
-
+const RentalsHeader = ({ tab, setTab }) => {
   return (
     <View style={styles.container}>
       <View style={{ display: "flex", flexDirection: "row" }}>
@@ -38,18 +41,6 @@ const RentalsHeader = ({tab,setTab}:{tab:any,setTab:any}) => {
             </View>
           </TouchableOpacity>
         </View>
-        {/* <CustomButton
-          text="Map View"
-          size={90}
-          bg={Colors.primary}
-          onPress={() => Alert.alert("Reject")}
-        />
-        <CustomButton
-          text="Map View"
-          size={90}
-          bg={Colors.primary}
-          onPress={() => Alert.alert("Reject")}
-        /> */}
       </View>
       <CustomButton
         text="Map View"

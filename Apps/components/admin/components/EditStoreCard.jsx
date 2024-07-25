@@ -1,60 +1,94 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, Alert, Touchable } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Alert,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 
-import Colors from "@/constants/Colors";
-
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { truncateString } from "@/utils/commonFunction";
-import { noimage } from "@/assets/images";
-import { useDelete } from "@/hooks";
-import { API } from "@/api/endpoints";
 import { useToast } from "react-native-toast-notifications";
-const EditStoreCard = ({
-  rentData,
-  refetch,
-}) => {
-  const data = rentData || {};
+import { API } from "../../../../api/endpoints";
+
+import { truncateString } from "../../../utils/commonFunction";
+import { noimage } from "../../../../assets/images";
+import { useDelete } from "../../../hooks";
+import { useNavigation } from "@react-navigation/native";
+
+const EditStoreCard = ({ data, refetch }) => {
   const toast = useToast();
+
+  const navigation = useNavigation();
 
   //Delte Mutation ....
   const {
-    mutate: deleteMutation,
+    mutateAsync: deleteMutation,
     isLoading: spaceIsLoading,
     isSuccess,
+    onSuccess,
     isError,
   } = useDelete({
     endpoint: API.DeleteSpaceForRent,
-    onSuccess: () => {
-      console.log("Delete successful!");
-      toast.show("Space Deleted Successfully ! ", { type: "success" });
-      refetch?.(); // Assuming `refetch` is a function to refresh data
-    },
   });
-
-  const deleteItem = (item) => {
-    console.log("item:", item);
-    Alert.alert("Are you sure?", "You want to Delete this item?", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      {
-        text: "Delete",
-        onPress: () => {
-          deleteMutation(item); // Call mutate with the item ID
+ 
+  const deleteItem = async (item) => {
+    const confirmation = await Alert.alert(
+      "Are you sure?",
+      "You want to Delete this item?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
         },
+        {
+          text: "Delete",
+          onPress: async () => {
+            try {
+              const { data, error } = await deleteMutation(item); // Destructure response
 
-        style: "default",
-      },
-    ]);
+              if (data) {
+                toast.show("Space Deleted Successfully!", { type: "success" });
+                refetch(); // Refresh data (assuming `refetch` exists)
+              } else if (error) {
+                // Handle specific error cases (if applicable)
+                console.error("Error deleting space:", error);
+                toast.show("Error deleting space. Please try again later.", {
+                  type: "error",
+                });
+              }
+            } catch (err) {
+              console.error("Unexpected error:", err);
+              toast.show(
+                "An unexpected error occurred. Please try again later.",
+                { type: "error" }
+              );
+            }
+          },
+          style: "default",
+        },
+      ]
+    );
+
+    // Handle confirmation result for potential future actions
+    // (optional, based on your use case)
+    if (confirmation === "OK") {
+      // User confirmed deletion (consider using a more specific check)
+    } else {
+      // User canceled deletion
+    }
   };
 
-  console.log("Data : ", data);
+  const handleNavigate = ()=>{
+    navigation.navigate("SpaceEdit",{ id: data?._id || null})
+  }
+
   return (
     <View className="w-[342px] h-[290px] shadow-lg shadow-gray-400 bg-white border-primary border  rounded-xl mt-5 relative flex justify-center items-center">
       <View className="w-[94%] h-44 absolute top-4 items-center justify-center flex bg-white rounded-2xl shadow ">
@@ -77,13 +111,20 @@ const EditStoreCard = ({
       {/* Review section  */}
       <View className="w-28 h-[37px] p-2 right-24 top-7 absolute bg-white rounded-lg justify-between flex flex-row items-center ">
         <AntDesign name="staro" size={16} color="orange" />
-        <Text className="text-sm font-[outfit-medium] ">{data?.averageRating}</Text>
+        <Text className="text-sm font-[outfit-medium] ">
+          {data?.averageRating}
+        </Text>
         <Text className="text-[9px] text-gray-400 font-[outfit-medium] pl-1">
           {data?.reviewCount} reviews
         </Text>
       </View>
       <View className="w-24 h-[37px] p-2 right-0 top-7 absolute  rounded-lg  flex flex-row justify-around items-center mr-1">
-        <TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() =>
+            handleNavigate()
+          }
+        >
           <View className="bg-primary rounded-full w-8 h-8 items-center flex justify-center ">
             <Feather name="edit-3" size={15} color="black" />
           </View>

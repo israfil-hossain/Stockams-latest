@@ -1,25 +1,12 @@
-"use client";
 import React, { useEffect, useState, useRef } from "react";
 import { Text, View } from "react-native";
 
-type Props = {
-  currentStep: any;
-  steps: any;
-};
-
-interface StepType {
-  description: string;
-  completed: boolean;
-  highlighted: boolean;
-  selected: boolean;
-}
-
-const Stepper = (props: Props) => {
+const Stepper = (props) => {
   const { currentStep, steps } = props;
-  const [newStep, setNewStep] = useState<StepType[]>([]);
+  const [newStep, setNewStep] = useState([]);
   const stepRef = useRef();
 
-  const updateStep = (stepNumber: any, steps: any) => {
+  const updateStep = (stepNumber, steps) => {
     const newSteps = [...steps];
     let count = 0;
     while (count < newSteps.length) {
@@ -58,7 +45,7 @@ const Stepper = (props: Props) => {
   };
   useEffect(() => {
     // create object
-    const stepsState = steps.map((step: any, index: any) =>
+    const stepsState = steps.map((step, index) =>
       Object.assign(
         {},
         {
@@ -71,10 +58,10 @@ const Stepper = (props: Props) => {
     );
     stepRef.current = stepsState;
     const current = updateStep(currentStep - 1, stepRef.current);
-    setNewStep(current!);
+    setNewStep(current);
   }, [steps, currentStep]);
 
-  const displaySteps = newStep.map((step: any, index: any) => (
+  const displaySteps = newStep.map((step, index) => (
     <View
       className={` ${
         index !== newStep.length - 1

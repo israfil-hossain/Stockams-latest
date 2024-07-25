@@ -6,10 +6,10 @@ import { adminAPI } from "../../api";
 // Assuming your API endpoint for fetching bookings:
 const API_ENDPOINT = "api/SpaceForRent/GetAll";
 
-const useBookingData = (initialFilters = {}) => {
+const useBookingData = (initialFilters,endpoint) => {
   const [page, setPage] = useState(1); // Start on page 1
   const [pageSize] = useState(10); // Fixed page size
-  const [filters, setFilters] = useState(initialFilters); 
+  const [filters, setFilters] = useState(initialFilters ? initialFilters : ""); 
   // console.log({filters})
 
   const buildUrl = (filters, page, pageSize) => {
@@ -18,15 +18,13 @@ const useBookingData = (initialFilters = {}) => {
       PageSize: pageSize,
       ...filters, // Include all filter parameters
     });
-    return `${API_ENDPOINT}?${urlParams.toString()}`;
+    return `${API_ENDPOINT || endpoint }?${urlParams.toString()}`;
   };
 
 
   const fetchBookingStore = async (page, pageSize,filters) => {
     try {
       const response = await adminAPI.get(buildUrl(filters, page, pageSize));
-      // console.log("Response ===>>> ", response)
-     
       if (!response) {
         throw new Error(`API request failed with status ${response.status}`);
       }

@@ -1,9 +1,8 @@
 // Import necessary components and styles
 import { View, Text, Alert } from "react-native";
 import React from "react";
-import Colors from "@/constants/Colors";
-import CustomButton from "@/components/global/common/ui/Button";
-
+import Colors from "../../../constants/Colors";
+import CustomButton from "../../global/common/ui/Button";
 
 // Create your ExploreHeader component
 const ExploreHeader = () => {
@@ -38,7 +37,7 @@ const ExploreHeader = () => {
           </View>
         </View>
       </View>
-     
+
       <View className="flex flex-row justify-between py-2">
         <CustomButton
           text="Create New Spaces"
@@ -47,7 +46,6 @@ const ExploreHeader = () => {
           onPress={() => Alert.alert("Reject")}
         />
       </View>
-     
     </View>
   );
 };

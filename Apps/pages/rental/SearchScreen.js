@@ -50,8 +50,14 @@ const SearchScreen = () => {
 
   return (
     <View className="flex-col justify-start w-full  h-full items-center">
-      {spaceFilter && <Text className="text-[10px] font-[outfit] ">Your Search filter is : {spaceFilter}</Text>}
-      <View className="h-10 mx-5 my-2"><SearchBar updateFilters={updateFilters} text={"Search for a store"}/></View>
+      {spaceFilter && (
+        <Text className="text-[10px] font-[outfit] ">
+          Your Search filter is : {spaceFilter}
+        </Text>
+      )}
+      <View className="h-10 mx-5 my-2">
+        <SearchBar updateFilters={updateFilters} text={"Search for a store"} />
+      </View>
       {spaceTypeLoading ? (
         <CommonProgress />
       ) : (
@@ -61,8 +67,7 @@ const SearchScreen = () => {
               <>
                 <TouchableOpacity
                   onPress={() => {
-                    
-                    setSpaceFilter("")
+                    setSpaceFilter("");
                     updateFilters({}); // Replace with your filter update logic
                   }}
                   className=" bg-gray-500 rounded-lg mx-2 w-16 h-8 flex-row justify-center items-center"
@@ -74,8 +79,8 @@ const SearchScreen = () => {
                     key={item?._id}
                     onPress={() => {
                       const selectedName = item?._id;
-                      setSpaceFilter(item?.name)
-                      updateFilters({ SpaceType: selectedName }); 
+                      setSpaceFilter(item?.name);
+                      updateFilters({ SpaceType: selectedName });
                     }}
                     className=" bg-black rounded-lg  mx-2 w-16 h-8 flex-row justify-center items-center"
                   >
@@ -92,52 +97,49 @@ const SearchScreen = () => {
 
       {isFetching || isLoading ? (
         <CommonProgress />
-      ) : (
-        bookingData?.length > 0 ? (
-          <View className="h-[86%]">
-            <FlatList
-              className="px-3 mb-0"
-              data={bookingData}
-              key={bookingData?._id}
-              renderItem={({ item }) => <StoreCard data={item} />}
-              ListEmptyComponent={() => <Text>No booking data found.</Text>} //
-            />
-            <View className="flex-row justify-between items-start h-16 mt-2 mb-2">
-              <View>
-                {hasPreviousPage && (
-                  <View className="h-8 items-center ">
-                    <CustomButton
-                      bg={Colors.primary}
-                      size={60}
-                      text="Prev"
-                      height={30}
-                      // icon={renter}
-                      showIcon={false}
-                      onPress={() => loadPreviousPage()}
-                    />
-                  </View>
-                )}
-              </View>
-
-              {hasNextPage && (
+      ) : bookingData?.length > 0 ? (
+        <View className="h-[86%]">
+          <FlatList
+            className="px-3 mb-0"
+            data={bookingData}
+            key={bookingData?._id}
+            renderItem={({ item }) => <StoreCard data={item} />}
+            ListEmptyComponent={() => <Text>No booking data found.</Text>} //
+          />
+          <View className="flex-row justify-between items-start h-16 mt-2 mb-2">
+            <View>
+              {hasPreviousPage && (
                 <View className="h-8 items-center ">
                   <CustomButton
                     bg={Colors.primary}
                     size={60}
-                    text="Next"
+                    text="Prev"
                     height={30}
                     // icon={renter}
                     showIcon={false}
-                    onPress={() => loadNextPage()}
+                    onPress={() => loadPreviousPage()}
                   />
                 </View>
               )}
             </View>
+
+            {hasNextPage && (
+              <View className="h-8 items-center ">
+                <CustomButton
+                  bg={Colors.primary}
+                  size={60}
+                  text="Next"
+                  height={30}
+                  // icon={renter}
+                  showIcon={false}
+                  onPress={() => loadNextPage()}
+                />
+              </View>
+            )}
           </View>
-        ) : 
-        (
-          <NodataFound />
-        )
+        </View>
+      ) : (
+        <NodataFound />
       )}
     </View>
   );

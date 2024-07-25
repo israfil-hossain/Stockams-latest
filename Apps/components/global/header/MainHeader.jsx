@@ -16,7 +16,7 @@ import ReviewComponent from "../../host_rental_panel/components/ReviewComponent"
 // Create your ExploreHeader component
 const MainHeader = () => {
   const { userFound } = useAuthUserContext();
-  const { userData, userRefetch, userLoading } = useAuthUserContext();
+  const { userData, userRefetch, userLoading, userRole } = useAuthUserContext();
   const router = useRouter();
   const navigation = useNavigation();
 
@@ -24,7 +24,12 @@ const MainHeader = () => {
   const [isReviewModalVisible, setIsReviewModalVisible] = useState(false);
 
   const handleProfilePage = () => {
-    navigation.navigate("ProfileHome");
+    if (userRole === "RENTER") {
+      navigation.navigate("ProfileHome");
+    }
+    else{
+      navigation.navigate("ProfileOwner");
+    }
   };
 
   const handleOpenModal = () => {
@@ -115,11 +120,21 @@ const MainHeader = () => {
                     <NotificationCard
                       handleReviewOpenModal={handleReviewOpenModal}
                     />
-                    <NotificationCard  handleReviewOpenModal={handleReviewOpenModal}/>
-                    <NotificationCard  handleReviewOpenModal={handleReviewOpenModal}/>
-                    <NotificationCard  handleReviewOpenModal={handleReviewOpenModal}/>
-                    <NotificationCard  handleReviewOpenModal={handleReviewOpenModal}/>
-                    <NotificationCard  handleReviewOpenModal={handleReviewOpenModal}/>
+                    <NotificationCard
+                      handleReviewOpenModal={handleReviewOpenModal}
+                    />
+                    <NotificationCard
+                      handleReviewOpenModal={handleReviewOpenModal}
+                    />
+                    <NotificationCard
+                      handleReviewOpenModal={handleReviewOpenModal}
+                    />
+                    <NotificationCard
+                      handleReviewOpenModal={handleReviewOpenModal}
+                    />
+                    <NotificationCard
+                      handleReviewOpenModal={handleReviewOpenModal}
+                    />
                     <NotificationCard />
                     <NotificationCard />
                     <NotificationCard />
@@ -141,8 +156,6 @@ const MainHeader = () => {
                     Review
                   </Text>
                   <ReviewComponent />
-
-                 
                 </View>
               </PopUpBottomModal>
             )}

@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const StoreCard = ({ data, type }) => {
   const navigation = useNavigation();
-  // console.log({data})
+
   return (
     <TouchableOpacity
       activeOpacity={0.9}

@@ -1,45 +1,76 @@
 import { Text, View, ScrollView } from "react-native";
 import React, { useState } from "react";
-import CustomInput from "@/components/global/common/CommonInput";
 
-import Colors from "@/constants/Colors";
 import Features from "./Features";
 import { Formik } from "formik";
-import CustomButton from "@/components/global/common/ui/Button";
-import { conditionValidation } from "@/validation/space/addSpaceValidation";
-import convertNumber from "@/utils/commonFunction";
+import { convertNumber } from "../../../../../utils/commonFunction";
+import { conditionValidation } from "../../../../../validation/space/addSpaceValidation";
+import CustomButton from "../../../../global/common/ui/Button";
+import Colors from "../../../../../constants/Colors";
+import CustomInput from "../../../../global/common/CommonInput";
 
-interface CustomInputProps {
-  onSubmit?: any;
-  prevStep?: any;
-  data?: any;
-  setFormData?: any;
-  isLoading?: any;
-}
-
-const Price_Conditions: React.FC<CustomInputProps> = ({
+const Price_Conditions = ({
   onSubmit,
   prevStep,
   data,
   setFormData,
+  spacedata,
   isLoading,
 }) => {
   const [isSubmit, setIsSubmit] = useState(false);
 
-  const handleSubmit = async (values: any) => {
+  const [options, setOptions] = useState([
+    {
+      value: 7,
+      label: "1 Week",
+    },
+    {
+      value: 14,
+      label: "2 Weeks",
+    },
+    {
+      value: 30,
+      label: "1 Month",
+    },
+    {
+      value: 60,
+      label: "2 Months",
+    },
+    {
+      value: 90,
+      label: "3 Months",
+    },
+    {
+      value: 120,
+      label: "4 Months",
+    },
+    {
+      value: 150,
+      label: "5 Months",
+    },
+    {
+      value: 180,
+      label: "6 Months",
+    },
+    {
+      value: 365,
+      label: "1 Year",
+    },
+  ]);
+
+  const handleSubmit = async (values) => {
     try {
       setIsSubmit(!isSubmit);
-      
+
       const payload = {
-        ...values, 
-        pricePerMonth:convertNumber(values?.pricePerMonth),
-        minimumBookingDays:convertNumber(values?.minimumBookingDays)
-      }
-      await setFormData((prevFormData: any) => ({
+        ...values,
+        pricePerMonth: convertNumber(values?.pricePerMonth),
+        minimumBookingDays: convertNumber(values?.minimumBookingDays),
+      };
+      await setFormData((prevFormData) => ({
         ...prevFormData,
         ...payload,
       }));
-
     } catch (error) {
       setIsSubmit(false);
       console.log(error);
@@ -49,12 +80,24 @@ const Price_Conditions: React.FC<CustomInputProps> = ({
   return (
     <Formik
       initialValues={{
-        minimumBookingDays: convertNumber(data?.minimumBookingDays) || "",
-        pricePerMonth: convertNumber(data?.pricePerMonth) || "",
-        spaceSchedules: data?.spaceSchedules || [],
-        storageConditions: data?.storageConditions || [],
-        spaceSecurities: data?.spaceSecurities || [],
-        unloadingMovings: data?.unloadingMovings || [],
+        minimumBookingDays:
+          data?.minimumBookingDays || spacedata?.data?.minimumBookingDays
+            ? convertNumber(
+                data?.minimumBookingDays || spacedata?.data?.minimumBookingDays
+              )
+            : "",
+        pricePerMonth:
+          convertNumber(spacedata?.data?.pricePerMonth) ||
+          convertNumber(data?.pricePerMonth) ||
+          "",
+        spaceSchedules:
+          spacedata?.data?.spaceSchedules || data?.spaceSchedules || [],
+        storageConditions:
+          spacedata?.data?.storageConditions || data?.storageConditions || [],
+        spaceSecurities:
+          spacedata?.data?.spaceSecurities || data?.spaceSecurities || [],
+        unloadingMovings:
+          spacedata?.data?.unloadingMovings || data?.unloadingMovings || [],
       }}
       onSubmit={handleSubmit}
       validationSchema={conditionValidation}
@@ -69,9 +112,9 @@ const Price_Conditions: React.FC<CustomInputProps> = ({
         isSubmitting,
         setFieldValue,
       }) => (
-        <View className="mb-16">
+        <View className="mb-20 h-[85%]">
           {/* <Text>isSubmitting:{JSON.stringify(values)}</Text> */}
-          <ScrollView className="px-4 h-full">
+          <ScrollView className="px-2 h-full">
             <View className=" flex flex-col justify-center items-center">
               <CustomInput
                 placeholder="Set Price here"
@@ -79,7 +122,7 @@ const Price_Conditions: React.FC<CustomInputProps> = ({
                 error={errors.pricePerMonth}
                 touched={touched.pricePerMonth}
                 onChangeText={handleChange("pricePerMonth")}
-                value={values?.pricePerMonth}
+                value={String(values?.pricePerMonth)}
                 type="number"
                 rightText="$ USD"
               />
@@ -90,9 +133,10 @@ const Price_Conditions: React.FC<CustomInputProps> = ({
                 onBlur={handleBlur("minimumBookingDays")}
                 error={errors.minimumBookingDays}
                 touched={touched.minimumBookingDays}
-                onChangeText={handleChange("minimumBookingDays")}
+                onChangeText={(value) =>
+                  setFieldValue("minimumBookingDays", value)
+                }
                 value={values.minimumBookingDays}
-                values={values}
                 type="dropdown"
                 options={options}
               />
@@ -174,42 +218,3 @@ const Price_Conditions: React.FC<CustomInputProps> = ({
 };
 
 export default Price_Conditions;
-
-const options = [
-  {
-    value: "7",
-    label: "1 Week",
-  },
-  {
-    value: "14",
-    label: "2 Weeks",
-  },
-  {
-    value: "30",
-    label: "1 Month",
-  },
-  {
-    value: "60",
-    label: "2 Months",
-  },
-  {
-    value: "90",
-    label: "3 Months",
-  },
-  {
-    value: "120",
-    label: "4 Months",
-  },
-  {
-    value: "150",
-    label: "5 Months",
-  },
-  {
-    value: "180",
-    label: "6 Months",
-  },
-  {
-    value: "365",
-    label: "1 Year",
-  },
-];

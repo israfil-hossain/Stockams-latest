@@ -22,7 +22,7 @@ const PopUpModal = ({ visible, onRequestClose, children }) => {
     >
       <View style={styles.modalContainer}>
         <TouchableOpacity onPress={handleClose}>
-          <AntDesign name="closecircle" size={32} color="red" />
+          <AntDesign name="closecircle" size={40} color="red" />
         </TouchableOpacity>
 
         <View style={styles.modalContent}>{children}</View>

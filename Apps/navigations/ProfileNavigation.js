@@ -28,12 +28,27 @@ export default function ProfileScreenNavigation() {
         name="profileInfo"
         component={ProfileInformationScreen}
       />
-      <ProfileStack.Screen name="changePassword" component={ChangePasswordScreen} /> 
-            <ProfileStack.Screen name="favourite" component={FavouritePageScreen} /> 
-            <ProfileStack.Screen name="manage-payment" component={ManagePaymentScreen} /> 
-            <ProfileStack.Screen name="terms-condition" component={TermsAndConditionScreen} /> 
-            <ProfileStack.Screen name="privacy-policy" component={PrivacyPolicyScreen} /> 
-            <ProfileStack.Screen name="spaceOverview" component={spaceOverviewScreen} /> 
+      <ProfileStack.Screen
+        name="changePassword"
+        component={ChangePasswordScreen}
+      />
+      <ProfileStack.Screen name="favourite" component={FavouritePageScreen} />
+      <ProfileStack.Screen
+        name="manage-payment"
+        component={ManagePaymentScreen}
+      />
+      <ProfileStack.Screen
+        name="terms-condition"
+        component={TermsAndConditionScreen}
+      />
+      <ProfileStack.Screen
+        name="privacy-policy"
+        component={PrivacyPolicyScreen}
+      />
+      <ProfileStack.Screen
+        name="spaceOverview"
+        component={spaceOverviewScreen}
+      />
     </ProfileStack.Navigator>
   );
 }

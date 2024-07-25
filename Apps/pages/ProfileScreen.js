@@ -12,6 +12,7 @@ import { next, profile } from "../../assets/images";
 import Colors from "../constants/Colors";
 import { useToast } from "react-native-toast-notifications";
 import { useAuthUserContext } from "../context/AuthUserProvider";
+import { adminQueryClient } from "../../api";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -20,8 +21,9 @@ const ProfileScreen = () => {
 
   const handleUserLogout = async () => {
     await removeTokens();
-    toast.show("Signin Successfully ! 👋", { type: "success" });
-    navigation.navigate("Login");
+    await adminQueryClient.resetQueries();
+    toast.show("Signout Successfully ! 👋", { type: "success" });
+    // navigation.navigate("Login");
   };
   return (
     <>

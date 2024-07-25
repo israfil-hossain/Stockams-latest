@@ -28,8 +28,13 @@ import { useMutation } from "@tanstack/react-query";
 
 import { API } from "../../../api/endpoints";
 import adminQueryClient from "../../../api/adminQueryClient";
-import { setAccessToken, setRefreshToken } from "../../utils/localStorageUtils";
+import {
+  setAccessToken,
+  setRefreshToken,
+  setUserRole,
+} from "../../utils/localStorageUtils";
 import { adminAPI } from "../../../api";
+import usePost from "../../hooks/useCreate";
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -37,42 +42,52 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
 
-
-  const { mutateAsync: signInMutation, isLoading: isSigninLoading } =
-    useMutation({
-      mutationFn: (payload) => {
-        return adminAPI.post(API.Login, payload);
-      },
-    });
+  const {
+    mutateAsync: signInMutation,
+    isLoading: isSigninLoading,
+    isError: signinError,
+  } = usePost({
+    isMultiPart: false,
+    endpoint: API.Login,
+  });
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       setSubmitting(true);
       const payload = {
-        ...values, 
-        role:tab
-      }
+        ...values,
+        role: tab,
+      };
       const response = await signInMutation(payload);
-      console.log(response)
+
       if (response?.data?.data) {
         await setAccessToken(response.data.data?.accessToken);
         await setRefreshToken(response.data.data?.refreshToken);
-        // await setUserRole(userRole && userRole);
-        adminQueryClient.resetQueries();
-        toast.show("Signin Successfully ! 👋", { type: "success" });
+        await setUserRole(response.data.data?.role);
+        // adminQueryClient.resetQueries();
+        toast.show("Signin Successfully ! ", { type: "success" });
+        // Navigate based on role
+        const userRole = response?.data?.data?.role;
+        console.log("Navigatig with user Role ", userRole);
+        navigation.reset({
+          index: 0,
+          routes: [
+            { name: userRole === "RENTER" ? "RentalTabs" : "OwnerTabs" },
+          ],
+        });
       }
       setSubmitting(false);
     } catch (err) {
       toast.show("Something went wrong 👋", {
         type: "danger",
       });
-      console.log("Error ===> ",err)
+      console.log("Error ===> ", err);
       setErrors(err);
       setSubmitting(false);
     }
   };
   return (
-    <View style={styles.container} >
+    <View style={styles.container}>
       {isSigninLoading && <CommonProgress />}
       <View style={styles.backgroundImageContainer}>
         <Image source={looper} style={styles.backgroundImage} />

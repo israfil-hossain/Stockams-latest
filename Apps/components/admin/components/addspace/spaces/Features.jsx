@@ -1,26 +1,22 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { useGet } from "@/hooks";
-import { API } from "@/api/endpoints";
-import CommonCheckBox from "@/components/global/common/ui/Checkbox";
-import FeatureSkeleton from "@/components/global/progress/skeleton/FeatureSkeleton";
-import { ActivityIndicator } from "react-native";
 
-const Features = ({
-  values,
-  setFieldValue,
-}: {
-  values: any;
-  setFieldValue: any;
-}) => {
+import { ActivityIndicator } from "react-native";
+import CommonCheckBox from "../../../../global/common/ui/Checkbox";
+import FeatureSkeleton from "../../../../global/progress/skeleton/FeatureSkeleton";
+import { useGet } from "../../../../../hooks";
+import { API } from "../../../../../../api/endpoints";
+
+const Features = ({ values, setFieldValue }) => {
   const [isLoading, setIsLoading] = useState(true);
+
   // SecurityFeature
   const {
     data: { data: SecurityData } = [],
     isLoading: SecurityLoading,
     isError: SecurityError,
   } = useGet({
-    endpoint: API.GetAllSpaceSecurityDropdown + `?Page=1&PageSize=10`,
+    endpoint: API.GetAllSpaceSecurityDropdown + `?Page=1&PageSize=100`,
   });
 
   // Schedule Feature
@@ -29,7 +25,7 @@ const Features = ({
     isLoading: scheduleLoading,
     isError: ScheduleError,
   } = useGet({
-    endpoint: API.GetAllScheduleDropdown + `?Page=1&PageSize=10`,
+    endpoint: API.GetAllScheduleDropdown + `?Page=1&PageSize=100`,
   });
 
   // Storage Data
@@ -38,7 +34,7 @@ const Features = ({
     isLoading: StorageLoading,
     isError: StorageError,
   } = useGet({
-    endpoint: API.GetAllStorageConditionDropdown + `?Page=1&PageSize=10`,
+    endpoint: API.GetAllStorageConditionDropdown + `?Page=1&PageSize=100`,
   });
 
   // GetAllUnloadingDropdown
@@ -47,22 +43,22 @@ const Features = ({
     isLoading: UnloadingLoading,
     isError: UnloadingError,
   } = useGet({
-    endpoint: API.GetAllUnloadingDropdown + `?Page=1&PageSize=10`,
+    endpoint: API.GetAllUnloadingDropdown + `?Page=1&PageSize=100`,
   });
 
-  const handleCheckboxChange = (fieldName: any, value: any) => {
+  const handleCheckboxChange = (fieldName, value) => {
     const isChecked = values[fieldName]?.includes(value);
 
     setFieldValue(
       fieldName,
       isChecked
-        ? values[fieldName].filter((item: any) => item !== value)
+        ? values[fieldName].filter((item) => item !== value)
         : [...values[fieldName], value]
     );
   };
 
-  const renderCheckboxes = (data: any, fieldName: any) =>
-    data?.data?.map((item: any) => (
+  const renderCheckboxes = (data, fieldName) =>
+    data?.data?.map((item) => (
       <CommonCheckBox
         key={item.value}
         index={item.value}
@@ -70,6 +66,7 @@ const Features = ({
         label={item.label}
         handleCheckedChange={() => handleCheckboxChange(fieldName, item?.value)}
         items={item}
+        checked={values[fieldName]?.includes(item?._id)}
       />
     ));
 

@@ -28,7 +28,7 @@ export default function App() {
   }, []);
 
   if (!fontsLoaded) {
-    return <CommonProgress />
+    return <CommonProgress />;
   }
 
   return (
@@ -46,15 +46,13 @@ export default function App() {
           >
             {/* <SplashScreen /> */}
 
-            <NavigationContainer >
+            <NavigationContainer>
               <MainNavigator />
             </NavigationContainer>
-            
-
           </ToastProvider>
         </AuthUserProvider>
       </QueryClientProvider>
-      
+
       <StatusBar style="auto" />
     </SafeAreaView>
   );

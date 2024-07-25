@@ -3,10 +3,10 @@ import { View, Text, Image, StyleSheet, Alert } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 
-import Colors from "@/constants/Colors";
+
 
 // import HorizontalProgress from "@/components/global/progress/HorizontalProgress";
-const BookedCard = ({ data }: any) => {
+const BookedCard = ({ data }) => {
   return (
     <View className="w-[342px] h-[400px] shadow-lg shadow-gray-400 bg-white border-primary border  rounded-xl mt-5 relative flex justify-center items-center">
       <View className="w-[94%] h-44 absolute top-4 items-center justify-center flex bg-white rounded-2xl shadow ">
