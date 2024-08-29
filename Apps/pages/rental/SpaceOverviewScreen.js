@@ -50,7 +50,6 @@ const SpaceOverviewScreen = () => {
 
   console.log("Data : ===> ", spaceRentData?.data);
 
-
   const handleImageClick = (index) => {
     setActiveImage(index);
   };
@@ -192,32 +191,32 @@ const SpaceOverviewScreen = () => {
           </View>
           <View className="w-full mt-5 flex-col space-y-5">
             <Text className="text-[18px] font-bold">Features </Text>
-            <View className="flex flex-row justify-start items-center w-full h-auto space-x-6 ">
-              <View className="items-center">
-                <Text className=" font-normal w-[150px]">
-                  Storage Conditions
-                </Text>
+            <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
+              <View className="w-[150px] items-start">
+                <Text className="font-normal">Storage Conditions</Text>
               </View>
-              <View className="flex flex-row justify-start space-x-2  items-center">
+              <View className="flex flex-col justify-start items-start space-y-2">
                 {spaceRentData?.data?.storageConditions?.map((item) => (
-                  <View key={item?._id} className="flex-row space-x-2">
+                  <View
+                    key={item?._id}
+                    className="flex-row space-x-2 items-center"
+                  >
                     <Feather name="check" size={20} color="#37CF02" />
                     <Text>{item?.name}</Text>
                   </View>
                 ))}
               </View>
             </View>
+
             <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
-              <View className="items-center">
-                <Text className="font-normal w-[150px]">
-                  Unloading & Moving
-                </Text>
+              <View className="w-[150px] items-start">
+                <Text className="font-normal">Unloading & Moving</Text>
               </View>
-              <View className="flex flex-col justify-start space-x-2 items-start">
+              <View className="flex flex-col justify-start items-start space-y-2">
                 {spaceRentData?.data?.unloadingMovings?.map((item) => (
                   <View
                     key={item?._id}
-                    className="flex-row space-x-2 justify-center items-center"
+                    className="flex-row space-x-2 items-center"
                   >
                     <Feather name="check" size={20} color="#37CF02" />
                     <Text>{item?.name}</Text>
@@ -227,14 +226,14 @@ const SpaceOverviewScreen = () => {
             </View>
 
             <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
-              <View className="items-center">
-                <Text className="font-normal w-[150px]">Security</Text>
+              <View className="w-[150px] items-start">
+                <Text className="font-normal">Security</Text>
               </View>
-              <View className="flex flex-col justify-start space-x-2 items-start ">
+              <View className="flex flex-col justify-start items-start space-y-2">
                 {spaceRentData?.data?.spaceSecurities?.map((item) => (
                   <View
                     key={item?._id}
-                    className="flex-row space-x-2 justify-center items-center"
+                    className="flex-row space-x-2 items-center"
                   >
                     <Feather name="check" size={20} color="#37CF02" />
                     <Text>{item?.name}</Text>
@@ -244,14 +243,14 @@ const SpaceOverviewScreen = () => {
             </View>
 
             <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
-              <View className="items-center">
-                <Text className="font-normal w-[150px]">Schedule</Text>
+              <View className="w-[150px] items-start">
+                <Text className="font-normal">Schedule</Text>
               </View>
-              <View className="flex flex-col justify-start space-x-2 items-start ">
+              <View className="flex flex-col justify-start items-start space-y-2">
                 {spaceRentData?.data?.spaceSchedules?.map((item) => (
                   <View
                     key={item?._id}
-                    className="flex-row space-x-2 justify-start items-center"
+                    className="flex-row space-x-2 items-center"
                   >
                     <Feather name="check" size={20} color="#37CF02" />
                     <Text>{item?.name}</Text>
@@ -315,11 +314,9 @@ const SpaceOverviewScreen = () => {
           </View>
         </View>
 
-        <CommonBottomSheet isOpen={issOpen} toggleSheet={toggleSheet} >
-          <BookingBottomCard data={spaceRentData?.data}/>
+        <CommonBottomSheet isOpen={issOpen} toggleSheet={toggleSheet}>
+          <BookingBottomCard data={spaceRentData?.data} />
         </CommonBottomSheet>
-
-       
       </ScrollView>
     </View>
   );
