@@ -6,6 +6,7 @@ import SearchScreen from "../pages/rental/SearchScreen";
 import SpaceReviewScreen from "../pages/rental/SpaceReviewScreen";
 
 const SearchStack = createStackNavigator();
+const BookingStack = createStackNavigator();
 
 export default function SearchBookingScreenNavigation() {
   return (

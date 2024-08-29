@@ -221,7 +221,7 @@ const CustomInput = ({
           },
         ]}
       >
-        <View className="py-2">
+        <View className="py-2 px-2">
           {type === "dropdown" ? (
             <MaterialCommunityIcons
               name={icon}

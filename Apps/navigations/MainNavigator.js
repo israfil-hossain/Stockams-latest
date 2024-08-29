@@ -1,10 +1,9 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import LoginScreen from "../pages/auth/LoginScreen";
+
 import SignupScreen from "../pages/auth/SignupScreen";
 import BookingScreen from "../pages/rental/BookingScreen";
 import MessageScreen from "../pages/rental/MessageScreen";
-import RentalsScreen from "../pages/owner/RentalsScreen";
 import PaymentScreen from "../pages/owner/PaymentScreen";
 
 import {
@@ -24,16 +23,16 @@ import BookingScreenNavigation from "./BookingScreenNavigation";
 import SearchBookingScreenNavigation from "./SearchScreenNavigation";
 import HomeScreen from "../pages/owner/HomeScreen";
 import CommonProgress from "../components/global/progress/CommonProgress";
-import { getAccessToken } from "../utils/localStorageUtils";
 import SpaceCreateNavigation from "./CreateSpaceNavigator";
 import AddSpaceScreen from "../pages/owner/AddSpaceScreen";
+import LoginScreen from "../pages/auth/loginScreen";
 
 // Auth Stack
 const AuthStack = createStackNavigator();
 
 const AuthNavigator = () => {
   return (
-    <AuthStack.Navigator initialRouteName="LoginScreen">
+    <AuthStack.Navigator initialRouteName="Login">
       <AuthStack.Screen
         name="Login"
         component={LoginScreen}
