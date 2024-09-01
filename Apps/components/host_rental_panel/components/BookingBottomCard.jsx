@@ -1,16 +1,28 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import CustomInput from "../../global/common/CommonInput";
-import CustomDropDown from "../../global/common/AutoDropDown";
 import CustomButton from "../../global/common/ui/Button";
 import Colors from "../../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import { useToast } from "react-native-toast-notifications";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
+import * as Yup from "yup";
+import { useMutation } from "@tanstack/react-query";
+import { adminAPI } from "../../../../api";
+import { API } from "../../../../api/endpoints";
+
+const bookingSchema = Yup.object().shape({
+  formDate: Yup.string().required("FormDate is required"),
+  // toDate: Yup.number().required("Rental Duration is required"),
+});
 
 const BookingBottomCard = ({ data }) => {
   const toast = useToast();
-  const options = useState([
+  // console.log("data", data);
+  const [options, setOptions] = useState([
     {
       value: 7,
       label: "1 Week",
@@ -49,22 +61,35 @@ const BookingBottomCard = ({ data }) => {
     },
   ]);
 
+  const { mutateAsync: bookingMutation, isLoading: bookingLoading,isError } =
+    useMutation({
+      mutationFn: (payload) => {
+        return adminAPI.post(API.SpaceBooking, payload);
+      },
+    });
+
+  console.log(isError);
+
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       setSubmitting(true);
-      console.log({ values });
+      if (!values?.toDate) {
+        toast.show("Please Select Rental Duration!", { type: "danger" });
+        throw new Error("Please Select Rental Duration!");
+      }
+      const toDateValue = dayjs(values?.fromDate, "DD/MM/YYYY", true)
+        .add(values?.toDate, "day");
+
       const payload = {
         spaceId: data?._id,
-        ...values,
+        fromDate: dayjs(values?.fromDate, "DD/MM/YYYY", true).toISOString(),
+        toDate: toDateValue.toISOString(),
       };
-      // const response = await signUpMutation(payload);
-      // console.log("Sunmitted");
-      // console.log(response);
-      // if (response?.data?.data) {
-      //   toast.show("Signup Successfully ! 👋", { type: "success" });
-      //   // router.replace("/login");
-      //   navigation.navigate("Login");
-      // }
+      const response = await bookingMutation(payload);
+      if (response?.data?.data) {
+        toast.show("Booking Successfully ! 👋", { type: "success" });
+        // navigation.navigate("");
+      }
       setSubmitting(false);
     } catch (err) {
       toast.show("Something went wrong 👋", {
@@ -96,7 +121,7 @@ const BookingBottomCard = ({ data }) => {
       <Formik
         initialValues={{
           fromDate: "",
-          toDate: "",
+          toDate: null,
         }}
         onSubmit={handleSubmit}
         validationSchema={""}
@@ -114,7 +139,7 @@ const BookingBottomCard = ({ data }) => {
           <View className="w-full ">
             <View className="flex-row space-x-5 w-full">
               <CustomInput
-                icon="calendar-outline"
+                icon=""
                 placeholder="Start Date"
                 autoCapitalize="none"
                 keyboardAppearance="dark"
@@ -129,7 +154,7 @@ const BookingBottomCard = ({ data }) => {
                 type="date"
                 isEditable={true}
                 className="w-full "
-                width={"50%"}
+                width={"49%"}
               />
               <CustomInput
                 label="Rental Duration"
@@ -139,6 +164,8 @@ const BookingBottomCard = ({ data }) => {
                 touched={touched.toDate}
                 onChangeText={(value) => setFieldValue("toDate", value)}
                 value={values.toDate}
+                values={values}
+                isEditable={!!values?.formDate}
                 type="dropdown"
                 options={options}
                 width={"50%"}
@@ -153,7 +180,7 @@ const BookingBottomCard = ({ data }) => {
                 padding={0}
                 bg={Colors.primary}
                 onPress={() => handleSubmit()}
-                disabled={isSubmitting}
+                disabled={isSubmitting || !values.fromDate}
               />
             </View>
           </View>

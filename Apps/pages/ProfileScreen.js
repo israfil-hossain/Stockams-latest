@@ -13,15 +13,17 @@ import Colors from "../constants/Colors";
 import { useToast } from "react-native-toast-notifications";
 import { useAuthUserContext } from "../context/AuthUserProvider";
 import { adminQueryClient } from "../../api";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
-  const { userData, userRefetch, userLoading } = useAuthUserContext();
+  const { userData } = useAuthUserContext();
+  const queryClient = useQueryClient();
 
   const handleUserLogout = async () => {
     await removeTokens();
-    await adminQueryClient.resetQueries();
+    await queryClient.resetQueries();
     toast.show("Signout Successfully ! 👋", { type: "success" });
     // navigation.navigate("Login");
   };

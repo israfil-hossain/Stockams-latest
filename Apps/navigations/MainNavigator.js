@@ -226,12 +226,7 @@ const OwnerTabNavigator = () => {
 const MainStack = createStackNavigator();
 
 export default function MainNavigator() {
-  const { userFound, userLoading, userRole } = useAuthUserContext();
-  console.log("UserRole : ", userRole); 
-
-  if (userLoading) {
-    return <CommonProgress />;
-  }
+  const { userFound, userRole } = useAuthUserContext();
 
   return (
     <MainStack.Navigator
