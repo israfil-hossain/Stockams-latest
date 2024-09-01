@@ -55,7 +55,7 @@ const CustomButton = ({
     >
       {isLoading ? (
         <View className={`flex flex-row justify-center  w-full items-center `}>
-          <ActivityIndicator size="small" color="#3C09BC" />
+          <ActivityIndicator size="small" color="#000000" />
         </View>
       ) : (
         <View

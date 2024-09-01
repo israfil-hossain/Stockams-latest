@@ -9,6 +9,7 @@ export const API ={
     ChangePassword : '/api/Authentication/ChangePassword',  //post 
     GetLoginUser : '/api/Authentication/GetLoggedInUser', //get 
     GetProfile : '/api/Authentication/UpdateProfilePicture', // patch 
+    
     // User...... 
     PostUser : '/api/User/Create', //post 
     GetUser : '/api/User/GetAll', //get  
@@ -16,6 +17,7 @@ export const API ={
     DeleteUser : '/api/User/DeleteById/{DocId}', // delete 
     UpdateUser :'/api/ApplicationUser/UpdateOwnProfile',
     UpdateProfile : '/api/ApplicationUser/UpdateOwnProfilePicture',
+    
     // Space Type 
     CreateSpaceType : '/api/SpaceType/Create' , // post 
     GetSpaceType : '/api/SpaceType/GetAll', //get 
@@ -72,5 +74,6 @@ export const API ={
     AddSpaceImage : '/api/SpaceForRent/AddSpaceImageById/{DocId}', //post 
     DeleteSpaceImage : '/api/SpaceForRent/DeleteSpaceImageById/{SpaceId}/{ImageId}', //delete 
 
-
+    // Booking 
+    SpaceBooking:'/api/SpaceBooking/Book', // Post for Booking Space.
 }

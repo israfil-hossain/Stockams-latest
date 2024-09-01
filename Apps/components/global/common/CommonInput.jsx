@@ -115,7 +115,7 @@ const CustomInput = ({
         );
       case "date":
         return (
-          <View style={styles.flexRow} className="px-2 mr-3">
+          <View style={styles.flexRow} className="px-2 mr-5">
             <RNTextInput
               {...inputProps}
               underlineColorAndroid="transparent"
@@ -145,6 +145,7 @@ const CustomInput = ({
             selectedValue={value}
             onValueChange={handleChangeDropdown}
             style={{ height: 50, width: "100%" }}
+            disabled={isEditable}
           >
             {options?.map((item, index) => (
               <Picker.Item

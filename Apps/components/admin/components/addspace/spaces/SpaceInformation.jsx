@@ -30,13 +30,6 @@ const SpaceInformation = ({ onSubmit, data, setFormData, spacedata }) => {
     isFetching: spaceAccessFetching,
   } = useGet({ endpoint: spaceAccessEndpoint });
 
-  // useEffect(() => {
-  //   if (!spacedata) {
-  //     spaceTypeRefetch({enabled:true});
-  //     spaceAccessRefetch({enabled:true});
-  //   }
-  // }, [spacedata]);
-
   const handleSubmit = async (values) => {
     const payload = {
       ...values,
@@ -44,13 +37,10 @@ const SpaceInformation = ({ onSubmit, data, setFormData, spacedata }) => {
       height: convertNumber(values?.height),
     };
 
-    console.log(payload);
-
     await setFormData((prevFormData) => ({
       ...prevFormData,
       ...payload,
     }));
-    console.log("object :>> ", data);
     onSubmit();
   };
 

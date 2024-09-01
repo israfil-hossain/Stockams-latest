@@ -12,20 +12,6 @@ export const addSpaceValidation = Yup.object().shape({
   accessMethod: Yup.string().required("Access Method is required"),
   location: Yup.string().required("Location is required"),
   description: Yup.string().required("Description is required"),
-//  
-
-  // spaceSchedules: Yup.array().of(
-  //     // Define your schema for each element in the spaceSchedules array
-  //   ),
-  //   storageConditions: Yup.array().of(
-  //     // Define your schema for each element in the storageConditions array
-  //   ),
-  //   spaceSecurities: Yup.array().of(
-  //     // Define your schema for each element in the spaceSecurities array
-  //   ),
-  //   unloadingMovings: Yup.array().of(
-  //     // Define your schema for each element in the unloadingMovings array
-  //   ),
 });
 
 export const imagesValidation = Yup.object().shape({

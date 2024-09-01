@@ -47,11 +47,6 @@ const MainHeader = () => {
     await setIsModalVisible(true);
   };
 
-  // const handleUserLogout = async () => {
-  //   console.log("Logout");
-  //   await removeTokens();
-  //   router.replace("/(main)/(auth)/login");
-  // };
   return (
     <SafeAreaView style={{}} className="-mt-2">
       {/* <StatusBar style="dark" /> */}

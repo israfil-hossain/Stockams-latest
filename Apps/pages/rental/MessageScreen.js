@@ -1,9 +1,7 @@
-import { View, Text } from 'react-native'
 import React, { useState, useEffect } from "react";
-import { Text, View, FlatList, Image } from "react-native";
-import { favourite, next } from "@/assets/images";
+import { Text, View,Image } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import SearchBar from '../../components/global/common/SearchBar';
 
 const MessageScreen = () => {

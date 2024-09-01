@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -24,19 +24,22 @@ import CustomInput from "../../components/global/common/CommonInput";
 
 import { useToast } from "react-native-toast-notifications";
 import { signinValidationSchema } from "../../components/global/auth/validation/signinValidationSchema";
-import { useMutation } from "@tanstack/react-query";
-
 import { API } from "../../../api/endpoints";
-import adminQueryClient from "../../../api/adminQueryClient";
+
 import {
   setAccessToken,
   setRefreshToken,
   setUserRole,
 } from "../../utils/localStorageUtils";
-import { adminAPI } from "../../../api";
 import usePost from "../../hooks/useCreate";
+import { useAuthUserContext } from "../../context/AuthUserProvider";
+import { adminQueryClient } from "../../../api";
+import CommonProgress from "../../components/global/progress/CommonProgress";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = () => {
+  const { userData, userRefetch, userLoading, userFound, userRole } =
+    useAuthUserContext();
   const [showPassword, setShowPassword] = useState(false);
   const [tab, setTab] = useState("RENTER");
   const navigation = useNavigation();
@@ -61,20 +64,19 @@ const LoginScreen = () => {
       const response = await signInMutation(payload);
 
       if (response?.data?.data) {
-        await setAccessToken(response.data.data?.accessToken);
-        await setRefreshToken(response.data.data?.refreshToken);
-        await setUserRole(response.data.data?.role);
-        // adminQueryClient.resetQueries();
-        toast.show("Signin Successfully ! ", { type: "success" });
-        // Navigate based on role
-        const userRole = response?.data?.data?.role;
-        console.log("Navigatig with user Role ", userRole);
-        navigation.reset({
-          index: 0,
-          routes: [
-            { name: userRole === "RENTER" ? "RentalTabs" : "OwnerTabs" },
-          ],
-        });
+        const { accessToken, refreshToken, role } = response?.data?.data;
+        await setAccessToken(accessToken);
+        await setRefreshToken(refreshToken);
+
+        // Ensure `role` is not undefined before storing it
+        if (role) {
+          await setUserRole(role);
+        } else {
+          // Handle the case where `role` is undefined, e.g., remove the item if needed
+          await AsyncStorage.removeItem("userRole");
+        }
+        userRefetch();
+        adminQueryClient.resetQueries();
       }
       setSubmitting(false);
     } catch (err) {
@@ -86,9 +88,30 @@ const LoginScreen = () => {
       setSubmitting(false);
     }
   };
+
+  useEffect(() => {
+    const fetchNavigation = async () => {
+      if (userFound && userData) {
+        if (userRole) {
+          await navigation.reset({
+            index: 0,
+            routes: [
+              { name: userRole === "RENTER" ? "RentalTabs" : "OwnerTabs" },
+            ],
+          });
+          toast.show("Signin Successfully 👋", { type: "success" });
+        }
+      }
+    };
+    fetchNavigation();
+  }, [userData, userRole, userFound]);
+
+  if (userLoading) {
+    return <CommonProgress />;
+  }
+
   return (
     <View style={styles.container}>
-      {isSigninLoading && <CommonProgress />}
       <View style={styles.backgroundImageContainer}>
         <Image source={looper} style={styles.backgroundImage} />
       </View>
@@ -185,6 +208,7 @@ const LoginScreen = () => {
                   height={45}
                   onPress={() => handleSubmit()}
                   disabled={isSubmitting}
+                  isLoading={isSigninLoading}
                 />
                 <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
                 <Text style={styles.continueWithText}>OR CONTINUE WITH</Text>

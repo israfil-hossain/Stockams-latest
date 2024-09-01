@@ -4,7 +4,6 @@ import React, { createContext, useContext, useState } from "react";
 const AuthUserContext = createContext();
 
 const AuthUserProvider = ({ children }) => {
-  // const [userRole,setUserRole] = useState(""); 
   const {
     data:{data:userData = {}} = {},
     isLoading: userLoading = true,
@@ -13,16 +12,6 @@ const AuthUserProvider = ({ children }) => {
     queryKey: ["/api/Authentication/GetLoggedInUser"],
   });
 
-  // console.log({userData})
-  
-
-  // React.useEffect(() => {
-  //   if (!userLoading && !!userData) {
-  //     setUserRole(userData?.role);
-  //   }
-  // }, [userData]);
-  
-
   const userContextValues = {
     // states
     userData,
@@ -30,7 +19,7 @@ const AuthUserProvider = ({ children }) => {
     userFound: Boolean(!userLoading && !!userData?.email),
     // methods
     userRefetch,
-    userRole:userData?.role || "RENTER",
+    userRole:userData?.role,
   };
 
   
