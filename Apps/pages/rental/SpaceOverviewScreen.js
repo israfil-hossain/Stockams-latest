@@ -2,18 +2,12 @@ import React, { Children, useCallback, useRef, useState } from "react";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import {
-  AntDesign,
-  Feather,
-  Ionicons,
-  MaterialCommunityIcons,
   Octicons,
 } from "@expo/vector-icons";
 
 import {
   View,
-  Image,
   ScrollView,
-  TouchableOpacity,
   StyleSheet,
   Text,
 } from "react-native";
@@ -27,18 +21,40 @@ import { useGet } from "../../hooks";
 import CommonBottomSheet from "../../components/modals/CommonBottomSheet";
 import { useSharedValue } from "react-native-reanimated";
 import BookingBottomCard from "../../components/host_rental_panel/components/BookingBottomCard";
+import Banner from "../../components/host_rental_panel/booking/Banner";
+import FeatureCard from "../../components/host_rental_panel/booking/Feature";
+import Access from "../../components/host_rental_panel/booking/Access";
+import CongratulationBottomCard from "../../components/host_rental_panel/components/CongratulationBottomCard";
 
 const SpaceOverviewScreen = () => {
   const navigation = useNavigation();
-  const [activeImage, setActiveImage] = useState(0);
   const [isOpen, setIssOpen] = useState(true);
+
   const route = useRoute();
-  const { id } = route.params; // Destructure the 'id' param
+  const { id } = route.params;
 
   const issOpen = useSharedValue(false);
+  const congratulationOpen = useSharedValue(false);
+  const packOpen = useSharedValue(false);
+  const pickTimeOpen = useSharedValue(false);
+  const costOpen = useSharedValue(false);
 
   const toggleSheet = () => {
     issOpen.value = !issOpen.value;
+  };
+
+  const congratulationSheet = () => {
+    congratulationOpen.value = !congratulationOpen.value;
+  };
+  const packOpenSheet = () => {
+    congratulationOpen.value = !congratulationOpen.value;
+    packOpen.value = !packOpen.value;
+  };
+  const pickTimeOpenSheet = () => {
+    pickTimeOpen.value = !pickTimeOpen.value;
+  };
+  const costOpenSheet = () => {
+    costOpen.value = !costOpen.value;
   };
 
   const spaceOverViewAPI = `${API.GetSingleSpaceForRent}/${id}`;
@@ -50,10 +66,6 @@ const SpaceOverviewScreen = () => {
 
   console.log("Data : ===> ", spaceRentData?.data);
 
-  const handleImageClick = (index) => {
-    setActiveImage(index);
-  };
-
   return (
     <View>
       <BackHeader Headertext="Back" />
@@ -64,53 +76,7 @@ const SpaceOverviewScreen = () => {
       >
         <View style={styles.container}>
           {/* For Banner and Image Section  */}
-          <View>
-            <Image
-              source={{
-                uri: spaceRentData?.data?.spaceImages[activeImage]?.url,
-              }}
-              style={styles.banner}
-            />
-            <TouchableOpacity className="w-[100px] h-[37px] px-2 left-5 top-5 absolute bg-tertiary rounded-xl justify-around flex flex-row items-center">
-              <Ionicons
-                name="person-circle-sharp"
-                size={24}
-                color="black"
-                className="items-center"
-              />
-              <Text className="text-sm font-medium ">Certified</Text>
-            </TouchableOpacity>
-            <TouchableOpacity className="w-32 h-[37px] p-2 right-5 top-5 absolute bg-white rounded-lg justify-between flex flex-row items-center">
-              <AntDesign name="staro" size={18} color="orange" />
-              <Text className="text-md font-medium">4.8</Text>
-              <Text className="text-[10px] text-gray-400">345 reviews</Text>
-            </TouchableOpacity>
-
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.scrollContainer}
-            >
-              {spaceRentData?.data?.spaceImages?.map((image, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => handleImageClick(index)}
-                  style={[
-                    styles.thumbnailWrapper,
-                    {
-                      borderColor:
-                        activeImage === index ? "#DCE102" : "transparent",
-                    },
-                  ]}
-                >
-                  <Image
-                    source={{ uri: image?.url }}
-                    style={styles.thumbnail}
-                  />
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </View>
+          <Banner spaceRentData={spaceRentData} />
 
           <View className="flex flex-row justify-between">
             <Text className="text-[15px] font-bold">
@@ -135,130 +101,8 @@ const SpaceOverviewScreen = () => {
             </Text>
           </View>
 
-          <View className="flex flex-row justify-between items-center ">
-            <Text className="text-[14px] font-[600]">Access 24/7</Text>
-            <Ionicons name="heart" size={27} color="#FF7354" />
-          </View>
-          <View className="w-full flex flex-row justify-between items-center p-1 mt-3 space-x-2">
-            <TouchableOpacity>
-              <View className="bg-white w-[105px] h-[80px] border-primary border  rounded-xl shadow-lg flex flex-col items-center justify-center space-y-2">
-                <View className="bg-primary h-[30px] w-[30px] justify-center rounded-3xl items-center">
-                  <MaterialCommunityIcons
-                    name="shield-lock-outline"
-                    size={20}
-                    color="#2D2D2A"
-                  />
-                </View>
-                <Text className="text-[12px] font-bold">Secure Center</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View className="bg-white w-[105px] h-[80px] border-tertiary border  rounded-xl shadow-sm flex flex-col items-center justify-center space-y-2">
-                <View className="bg-tertiary h-[30px] w-[30px] justify-center rounded-3xl items-center">
-                  <Ionicons name="key-outline" size={20} color="#2D2D2A" />
-                </View>
-                <Text className="text-[12px] font-bold">key Handover</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View className="bg-white w-[105px] h-[80px] border-secondary border  rounded-xl shadow-sm flex flex-col items-center justify-center space-y-2">
-                <View className="bg-secondary h-[30px] w-[30px] justify-center rounded-3xl items-center">
-                  <MaterialCommunityIcons
-                    name="home-modern"
-                    size={20}
-                    color="#2D2D2A"
-                  />
-                </View>
-                <Text className="text-[12px] font-bold">Individual Space</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View className="w-full mt-4 flex flex-col space-y-3">
-            <Text className="text-[18px] font-bold">Secure Center </Text>
-            <Text className="text-[14px] font-[300] text-justify">
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint. Velit officia consequat duis enim velit mollit.
-              Exercitation veniam consequat sunt nostrud amet. Amet minim mollit
-              non deserunt ullamco est sit aliqua dolor do amet sint.
-            </Text>
-            <Text className="text-[14px] font-[300] text-justify">
-              Velit officia consequat duis enim velit mollit. Exercitation
-              veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
-              ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-              duis enim velit mollit. Exercitation veniam consequat sunt nostrud
-              amet.
-            </Text>
-          </View>
-          <View className="w-full mt-5 flex-col space-y-5">
-            <Text className="text-[18px] font-bold">Features </Text>
-            <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
-              <View className="w-[150px] items-start">
-                <Text className="font-normal">Storage Conditions</Text>
-              </View>
-              <View className="flex flex-col justify-start items-start space-y-2">
-                {spaceRentData?.data?.storageConditions?.map((item) => (
-                  <View
-                    key={item?._id}
-                    className="flex-row space-x-2 items-center"
-                  >
-                    <Feather name="check" size={20} color="#37CF02" />
-                    <Text>{item?.name}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-
-            <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
-              <View className="w-[150px] items-start">
-                <Text className="font-normal">Unloading & Moving</Text>
-              </View>
-              <View className="flex flex-col justify-start items-start space-y-2">
-                {spaceRentData?.data?.unloadingMovings?.map((item) => (
-                  <View
-                    key={item?._id}
-                    className="flex-row space-x-2 items-center"
-                  >
-                    <Feather name="check" size={20} color="#37CF02" />
-                    <Text>{item?.name}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-
-            <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
-              <View className="w-[150px] items-start">
-                <Text className="font-normal">Security</Text>
-              </View>
-              <View className="flex flex-col justify-start items-start space-y-2">
-                {spaceRentData?.data?.spaceSecurities?.map((item) => (
-                  <View
-                    key={item?._id}
-                    className="flex-row space-x-2 items-center"
-                  >
-                    <Feather name="check" size={20} color="#37CF02" />
-                    <Text>{item?.name}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-
-            <View className="flex flex-row justify-start items-center w-full h-auto space-x-6">
-              <View className="w-[150px] items-start">
-                <Text className="font-normal">Schedule</Text>
-              </View>
-              <View className="flex flex-col justify-start items-start space-y-2">
-                {spaceRentData?.data?.spaceSchedules?.map((item) => (
-                  <View
-                    key={item?._id}
-                    className="flex-row space-x-2 items-center"
-                  >
-                    <Feather name="check" size={20} color="#37CF02" />
-                    <Text>{item?.name}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          </View>
+          <Access />
+          <FeatureCard spaceRentData={spaceRentData} />
 
           <View className="flex flex-col mt-5 w-full h-auto mb-4 space-y-4">
             <View className="flex flex-row justify-between bg-white border-primary border rounded-lg w-full h-[48px] items-center p-2">
@@ -315,7 +159,14 @@ const SpaceOverviewScreen = () => {
         </View>
 
         <CommonBottomSheet isOpen={issOpen} toggleSheet={toggleSheet}>
-          <BookingBottomCard data={spaceRentData?.data} />
+          <BookingBottomCard data={spaceRentData?.data} toggleSheet={toggleSheet} congratulationSheet={congratulationSheet}/>
+        </CommonBottomSheet>
+
+        <CommonBottomSheet
+          isOpen={congratulationOpen}
+          toggleSheet={congratulationSheet}
+        >
+          <CongratulationBottomCard  toggleSheet={packOpenSheet}/>
         </CommonBottomSheet>
       </ScrollView>
     </View>

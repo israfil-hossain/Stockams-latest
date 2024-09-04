@@ -19,18 +19,18 @@ const bookingSchema = Yup.object().shape({
   // toDate: Yup.number().required("Rental Duration is required"),
 });
 
-const BookingBottomCard = ({ data }) => {
+const BookingBottomCard = ({ data,toggleSheet,congratulationSheet}) => {
   const toast = useToast();
   // console.log("data", data);
   const [options, setOptions] = useState([
-    {
-      value: 7,
-      label: "1 Week",
-    },
-    {
-      value: 14,
-      label: "2 Weeks",
-    },
+    // {
+    //   value: 7,
+    //   label: "1 Week",
+    // },
+    // {
+    //   value: 14,
+    //   label: "2 Weeks",
+    // },
     {
       value: 30,
       label: "1 Month",
@@ -73,29 +73,32 @@ const BookingBottomCard = ({ data }) => {
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       setSubmitting(true);
-      if (!values?.toDate) {
-        toast.show("Please Select Rental Duration!", { type: "danger" });
-        throw new Error("Please Select Rental Duration!");
-      }
       const toDateValue = dayjs(values?.fromDate, "DD/MM/YYYY", true)
-        .add(values?.toDate, "day");
+        .add(values?.toDate || 30, "day");
 
       const payload = {
         spaceId: data?._id,
         fromDate: dayjs(values?.fromDate, "DD/MM/YYYY", true).toISOString(),
         toDate: toDateValue.toISOString(),
       };
+      console.log("payload: ", payload)
       const response = await bookingMutation(payload);
+      console.log("response : ", response)
       if (response?.data?.data) {
         toast.show("Booking Successfully ! 👋", { type: "success" });
         // navigation.navigate("");
+        toggleSheet();
+        congratulationSheet();
+      }
+      else{
+        console.log(response?.error)
       }
       setSubmitting(false);
     } catch (err) {
       toast.show("Something went wrong 👋", {
         type: "danger",
       });
-      console.log({ err });
+      console.log(err);
       setSubmitting(false);
       setErrors(err);
     }

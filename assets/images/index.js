@@ -14,6 +14,7 @@ import Loader from './Loader.gif';
 import noimage from './noimage.png'; 
 import nodata from './nodata.jpg'; 
 import starbroken from './star-broken.png';
+import congratulation from './congratulation.png'; 
 
 export {
     back,
@@ -31,6 +32,7 @@ export {
     Loader,
     noimage,
     nodata,
-    starbroken
+    starbroken,
+    congratulation
     
 }
