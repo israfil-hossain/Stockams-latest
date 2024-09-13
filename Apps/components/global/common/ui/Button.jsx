@@ -5,10 +5,6 @@ import React from "react";
 import {
   TouchableOpacity,
   Text,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  TouchableOpacityProps,
   View,
   Image,
   ActivityIndicator,
@@ -82,15 +78,16 @@ const CustomButton = ({
               )}
             </>
           )}
-
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 13,
-            }}
-          >
-            {text}
-          </Text>
+          {text && (
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 13,
+              }}
+            >
+              {text}
+            </Text>
+          )}
 
           {rightIcon && (
             <>

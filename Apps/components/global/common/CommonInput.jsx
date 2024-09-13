@@ -8,7 +8,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import Location from "./Location";
 import PopUpModal from "../../modals/PopUpModal";
@@ -31,7 +31,7 @@ const CustomInput = ({
   setDate,
   isEditable,
   mode = "date",
-  height = 48,
+  height = 40,
   keyboardType,
   setFieldValue,
   width = "100%",
@@ -144,8 +144,8 @@ const CustomInput = ({
           <Picker
             selectedValue={value}
             onValueChange={handleChangeDropdown}
-            style={{ height: 50, width: "100%" }}
-            disabled={isEditable}
+            style={{ height: 40, width: "100%" }}
+            enabled={isEditable}
           >
             {options?.map((item, index) => (
               <Picker.Item
@@ -204,13 +204,15 @@ const CustomInput = ({
             value={value}
             onChangeText={handleChangeText}
             editable={isEditable}
+            style={{}}
+            className="flex flex-row justify-start items-center"
           />
         );
     }
   };
 
   return (
-    <View style={{ padding: 4, width: width }}>
+    <View style={{ padding: 0, width: width }}>
       {label && <Text style={styles.label}>{label}</Text>}
       <View
         style={[
@@ -222,17 +224,16 @@ const CustomInput = ({
           },
         ]}
       >
-        <View className="py-2 px-2">
-          {type === "dropdown" ? (
-            <MaterialCommunityIcons
-              name={icon}
-              color={validationColor}
-              size={16}
-            />
-          ) : (
-            <Ionicons name={icon} color={validationColor} size={16} />
-          )}
-        </View>
+        {icon && (
+          <View className="py-2 px-2 items-center flex flex-row">
+            {type === "dropdown" ? (
+              <></>
+            ) : (
+              <Ionicons name={icon} color={validationColor} size={16} />
+            )}
+          </View>
+        )}
+
         <View style={{ flex: 1 }}>{renderInputField()}</View>
         {inputProps.passwordIcon && (
           <TouchableOpacity onPress={togglePasswordVisibility}>
@@ -261,8 +262,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     color: "#2D2D2A",
-    marginLeft: 10,
-    marginTop: 5,
+    marginLeft: 4,
+    marginTop: 0,
     fontWeight: "500",
   },
   inputContainer: {

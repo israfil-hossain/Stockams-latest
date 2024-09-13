@@ -3,7 +3,7 @@ import { adminAPI } from "../../api";
 
 
 
-const usePatchUpdate = ({
+const usePatch = ({
   endpoint = "",
   isMultiPart = false,
   onSuccess,
@@ -34,4 +34,4 @@ const usePatchUpdate = ({
   return mutation;
 };
 
-export default usePatchUpdate;
+export default usePatch;

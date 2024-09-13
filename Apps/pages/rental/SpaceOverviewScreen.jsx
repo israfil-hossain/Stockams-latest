@@ -1,5 +1,4 @@
-import React, { Children, useCallback, useRef, useState } from "react";
-import { Alert } from "react-native";
+import React, { Children, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   Octicons,
@@ -25,6 +24,9 @@ import Banner from "../../components/host_rental_panel/booking/Banner";
 import FeatureCard from "../../components/host_rental_panel/booking/Feature";
 import Access from "../../components/host_rental_panel/booking/Access";
 import CongratulationBottomCard from "../../components/host_rental_panel/components/CongratulationBottomCard";
+import PackingBottomCard from "../../components/host_rental_panel/components/PackingBottomCard";
+import PickupFormBottomCard from "../../components/host_rental_panel/components/PickupFormBottomCard";
+import CostModal from "../../components/host_rental_panel/components/CostModal";
 
 const SpaceOverviewScreen = () => {
   const navigation = useNavigation();
@@ -35,8 +37,9 @@ const SpaceOverviewScreen = () => {
 
   const issOpen = useSharedValue(false);
   const congratulationOpen = useSharedValue(false);
-  const packOpen = useSharedValue(false);
-  const pickTimeOpen = useSharedValue(false);
+  const packingStufOpen = useSharedValue(false);
+  const pickFormOpen = useSharedValue(false);
+  const pickUpTimeOpen = useSharedValue(false); 
   const costOpen = useSharedValue(false);
 
   const toggleSheet = () => {
@@ -46,14 +49,19 @@ const SpaceOverviewScreen = () => {
   const congratulationSheet = () => {
     congratulationOpen.value = !congratulationOpen.value;
   };
-  const packOpenSheet = () => {
+  const packStuffOpenSheet = () => {
     congratulationOpen.value = !congratulationOpen.value;
-    packOpen.value = !packOpen.value;
+    packingStufOpen.value = !packOpen.packingStufOpen;
   };
-  const pickTimeOpenSheet = () => {
-    pickTimeOpen.value = !pickTimeOpen.value;
+  const pickFormOpenSheet = () => {
+    // packOpen.value = !packOpen.value;
+    pickFormOpen.value = !pickFormOpen.value;
   };
+  const pickUpTimeOpenSheet = () => {
+    pickUpTimeOpen.value = !pickUpTimeOpen.value; 
+  }
   const costOpenSheet = () => {
+    pickFormOpen.value = !pickFormOpen.value;
     costOpen.value = !costOpen.value;
   };
 
@@ -153,21 +161,57 @@ const SpaceOverviewScreen = () => {
               size={"100%"}
               height={45}
               bg={Colors.primary}
-              onPress={toggleSheet}
+              onPress={pickUpTimeOpenSheet}
             />
           </View>
         </View>
-
-        <CommonBottomSheet isOpen={issOpen} toggleSheet={toggleSheet}>
+        
+        {/* Booking Modal  */}
+        {/* <CommonBottomSheet isOpen={issOpen} toggleSheet={toggleSheet}>
           <BookingBottomCard data={spaceRentData?.data} toggleSheet={toggleSheet} congratulationSheet={congratulationSheet}/>
-        </CommonBottomSheet>
+        </CommonBottomSheet> */}
 
-        <CommonBottomSheet
+        {/* Congratulation Modal  */}
+        {/* <CommonBottomSheet
           isOpen={congratulationOpen}
           toggleSheet={congratulationSheet}
         >
           <CongratulationBottomCard  toggleSheet={packOpenSheet}/>
+        </CommonBottomSheet> */}
+
+        {/* Packing Stuff Modal  */}
+        {/* <CommonBottomSheet
+          isOpen={packOpen}
+          toggleSheet={packOpenSheet}
+        >
+          <PackingBottomCard  toggleSheet={pickTimeOpenSheet}  />
+        </CommonBottomSheet> */}
+
+       {/* Pickup Form  Modal*/}
+       <CommonBottomSheet
+          isOpen={pickFormOpen}
+          toggleSheet={pickFormOpenSheet} 
+        >
+          <PickupFormBottomCard  toggleSheet={""} />
         </CommonBottomSheet>
+
+        {/* PickupTime  Form  Modal*/}
+       <CommonBottomSheet
+          isOpen={pickUpTimeOpen}
+          toggleSheet={pickUpTimeOpenSheet} 
+        >
+          <PickupFormBottomCard  toggleSheet={""} />
+        </CommonBottomSheet>
+
+
+        {/* Cost  Modal  */}
+       {/* <CommonBottomSheet
+          isOpen={costOpen}
+          toggleSheet={costOpenSheet}
+        >
+          <CostModal  toggleSheet={costOpenSheet}/>
+        </CommonBottomSheet> */}
+
       </ScrollView>
     </View>
   );

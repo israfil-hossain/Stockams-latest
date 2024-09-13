@@ -17,6 +17,10 @@ const loadFonts = async () => {
     outfit: require("./assets/fonts/Outfit-Regular.ttf"),
     "outfit-bold": require("./assets/fonts/Outfit-Bold.ttf"),
     "outfit-medium": require("./assets/fonts/Outfit-SemiBold.ttf"),
+    lato: require("./assets/fonts/Lato-Regular.ttf"),
+    "lato-bold" : require("./assets/fonts/Lato-Bold.ttf"),
+    "lato-medium": require("./assets/fonts/Lato-Black.ttf")
+
   });
 };
 
@@ -53,7 +57,7 @@ export default function App() {
         </AuthUserProvider>
       </QueryClientProvider>
 
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
     </SafeAreaView>
   );
 }

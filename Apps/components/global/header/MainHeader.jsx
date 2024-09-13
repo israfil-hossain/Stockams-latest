@@ -12,6 +12,7 @@ import PopUpBottomModal from "../../modals/BottomCenterModal";
 import { useNavigation } from "@react-navigation/native";
 import NotificationCard from "../Card/NotificationCard";
 import ReviewComponent from "../../host_rental_panel/components/ReviewComponent";
+import { StatusBar } from "expo-status-bar";
 
 // Create your ExploreHeader component
 const MainHeader = () => {
@@ -49,7 +50,7 @@ const MainHeader = () => {
 
   return (
     <SafeAreaView style={{}} className="-mt-2">
-      {/* <StatusBar style="dark" /> */}
+      <StatusBar style="dark" />
       <View style={styles.container}>
         <View style={styles.actionRow}>
           <Text className=" font-[outfit-medium] text-2xl text-black">

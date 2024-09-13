@@ -9,4 +9,5 @@ export default Colors = {
   akcent : '#B3FAFF',
   gray2:'#FFFFF8',
   white:'#FFFFFF',
+  danger: 'red'
 };

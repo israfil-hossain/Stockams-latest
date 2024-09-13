@@ -68,8 +68,6 @@ const BookingBottomCard = ({ data,toggleSheet,congratulationSheet}) => {
       },
     });
 
-  console.log(isError);
-
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       setSubmitting(true);
