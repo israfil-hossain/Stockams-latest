@@ -31,6 +31,9 @@
       "expo-router",
       "expo-localization"
     ],
+    "locals":{
+      "en":"./Apps/translation/en.json"
+    },
     "extra": {
       "router": {
         "origin": false

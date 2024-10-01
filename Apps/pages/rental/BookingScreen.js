@@ -45,13 +45,13 @@ const BookingScreen = () => {
         <CustomButton
           bg={tab === "Request" ? Colors.akcent : Colors.gray2}
           size={150}
-          text="Space Owner"
+          text="Booking Request"
           height={45}
           // icon={space_owner}
           showIcon={true}
           onPress={() => setTab("Request")}
           // type="image"
-          className={` ${tab === "Request" ? "bg-primary" : "bg-gray-200"} w-36 font-[outfit] rounded-r-lg`}
+          className={` ${tab === "Request" ? "bg-primary" : "bg-gray-200"} w-40 font-[outfit] rounded-r-lg`}
         />
       </View>
       {isFetching || isLoading ? (

@@ -15,7 +15,7 @@ import noimage from './noimage.png';
 import nodata from './nodata.jpg'; 
 import starbroken from './star-broken.png';
 import congratulation from './congratulation.png'; 
-
+import initialIcon from './SplashIcon.png'; 
 export {
     back,
     next,
@@ -33,6 +33,7 @@ export {
     noimage,
     nodata,
     starbroken,
-    congratulation
+    congratulation, 
+    initialIcon
     
 }

@@ -48,7 +48,7 @@ const HomeScreen = () => {
             className="px-3 mb-5"
             data={bookingData}
             key={bookingData?._id}
-            renderItem={({ item }) => <StoreCard data={item} />}
+            renderItem={({ item }) => <StoreCard data={item || []} />}
           />
           <View className="flex-row justify-between items-center">
             <View>

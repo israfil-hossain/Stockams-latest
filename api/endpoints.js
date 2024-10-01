@@ -77,9 +77,6 @@ export const API = {
   // Booking
   SpaceBooking: "/api/SpaceBooking/Book", // Post for Booking Space.
 
-  //Country API
-  CountryList: "https://api.countrystatecity.in/v1/countries",
-
   // Supports
   GetAllTicket: "/api/Support/GetAllTickets",
   CreateTicket: "/api/Support/CreateTicket",

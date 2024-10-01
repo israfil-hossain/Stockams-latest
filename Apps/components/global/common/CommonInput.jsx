@@ -212,7 +212,7 @@ const CustomInput = ({
   };
 
   return (
-    <View style={{ padding: 0, width: width }}>
+    <View style={{ padding: 0, width: width, marginBottom: 6 }}>
       {label && <Text style={styles.label}>{label}</Text>}
       <View
         style={[

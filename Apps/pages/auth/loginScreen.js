@@ -110,6 +110,7 @@ const LoginScreen = () => {
     return <CommonProgress />;
   }
 
+
   return (
     <View style={styles.container}>
       <View style={styles.backgroundImageContainer}>
@@ -211,7 +212,7 @@ const LoginScreen = () => {
                   isLoading={isSigninLoading}
                 />
                 <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-                <Text style={styles.continueWithText}>OR CONTINUE WITH</Text>
+                {/* <Text style={styles.continueWithText}>OR CONTINUE WITH</Text>
                 <View style={styles.socialIconsContainer}>
                   <TouchableOpacity
                     onPress={() => Alert.alert("Press google Login")}
@@ -223,7 +224,7 @@ const LoginScreen = () => {
                   >
                     <Image source={apple} alt="apple" />
                   </TouchableOpacity>
-                </View>
+                </View> */}
                 <View style={styles.createAccountContainer}>
                   <Text style={styles.noAccountText} className="pr-5">
                     {`Don’t have an account`}
@@ -288,13 +289,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignSelf: "center",
-    marginTop: 4,
+    marginTop: 16,
   },
   forgotPasswordText: {
     color: "#ABB0B6",
     fontWeight: "bold",
     alignSelf: "center",
-    marginTop: 6,
+    marginTop: 10,
   },
   continueWithText: {
     color: "#ABB0B6",
@@ -308,7 +309,9 @@ const styles = StyleSheet.create({
   createAccountContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginBottom: 20,
+    marginBottom: 0,
+    marginTop: 16
+
   },
   noAccountText: {
     color: "#ABB0B6",

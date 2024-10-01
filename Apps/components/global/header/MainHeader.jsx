@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
 import { useAuthUserContext } from "../../../context/AuthUserProvider";
 import { profile } from "../../../../assets/images";
@@ -13,12 +13,20 @@ import { useNavigation } from "@react-navigation/native";
 import NotificationCard from "../Card/NotificationCard";
 import ReviewComponent from "../../host_rental_panel/components/ReviewComponent";
 import { StatusBar } from "expo-status-bar";
+import Popover from "react-native-popover-view";
+import { useTranslation } from "react-multi-lang";
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from "react-native-popup-menu";
 
 // Create your ExploreHeader component
 const MainHeader = () => {
+  const { setLanguage } = useTranslation();
   const { userFound } = useAuthUserContext();
   const { userData, userRefetch, userLoading, userRole } = useAuthUserContext();
-  const router = useRouter();
   const navigation = useNavigation();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -27,8 +35,7 @@ const MainHeader = () => {
   const handleProfilePage = () => {
     if (userRole === "RENTER") {
       navigation.navigate("ProfileHome");
-    }
-    else{
+    } else {
       navigation.navigate("ProfileOwner");
     }
   };
@@ -58,11 +65,36 @@ const MainHeader = () => {
           </Text>
 
           <View style={styles.rightHeader}>
-            <View style={[styles.Btn, { marginRight: 10 }]}>
-              <TouchableOpacity>
-                <Ionicons name="language-outline" size={20} />
-              </TouchableOpacity>
+            <View className="mr-4">
+              <Menu>
+                <MenuTrigger
+                  text={
+                    <View style={[styles.Btn]}>
+                      <Ionicons name="language-outline" size={20} />
+                    </View>
+                  }
+                />
+                <MenuOptions>
+                  <MenuOption
+                    onSelect={() => setLanguage("en")}
+                    text="English"
+                  />
+                  <MenuOption
+                    onSelect={() => setLanguage("es")}
+                    text="Spanish"
+                  />
+                  <MenuOption
+                    onSelect={() => setLanguage("fr")}
+                    text="France"
+                  />
+                  <MenuOption
+                    onSelect={() => setLanguage("pl")}
+                    text="Polish"
+                  />
+                </MenuOptions>
+              </Menu>
             </View>
+
             {userFound && (
               <View style={[styles.Btn, { marginRight: 10 }]}>
                 <TouchableOpacity onPress={() => handleOpenModal()}>

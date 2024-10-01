@@ -30,6 +30,7 @@ import { signupValidationSchema } from "../../components/global/auth/validation/
 
 import { API } from "../../../api/endpoints";
 import { adminAPI } from "../../../api";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const SignupScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -231,6 +232,34 @@ const SignupScreen = () => {
                 value={values.address}
                 type="text"
               />
+              <GooglePlacesAutocomplete
+                placeholder="Enter your Address"
+                onPress={(data, details = null) => {
+                  handleChange("address")(data.description+details?.geometry?.location); // set the address field
+                }}
+                query={{
+                  key: process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY, 
+                  language: 'en',
+                }}
+                styles={{
+                  container: {
+                    flex: 0,
+                    marginBottom: 20,
+                  },
+                  textInputContainer: {
+                    borderWidth: 1,
+                    borderColor: '#ccc',
+                    borderRadius: 5,
+                    backgroundColor: '#fff',
+                  },
+                  textInput: {
+                    height: 40,
+                    fontSize: 16,
+                    paddingHorizontal: 10,
+                  },
+                }}
+                onFail={error => console.error(error)} // Handle errors
+              />
 
               <View style={styles.buttonContainer}>
                 <CustomButton
@@ -241,8 +270,7 @@ const SignupScreen = () => {
                   onPress={() => handleSubmit()}
                   disabled={isSubmitting}
                 />
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-                <Text style={styles.continueWithText}>OR CONTINUE WITH</Text>
+                {/* <Text style={styles.continueWithText}>OR CONTINUE WITH</Text>
                 <View style={styles.socialIconsContainer}>
                   <TouchableOpacity
                     onPress={() => Alert.alert("Press google Login")}
@@ -254,8 +282,8 @@ const SignupScreen = () => {
                   >
                     <Image source={apple} alt="apple" />
                   </TouchableOpacity>
-                </View>
-                <View style={styles.createAccountContainer} className="mb-10">
+                </View> */}
+                <View style={styles.createAccountContainer} className="mb-10 ">
                   <Text style={styles.noAccountText} className="pr-3 ">
                     {"Already have an account"}
                   </Text>
@@ -338,7 +366,7 @@ const styles = StyleSheet.create({
   createAccountContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 2,
+    marginTop: 16,
   },
   noAccountText: {
     color: "#ABB0B6",

@@ -26,6 +26,7 @@ import CommonProgress from "../components/global/progress/CommonProgress";
 import SpaceCreateNavigation from "./CreateSpaceNavigator";
 import AddSpaceScreen from "../pages/owner/AddSpaceScreen";
 import LoginScreen from "../pages/auth/loginScreen";
+import InitialScreen from "../pages/InitialScreen";
 
 // Auth Stack
 const AuthStack = createStackNavigator();
@@ -233,14 +234,13 @@ export default function MainNavigator() {
       screenOptions={{
         header: () => <MainHeader />, // Set the global header component
       }}
-      initialRouteName={
-        userFound
-          ? userRole === "RENTER"
-            ? "RentalTabs"
-            : "OwnerTabs"
-          : "AuthTabs"
-      }
+      initialRouteName={userFound ? (userRole === "RENTER" ? "RentalTabs" : "OwnerTabs") : "InitialScreen"}
     >
+      <MainStack.Screen
+        name="InitialScreen"
+        component={InitialScreen}
+        options={{ headerShown: false }} // No header for InitialScreen
+      />
       <MainStack.Screen
         name="AuthTabs"
         component={AuthNavigator}

@@ -5,7 +5,7 @@ export function convertNumber(value) {
 }
 
 export function truncateString(text, maxLength = 50) {
-  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  return text?.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 }
 
 export function calculateDaysAgo(createdAt) {
