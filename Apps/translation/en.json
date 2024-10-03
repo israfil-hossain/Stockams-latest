@@ -1,5 +1,18 @@
 {
   "select_country": "Select your Language ? ",
-  "welcome": "Welcome to Booking ",
-  "hello": "Hello"
+  "auth":{
+    "login_with": "LOGIN WITH",
+    "email": "Email",
+    "enter_email": "Enter your email",
+    "password": "Password", 
+    "enter_pass":"Enter your Password",
+    "forgot": "Forgot Password ?", 
+    "dont_account":"Don't have an account ?",
+    "create_account": "CREATE ACCOUNT", 
+    "create_with":"CREATE ACCOUNT WITH",
+    "renter": "RENTER", 
+    "owner" : "Space Owner", 
+    "btn_login":"Login"
+  }
+  
 }

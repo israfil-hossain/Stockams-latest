@@ -1,7 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import SignupScreen from "../pages/auth/SignupScreen";
 import BookingScreen from "../pages/rental/BookingScreen";
 import MessageScreen from "../pages/rental/MessageScreen";
 import PaymentScreen from "../pages/owner/PaymentScreen";
@@ -27,6 +26,7 @@ import SpaceCreateNavigation from "./CreateSpaceNavigator";
 import AddSpaceScreen from "../pages/owner/AddSpaceScreen";
 import LoginScreen from "../pages/auth/loginScreen";
 import InitialScreen from "../pages/InitialScreen";
+import SignupScreen from "../pages/auth/signupScreen";
 
 // Auth Stack
 const AuthStack = createStackNavigator();

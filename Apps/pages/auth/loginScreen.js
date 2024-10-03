@@ -36,6 +36,7 @@ import { useAuthUserContext } from "../../context/AuthUserProvider";
 import { adminQueryClient } from "../../../api";
 import CommonProgress from "../../components/global/progress/CommonProgress";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { t } from "../../translation/i18n";
 
 const LoginScreen = () => {
   const { userData, userRefetch, userLoading, userFound, userRole } =
@@ -139,12 +140,12 @@ const LoginScreen = () => {
             isSubmitting,
           }) => (
             <View style={styles.formContainer}>
-              <Text style={styles.loginWithText}>LOGIN WITH</Text>
+              <Text style={styles.loginWithText}>{t('auth.login_with')}</Text>
               <View className="flex flex-row justify-between pt-4 pb-3">
                 <CustomButton
                   bg={tab === "RENTER" ? Colors.akcent : Colors.gray2}
                   size={140}
-                  text="Renter"
+                  text={t("auth.renter")}
                   height={45}
                   icon={renter}
                   showIcon={true}
@@ -154,7 +155,7 @@ const LoginScreen = () => {
                 <CustomButton
                   bg={tab === "OWNER" ? Colors.akcent : Colors.gray2}
                   size={150}
-                  text="Space Owner"
+                  text={t('auth.owner')}
                   height={45}
                   icon={space_owner}
                   showIcon={true}
@@ -165,14 +166,14 @@ const LoginScreen = () => {
 
               <CustomInput
                 icon="mail"
-                placeholder="Enter your email"
+                placeholder={t("auth.enter_email")}
                 autoCapitalize="none"
                 autoCompleteType="email"
                 keyboardType="email-address"
                 keyboardAppearance="dark"
                 returnKeyType="next"
                 returnKeyLabel="next"
-                label="Email"
+                label={t('auth.email')}
                 onBlur={handleBlur("email")}
                 error={errors.email}
                 touched={touched.email}
@@ -183,8 +184,8 @@ const LoginScreen = () => {
 
               <CustomInput
                 icon="key"
-                label="Password"
-                placeholder="Enter your password"
+                label={t("auth.password")}
+                placeholder={t("auth.enter_pass")}
                 secureTextEntry={showPassword ? false : true}
                 autoCompleteType="password"
                 autoCapitalize="none"
@@ -205,13 +206,13 @@ const LoginScreen = () => {
                 <CustomButton
                   bg={Colors.primary}
                   size={300}
-                  text="Login"
+                  text={t('auth.btn_login')}
                   height={45}
                   onPress={() => handleSubmit()}
                   disabled={isSubmitting}
                   isLoading={isSigninLoading}
                 />
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+                <Text style={styles.forgotPasswordText}>{t('auth.forgot')}</Text>
                 {/* <Text style={styles.continueWithText}>OR CONTINUE WITH</Text>
                 <View style={styles.socialIconsContainer}>
                   <TouchableOpacity
@@ -227,13 +228,13 @@ const LoginScreen = () => {
                 </View> */}
                 <View style={styles.createAccountContainer}>
                   <Text style={styles.noAccountText} className="pr-5">
-                    {`Don’t have an account`}
+                    {t('auth.dont_account')}
                   </Text>
 
                   <TouchableOpacity
                     onPress={() => navigation.navigate("Signup")}
                   >
-                    <Text style={styles.createAccountText}>CREATE ACCOUNT</Text>
+                    <Text style={styles.createAccountText}>{t('auth.create_account')}</Text>
                   </TouchableOpacity>
                 </View>
               </View>

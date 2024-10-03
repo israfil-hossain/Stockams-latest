@@ -1,4 +1,17 @@
 {
-    "welcome": "Welcome Polish",
-    "hello": "Hello"
+  "select_country": "Wybierz swój język? ",
+  "auth": {
+    "login_with": "ZALOGUJ SIĘ Z",
+    "email": "E-mail",
+    "enter_email": "Wpisz swój adres e-mail",
+    "password": "Hasło",
+    "enter_pass": "Wpisz swoje hasło",
+    "forgot": "Zapomniałeś hasła?",
+    "dont_account": "Nie masz konta?",
+    "create_account": "UTWÓRZ KONTO",
+    "create_with": "ZAŁÓŻ KONTO Z",
+    "renter": "LOKATOR",
+    "owner": "Właściciel przestrzeni",
+    "btn_login": "Login"
   }
+}

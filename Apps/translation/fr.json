@@ -1,4 +1,17 @@
 {
-    "welcome": "Bienvenue",
-    "hello": "Bonjour"
+    "select_country": "Sélectionnez votre langue ? ",
+    "auth": {
+    "login_with": "CONNEXION AVEC",
+    "email": "E-mail",
+    "enter_email": "Entrez votre email",
+    "password": "Mot de passe",
+    "enter_pass": "Entrez votre mot de passe",
+    "forgot": "Mot de passe oublié ?",
+    "dont_account": "Vous n'avez pas de compte ?",
+    "create_account": "CRÉER UN COMPTE",
+    "create_with": "CRÉER UN COMPTE AVEC",
+    "renter": "LOUEUR",
+    "owner": "Propriétaire de l'espace",
+    "btn_login": "Se connecter"
+  }
 }

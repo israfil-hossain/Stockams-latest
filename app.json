@@ -15,7 +15,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.flowentech.stockams",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "your-client-id"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {

@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import Entypo from "@expo/vector-icons/Entypo";
-
 import { looper, initialIcon } from "../../assets/images";
 import { useNavigation } from "@react-navigation/native";
-import {
-  Menu,
-  MenuOption,
-  MenuOptions,
-  MenuTrigger,
-} from "react-native-popup-menu";
+
 import { t } from "../translation/i18n";
 import { getStoredLanguage, setLanguage } from "../utils/language";
 import RNPickerSelect from "react-native-picker-select"; // Import PickerSelect

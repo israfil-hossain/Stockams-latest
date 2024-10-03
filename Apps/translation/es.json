@@ -1,4 +1,17 @@
 {
-    "welcome": "Welcome Spanish ",
-    "hello": "Hello"
+    "select_country": "Seleccione su idioma? ",
+    "auth": {
+        "login_with": "INICIAR SESIÓN CON",
+        "email": "Correo electrónico",
+        "enter_email": "Introduce tu correo electrónico",
+        "password": "Contraseña",
+        "enter_pass": "Ingrese su Contraseña",
+        "forgot": "Has olvidado tu contraseña ?",
+        "dont_account": "¿No tienes una cuenta?",
+        "create_account": "CREAR UNA CUENTA",
+        "create_with": "CREAR CUENTA CON",
+        "renter": "INQUILINO",
+        "owner": "Propietario del espacio",
+        "btn_login": "Acceso"
+    }
 }

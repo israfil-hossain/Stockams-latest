@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Platform, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { ToastProvider } from "react-native-toast-notifications";
@@ -11,7 +11,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import AuthUserProvider from "./Apps/context/AuthUserProvider";
 import CommonProgress from "./Apps/components/global/progress/CommonProgress";
 import { adminQueryClient } from "./api";
-
+import { StripeProvider } from "@stripe/stripe-react-native";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -31,7 +31,6 @@ export default function App() {
     loadFonts().then(() => setFontsLoaded(true));
   }, []);
 
-
   if (!fontsLoaded) {
     return <CommonProgress />;
   }
@@ -50,10 +49,15 @@ export default function App() {
                 ),
               }}
             >
-              {/* <SplashScreen /> */}
-              <NavigationContainer>
-                <MainNavigator />
-              </NavigationContainer>
+              <StripeProvider
+                publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISH_KEY}
+                // merchantIdentifier = {Platform.OS === 'ios' ? 'merchant.identifier' : undefined }
+              >
+                {/* <SplashScreen /> */}
+                <NavigationContainer>
+                  <MainNavigator />
+                </NavigationContainer>
+              </StripeProvider>
             </ToastProvider>
           </MenuProvider>
         </AuthUserProvider>
