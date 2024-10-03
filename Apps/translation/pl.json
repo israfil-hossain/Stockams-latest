@@ -10,8 +10,28 @@
     "dont_account": "Nie masz konta?",
     "create_account": "UTWÓRZ KONTO",
     "create_with": "ZAŁÓŻ KONTO Z",
-    "renter": "LOKATOR",
+    "renter": "Lokator",
     "owner": "Właściciel przestrzeni",
     "btn_login": "Login"
+  },
+  "signup": {
+    "create_with": "ZAŁÓŻ KONTO Z",
+    "renter": "Lokator",
+    "owner": "Właściciel przestrzeni",
+    "fullName": "Pełne imię i nazwisko",
+    "enter_name": "Wpisz swoje pełne imię i nazwisko",
+    "phoneNumber": "Telefon",
+    "enter_phoneNumber": "Wpisz swój numer telefonu",
+    "dateofbirth": "DOB",
+    "enter_dateofbirth": "Wpisz swoją datę urodzenia",
+    "email": "E-mail",
+    "enter_email": "Wpisz swój adres e-mail",
+    "password": "Hasło",
+    "enter_pass": "Wpisz swoje hasło",
+    "address": "Adres",
+    "enter_address": "Wpisz swój adres",
+    "create_account": "UTWÓRZ KONTO",
+    "have_account": "Masz już konto?",
+    "login_here": "Zaloguj się tutaj"
   }
 }

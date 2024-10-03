@@ -1,6 +1,6 @@
 {
-    "select_country": "Sélectionnez votre langue ? ",
-    "auth": {
+  "select_country": "Sélectionnez votre langue ? ",
+  "auth": {
     "login_with": "CONNEXION AVEC",
     "email": "E-mail",
     "enter_email": "Entrez votre email",
@@ -10,8 +10,28 @@
     "dont_account": "Vous n'avez pas de compte ?",
     "create_account": "CRÉER UN COMPTE",
     "create_with": "CRÉER UN COMPTE AVEC",
-    "renter": "LOUEUR",
+    "renter": "Loueur",
     "owner": "Propriétaire de l'espace",
     "btn_login": "Se connecter"
+  },
+  "signup": {
+    "create_with": "CRÉER UN COMPTE AVEC",
+    "renter": "Loueur",
+    "owner": "Propriétaire de l'espace",
+    "fullName": "Nom et prénom",
+    "enter_name": "Entrez votre nom complet",
+    "phoneNumber": "Téléphone",
+    "enter_phoneNumber": "Entrez votre numéro de téléphone",
+    "dateofbirth": "Date de naissance",
+    "enter_dateofbirth": "Entrez votre date de naissance",
+    "email": "E-mail",
+    "enter_email": "Entrez votre email",
+    "password": "Mot de passe",
+    "enter_pass": "Entrez votre mot de passe",
+    "address": "Adresse",
+    "enter_address": "Entrez votre adresse",
+    "create_account": "CRÉER UN COMPTE",
+    "have_account": "Vous avez déjà un compte ?",
+    "login_here": "Connectez-vous ici"
   }
 }
