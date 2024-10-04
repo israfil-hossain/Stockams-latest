@@ -27,6 +27,7 @@ import AddSpaceScreen from "../pages/owner/AddSpaceScreen";
 import LoginScreen from "../pages/auth/loginScreen";
 import InitialScreen from "../pages/InitialScreen";
 import SignupScreen from "../pages/auth/signupScreen";
+import { t } from "../translation/i18n";
 
 // Auth Stack
 const AuthStack = createStackNavigator();
@@ -79,7 +80,7 @@ const RentalTabNavigator = () => {
         name="Nearme"
         component={BookingScreenNavigation}
         options={{
-          tabBarLabel: "Near Me",
+          tabBarLabel: t("tab.near_me") || "",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="my-location" size={24} color={color} />
           ),
@@ -90,7 +91,7 @@ const RentalTabNavigator = () => {
         name="Message"
         component={MessageScreen}
         options={{
-          tabBarLabel: "Messages",
+          tabBarLabel: t("tab.massage") || "",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="message" size={24} color={color} />
           ),
@@ -112,7 +113,7 @@ const RentalTabNavigator = () => {
         name="Booking"
         component={BookingScreen}
         options={{
-          tabBarLabel: "Booking",
+          tabBarLabel: t("tab.booking") || "",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="book-multiple-outline"
@@ -127,7 +128,7 @@ const RentalTabNavigator = () => {
         name="ProfileHome"
         component={ProfileScreenNavigation}
         options={{
-          tabBarLabel: "Profile",
+          tabBarLabel: t("tab.profile") || "",
           tabBarIcon: ({ color, size }) => (
             <Octicons name="person" size={18} color={color} />
           ),
@@ -167,7 +168,7 @@ const OwnerTabNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: t("tab.home") || "",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="home" size={24} color={color} />
           ),
@@ -177,7 +178,7 @@ const OwnerTabNavigator = () => {
         name="RentalsOwner"
         component={SpaceCreateNavigation}
         options={{
-          tabBarLabel: "Rentals",
+          tabBarLabel: t("tab.rental") || "",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="car-rental" size={24} color={color} />
           ),
@@ -203,7 +204,7 @@ const OwnerTabNavigator = () => {
         name="Payment"
         component={PaymentScreen}
         options={{
-          tabBarLabel: "Payments",
+          tabBarLabel: t("tab.payment") || "",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="payment" size={18} color={color} />
           ),
@@ -213,7 +214,7 @@ const OwnerTabNavigator = () => {
         name="ProfileOwner"
         component={ProfileScreenNavigation}
         options={{
-          tabBarLabel: "Profile",
+          tabBarLabel: t("tab.profile") || "",
           tabBarIcon: ({ color, size }) => (
             <Octicons name="person" size={18} color={color} />
           ),

@@ -33,5 +33,32 @@
     "create_account": "UTWÓRZ KONTO",
     "have_account": "Masz już konto?",
     "login_here": "Zaloguj się tutaj"
+  },
+  "profile": {
+    "hello": "Cześć",
+    "profile_info": "Informacje o profilu",
+    "change_pass": "Zmień hasło",
+    "fav": "Ulubiony",
+    "manage_pay": "Zarządzaj płatnościami",
+    "terms": "Warunki",
+    "policy": "Polityka prywatności"
+  },
+ "tab": {
+    "near_me": "Blisko mnie",
+    "massage": "Masaż",
+    "booking": "Rezerwacja",
+    "profile": "Profil",
+    "home": "Dom",
+    "rental": "Dzierżawa",
+    "payment": "Zapłata"
+  },
+  "profile_info": {
+    "fullName": "Pełne imię i nazwisko",
+    "phoneNumber": "Telefon",
+    "dateofbirth": "Data urodzenia",
+    "email": "E-mail",
+    "address": "Adres",
+    "personal": "Dane osobowe"
   }
+  
 }

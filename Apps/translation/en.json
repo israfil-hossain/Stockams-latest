@@ -33,7 +33,33 @@
       "create_account": "CREATE ACCOUNT", 
       "have_account":"Already have an account ?",
       "login_here": "Login Here"
-  }
-  
+  },
+  "profile":{
+      "hello":"Hello",
+      "profile_info": "Profile Information", 
+      "change_pass":"Change Password",
+      "fav": "Favourite",
+      "manage_pay": "Manage Payment",
+      "terms": "Terms And Conditions",
+      "policy": "Privacy Policy"
+    },
+    "tab":{
+      "near_me":"Near Me",
+      "massage": "Massage", 
+      "booking":"Booking",
+      "profile": "Profile",
+      "home":"Home",
+      "rental": "Rental", 
+      "payment":"Payment"
+    },
+    "profile_info":{
+      "fullName": "Full name",
+      "phoneNumber": "Phone",
+      "dateofbirth": "Date Of Birth",
+      "email": "Email",
+      "address": "Address",
+      "personal": "Personal Information"
+    },
+    "back_button" : "Back to"
   
 }

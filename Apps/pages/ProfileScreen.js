@@ -14,7 +14,7 @@ import { useToast } from "react-native-toast-notifications";
 import { useAuthUserContext } from "../context/AuthUserProvider";
 import { adminQueryClient } from "../../api";
 import { useQueryClient } from "@tanstack/react-query";
-
+import { t } from "../translation/i18n";
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const toast = useToast();
@@ -46,7 +46,7 @@ const ProfileScreen = () => {
           )}
           <View className="w-[66%]">
             <Text className="font-[outfit-bold] text-md  uppercase text-violet-800">
-              Hello!
+            {t("profile.hello")}
             </Text>
             <Text className="font-[outfit-medium] text-lg  uppercase text-purple-800">
               {userData?.fullName}
@@ -69,7 +69,7 @@ const ProfileScreen = () => {
             activeOpacity={0.8}
             className="w-[330px] bg-white shadow-md shadow-black rounded-xl px-5 py-4 flex flex-row justify-between"
           >
-            <Text className="text-[16px] font-medium">Profile Information</Text>
+            <Text className="text-[16px] font-medium">{t("profile.profile_info")}</Text>
             <Image className="w-[22px] h-[22px] ml-2" source={next} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -77,7 +77,7 @@ const ProfileScreen = () => {
             activeOpacity={0.8}
             className="w-[330px] bg-white shadow-md shadow-black rounded-xl px-5 py-4 flex flex-row justify-between"
           >
-            <Text className="text-[16px] font-medium">Change Password</Text>
+            <Text className="text-[16px] font-medium">{t("profile.change_pass")}</Text>
             <Image className="w-[22px] h-[22px] ml-2" source={next} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -85,7 +85,7 @@ const ProfileScreen = () => {
             activeOpacity={0.8}
             className="w-[330px] bg-white shadow-md shadow-black rounded-xl px-5 py-4 flex flex-row justify-between"
           >
-            <Text className="text-[16px] font-medium">Favourite</Text>
+            <Text className="text-[16px] font-medium">{t("profile.fav")}</Text>
             <Image className="w-[22px] h-[22px] ml-2" source={next} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -93,7 +93,7 @@ const ProfileScreen = () => {
             activeOpacity={0.8}
             className="w-[330px] bg-white shadow-md shadow-black rounded-xl px-5 py-4 flex flex-row justify-between"
           >
-            <Text className="text-[16px] font-medium">Manage Payment</Text>
+            <Text className="text-[16px] font-medium">{t("profile.manage_pay")}</Text>
             <Image className="w-[22px] h-[22px] ml-2" source={next} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -101,7 +101,7 @@ const ProfileScreen = () => {
             activeOpacity={0.8}
             className="w-[330px] bg-white shadow-md shadow-black rounded-xl px-5 py-4 flex flex-row justify-between"
           >
-            <Text className="text-[16px] font-medium">Terms And Condition</Text>
+            <Text className="text-[16px] font-medium">{t("profile.terms")}</Text>
             <Image className="w-[22px] h-[22px] ml-2" source={next} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -109,7 +109,7 @@ const ProfileScreen = () => {
             activeOpacity={0.8}
             className="w-[330px] bg-white shadow-md shadow-black rounded-xl px-5 py-4 flex flex-row justify-between"
           >
-            <Text className="text-[16px] font-medium">Privacy Policy</Text>
+            <Text className="text-[16px] font-medium">{t("profile.policy")}</Text>
             <Image className="w-[22px] h-[22px] ml-2" source={next} />
           </TouchableOpacity>
         </View>
