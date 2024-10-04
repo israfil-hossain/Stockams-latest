@@ -10,9 +10,56 @@
     "dont_account":"Don't have an account ?",
     "create_account": "CREATE ACCOUNT", 
     "create_with":"CREATE ACCOUNT WITH",
-    "renter": "RENTER", 
+    "renter": "Renter", 
     "owner" : "Space Owner", 
     "btn_login":"Login"
-  }
+  },
+  "signup":{
+      "create_with":"CREATE ACCOUNT WITH",
+      "renter": "Renter", 
+      "owner" : "Space Owner",
+      "fullName": "Full name",
+      "enter_name": "Enter your full name",
+      "phoneNumber": "Phone",
+      "enter_phoneNumber": "Enter your phone number",
+      "dateofbirth": "DOB",
+      "enter_dateofbirth": "Enter your date of birth",
+      "email": "Email",
+      "enter_email": "Enter your email",
+      "password": "Password", 
+      "enter_pass":"Enter your password",
+      "address": "Address",
+      "enter_address": "Enter your address",
+      "create_account": "CREATE ACCOUNT", 
+      "have_account":"Already have an account ?",
+      "login_here": "Login Here"
+  },
+  "profile":{
+      "hello":"Hello",
+      "profile_info": "Profile Information", 
+      "change_pass":"Change Password",
+      "fav": "Favourite",
+      "manage_pay": "Manage Payment",
+      "terms": "Terms And Conditions",
+      "policy": "Privacy Policy"
+    },
+    "tab":{
+      "near_me":"Near Me",
+      "massage": "Massage", 
+      "booking":"Booking",
+      "profile": "Profile",
+      "home":"Home",
+      "rental": "Rental", 
+      "payment":"Payment"
+    },
+    "profile_info":{
+      "fullName": "Full name",
+      "phoneNumber": "Phone",
+      "dateofbirth": "Date Of Birth",
+      "email": "Email",
+      "address": "Address",
+      "personal": "Personal Information"
+    },
+    "back_button" : "Back to"
   
 }

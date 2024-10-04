@@ -48,14 +48,13 @@ const InitialScreen = () => {
           <RNPickerSelect
             onValueChange={(value) => handleChangeLanguage(value)}
             items={[
-              { label: "🇬🇧 English", value: "en" },
               { label: "🇪🇸 Spanish", value: "es" },
               { label: "🇫🇷 French", value: "fr" },
               { label: "🇵🇱 Polish", value: "pl" },
             ]}
             style={pickerSelectStyles.inputAndroid}
            
-            placeholder={{ label: "🇬🇧 English", value: null }}
+            placeholder={{ label: "🇬🇧 English", value: "en" }}
           />
         </View>
         </View>

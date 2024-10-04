@@ -31,6 +31,7 @@ import { signupValidationSchema } from "../../components/global/auth/validation/
 import { API } from "../../../api/endpoints";
 import { adminAPI } from "../../../api";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { t } from "../../translation/i18n";
 
 const SignupScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -107,12 +108,12 @@ const SignupScreen = () => {
             isSubmitting,
           }) => (
             <View style={styles.formContainer}>
-              <Text style={styles.loginWithText}>CREATE ACCOUNT WITH </Text>
+              <Text style={styles.loginWithText}>{t('signup.create_with')}</Text>
               <View className="flex flex-row justify-between pt-4 pb-3">
                 <CustomButton
                   bg={tab === "RENTER" ? Colors.akcent : Colors.gray2}
                   size={140}
-                  text="Renter"
+                  text={t("signup.renter")}
                   height={45}
                   icon={renter}
                   showIcon={true}
@@ -122,7 +123,7 @@ const SignupScreen = () => {
                 <CustomButton
                   bg={tab === "OWNER" ? Colors.akcent : Colors.gray2}
                   size={150}
-                  text="Space Owner"
+                  text={t("signup.owner")}
                   height={45}
                   icon={space_owner}
                   showIcon={true}
@@ -133,12 +134,12 @@ const SignupScreen = () => {
 
               <CustomInput
                 icon="person-circle-sharp"
-                placeholder="Enter your Full Name"
+                placeholder={t("signup.enter_name")}
                 autoCapitalize="none"
                 keyboardAppearance="dark"
                 returnKeyType="next"
                 returnKeyLabel="next"
-                label="Full Name"
+                label={t("signup.fullName")}
                 onBlur={handleBlur("fullName")}
                 error={errors.fullName}
                 touched={touched.fullName}
@@ -148,13 +149,13 @@ const SignupScreen = () => {
               />
               <CustomInput
                 icon="phone-portrait-outline"
-                placeholder="Enter your Phone Number"
+                placeholder={t("signup.enter_phoneNumber")}
                 autoCapitalize="none"
                 keyboardAppearance="dark"
                 keyboardType="numeric"
                 returnKeyType="next"
                 returnKeyLabel="next"
-                label="Phone"
+                label={t('signup.phoneNumber')}
                 onBlur={handleBlur("phoneNumber")}
                 error={errors.phoneNumber}
                 touched={touched.phoneNumber}
@@ -164,12 +165,12 @@ const SignupScreen = () => {
               />
               <CustomInput
                 icon="calendar-outline"
-                placeholder="Enter your Date of Birth"
+                placeholder={t('signup.enter_dateofbirth')}
                 autoCapitalize="none"
                 keyboardAppearance="dark"
                 returnKeyType="next"
                 returnKeyLabel="next"
-                label="DOB"
+                label={t('signup.dateofbirth')}
                 onBlur={handleBlur("dateOfBirth")}
                 error={errors.dateOfBirth}
                 touched={touched.dateOfBirth}
@@ -181,14 +182,14 @@ const SignupScreen = () => {
 
               <CustomInput
                 icon="mail"
-                placeholder="Enter your email"
+                placeholder={t('signup.enter_email')}
                 autoCapitalize="none"
                 autoCompleteType="email"
                 keyboardType="email-address"
                 keyboardAppearance="dark"
                 returnKeyType="next"
                 returnKeyLabel="next"
-                label="Email"
+                label={t('signup.email')}
                 onBlur={handleBlur("email")}
                 error={errors.email}
                 touched={touched.email}
@@ -199,8 +200,8 @@ const SignupScreen = () => {
 
               <CustomInput
                 icon="key"
-                label="Password"
-                placeholder="Enter your password"
+                label={t('signup.password')}
+                placeholder={t('signup.enter_pass')}
                 secureTextEntry={showPassword ? false : true}
                 autoCompleteType="password"
                 autoCapitalize="none"
@@ -219,12 +220,12 @@ const SignupScreen = () => {
 
               <CustomInput
                 icon="location"
-                placeholder="Enter your Address"
+                placeholder={t('signup.enter_address')}
                 autoCapitalize="none"
                 keyboardAppearance="dark"
                 returnKeyType="next"
                 returnKeyLabel="next"
-                label="Address"
+                label={t('signup.address')}
                 onBlur={handleBlur("address")}
                 error={errors.address}
                 touched={touched.address}
@@ -233,7 +234,7 @@ const SignupScreen = () => {
                 type="text"
               />
               <GooglePlacesAutocomplete
-                placeholder="Enter your Address"
+                placeholder={t('signup.enter_address')}
                 onPress={(data, details = null) => {
                   handleChange("address")(data.description+details?.geometry?.location); // set the address field
                 }}
@@ -265,7 +266,7 @@ const SignupScreen = () => {
                 <CustomButton
                   bg={Colors.primary}
                   size={300}
-                  text="Create Account"
+                  text={t('signup.create_account')}
                   height={45}
                   onPress={() => handleSubmit()}
                   disabled={isSubmitting}
@@ -285,12 +286,12 @@ const SignupScreen = () => {
                 </View> */}
                 <View style={styles.createAccountContainer} className="mb-10 ">
                   <Text style={styles.noAccountText} className="pr-3 ">
-                    {"Already have an account"}
+                    {t('signup.have_account')}
                   </Text>
                   <TouchableOpacity
                     onPress={() => navigation.navigate("Login")}
                   >
-                    <Text style={styles.createAccountText}>Login Here</Text>
+                    <Text style={styles.createAccountText}>{t("signup.login_here")}</Text>
                   </TouchableOpacity>
                 </View>
               </View>

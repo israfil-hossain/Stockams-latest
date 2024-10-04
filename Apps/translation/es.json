@@ -1,17 +1,64 @@
 {
-    "select_country": "Seleccione su idioma? ",
-    "auth": {
-        "login_with": "INICIAR SESIÓN CON",
-        "email": "Correo electrónico",
-        "enter_email": "Introduce tu correo electrónico",
-        "password": "Contraseña",
-        "enter_pass": "Ingrese su Contraseña",
-        "forgot": "Has olvidado tu contraseña ?",
-        "dont_account": "¿No tienes una cuenta?",
-        "create_account": "CREAR UNA CUENTA",
-        "create_with": "CREAR CUENTA CON",
-        "renter": "INQUILINO",
-        "owner": "Propietario del espacio",
-        "btn_login": "Acceso"
-    }
+  "select_country": "Seleccione su idioma? ",
+  "auth": {
+    "login_with": "INICIAR SESIÓN CON",
+    "email": "Correo electrónico",
+    "enter_email": "Introduce tu correo electrónico",
+    "password": "Contraseña",
+    "enter_pass": "Ingrese su Contraseña",
+    "forgot": "Has olvidado tu contraseña ?",
+    "dont_account": "¿No tienes una cuenta?",
+    "create_account": "CREAR UNA CUENTA",
+    "create_with": "CREAR CUENTA CON",
+    "renter": "Inquilino",
+    "owner": "Propietario del espacio",
+    "btn_login": "Acceso"
+  },
+  "signup": {
+    "create_with": "CREAR CUENTA CON",
+    "renter": "Inquilino",
+    "owner": "Propietario del espacio",
+    "fullName": "nombre completo",
+    "enter_name": "Introduce tu nombre completo",
+    "phoneNumber": "Teléfono",
+    "enter_phoneNumber": "Introduce tu número de teléfono",
+    "dateofbirth": "fecha de nacimiento",
+    "enter_dateofbirth": "Introduce tu fecha de nacimiento",
+    "email": "Correo electrónico",
+    "enter_email": "Introduce tu correo electrónico",
+    "password": "Contraseña",
+    "enter_pass": "Introduce tu contraseña",
+    "address": "DIRECCIÓN",
+    "enter_address": "Introduce tu dirección",
+    "create_account": "CREAR UNA CUENTA",
+    "have_account": "¿Ya tienes una cuenta?",
+    "login_here": "Inicia sesión aquí"
+  },
+    "profile": {
+      "hello": "Hola",
+      "profile_info": "Información de perfil",
+      "change_pass": "Cambiar la contraseña",
+      "fav": "Favorito",
+      "manage_pay": "Administrar pago",
+      "terms": "Términos y condiciones",
+      "policy": "política de privacidad"
+    },
+    "tab": {
+    "near_me": "cerca de mí",
+    "massage": "Masaje",
+    "booking": "Reserva",
+    "profile": "Perfil",
+    "home": "Hogar",
+    "rental": "Alquiler",
+    "payment": "Pago"
+  },
+
+  "profile_info": {
+    "fullName": "nombre completo",
+    "phoneNumber": "Teléfono",
+    "dateofbirth": "Fecha de nacimiento",
+    "email": "Correo electrónico",
+    "address": "DIRECCIÓN",
+    "personal": "Información personal"
+  }
 }

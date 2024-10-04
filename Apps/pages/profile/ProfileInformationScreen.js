@@ -29,6 +29,7 @@ import Colors from "../../constants/Colors";
 import { ProfilevalidationSchema } from "../../validation/profile/profileInformationValidation";
 import CustomInput from "../../components/global/common/CommonInput";
 import { edit, profile } from "../../../assets/images";
+import { t } from "../../translation/i18n";
 
 const ProfileInformationScreen = () => {
   const toast = useToast();
@@ -138,7 +139,7 @@ const ProfileInformationScreen = () => {
       <BackHeader Headertext="Back to" />
       <ScrollView>
         <View className="p-3 mt-1 ml-2 mb-2 flex flex-row justify-between items-center">
-          <Text className=" text-[18px] font-medium">Personal Information</Text>
+          <Text className=" text-[18px] font-medium">{t("profile_info.personal")}</Text>
           <TouchableOpacity onPress={() => handleEdit()}>
             {isEditable ? (
               <View className="bg-slate-200 rounded-3xl h-[35px] w-[35px] justify-center items-center ">
@@ -205,7 +206,7 @@ const ProfileInformationScreen = () => {
                   keyboardAppearance="dark"
                   returnKeyType="next"
                   returnKeyLabel="next"
-                  label="Full Name"
+                  label={t("profile_info.fullName")}
                   onBlur={handleBlur("fullName")}
                   error={errors.fullName}
                   touched={touched.fullName}
@@ -223,7 +224,7 @@ const ProfileInformationScreen = () => {
                   keyboardAppearance="dark"
                   returnKeyType="next"
                   returnKeyLabel="next"
-                  label="Email"
+                  label={t("profile_info.email")}
                   onBlur={handleBlur("email")}
                   error={errors.email}
                   touched={touched.email}
@@ -242,7 +243,7 @@ const ProfileInformationScreen = () => {
                   keyboardAppearance="dark"
                   returnKeyType="next"
                   returnKeyLabel="next"
-                  label="Address"
+                  label={t("profile_info.address")}
                   onBlur={handleBlur("address")}
                   error={errors.address}
                   touched={touched.address}
@@ -260,7 +261,7 @@ const ProfileInformationScreen = () => {
                   keyboardAppearance="dark"
                   returnKeyType="next"
                   returnKeyLabel="next"
-                  label="Phone Number"
+                  label={t("profile_info.phoneNumber")}
                   onBlur={handleBlur("phoneNumber")}
                   error={errors.phoneNumber}
                   touched={touched.phoneNumber}
@@ -272,7 +273,7 @@ const ProfileInformationScreen = () => {
                 <CustomInput
                   icon="calendar"
                   placeholder="Date Of Birth"
-                  label="Date Of Birth"
+                  label={t("profile_info.dateofbirth")}
                   onBlur={handleBlur("dateOfBirth")}
                   error={errors.dateOfBirth}
                   touched={touched.dateOfBirth}
