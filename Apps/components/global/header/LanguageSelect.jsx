@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import {
   Menu,
@@ -7,10 +7,15 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import { Ionicons } from "@expo/vector-icons";
-import useLanguageStore from "../../../../store/useLanguageStore";
+import { useLanguage } from "../../../context/LanguageProvider";
+
 
 export default function LanguageSelect() {
-    
+  const {  changeLanguage } = useLanguage(); // Local state for language
+
+  const handleChangeLanguage = async (lang) => {
+    await changeLanguage(lang); 
+  };
 
   return (
     <View>
@@ -23,10 +28,10 @@ export default function LanguageSelect() {
           }
         />
         <MenuOptions>
-        <MenuOption onSelect={() => handleSelectLanguage('en')} text="🇬🇧  English" />
-          <MenuOption onSelect={() => handleSelectLanguage('es')} text="🇪🇸  Spanish" />
-          <MenuOption onSelect={() => handleSelectLanguage('fr')} text="🇫🇷  French" />
-          <MenuOption onSelect={() => handleSelectLanguage('pl')} text="🇵🇱  Polish" />
+        <MenuOption onSelect={() => handleChangeLanguage('en')} text="🇬🇧  English" />
+          <MenuOption onSelect={() => handleChangeLanguage('es')} text="🇪🇸  Spanish" />
+          <MenuOption onSelect={() => handleChangeLanguage('fr')} text="🇫🇷  French" />
+          <MenuOption onSelect={() => handleChangeLanguage('pl')} text="🇵🇱  Polish" />
         </MenuOptions>
       </Menu>
     </View>

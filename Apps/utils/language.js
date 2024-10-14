@@ -1,6 +1,6 @@
 // utils/language.js
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { i18n } from '../translation/i18n';
+import { changeLanguage, i18n } from '../translation/i18n';
 
 // Function to get the stored language
 export const getStoredLanguage = async () => {
@@ -10,6 +10,6 @@ export const getStoredLanguage = async () => {
 
 // Function to set the language
 export const setLanguage = async (lang) => {
-  i18n.locale = lang; // Set the new language for i18n
+  changeLanguage(lang)
   await AsyncStorage.setItem('language', lang); // Persist language in AsyncStorage
 };

@@ -7,23 +7,14 @@ import { useNavigation } from "@react-navigation/native";
 import { t } from "../translation/i18n";
 import { getStoredLanguage, setLanguage } from "../utils/language";
 import RNPickerSelect from "react-native-picker-select"; // Import PickerSelect
+import { useLanguage } from "../context/LanguageProvider";
 
 const InitialScreen = () => {
   const navigation = useNavigation();
-  const [language, setLang] = useState("en"); // Local state for language
-
-  // Load the language from AsyncStorage when the component mounts
-  useEffect(() => {
-    const loadLanguage = async () => {
-      const storedLang = await getStoredLanguage();
-      setLang(storedLang);
-    };
-    loadLanguage();
-  }, []);
-
+  
+  const { changeLanguage } = useLanguage();
   const handleChangeLanguage = async (lang) => {
-    await setLanguage(lang); // Update the global language state
-    setLang(lang); // Update local state
+    await changeLanguage(lang); // Update the global language state
   };
 
   return (

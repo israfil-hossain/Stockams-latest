@@ -45,7 +45,7 @@ const LoginScreen = () => {
   const [tab, setTab] = useState("RENTER");
   const navigation = useNavigation();
   const toast = useToast();
-
+  console.log(API.Login); 
   const {
     mutateAsync: signInMutation,
     isLoading: isSigninLoading,
@@ -55,6 +55,8 @@ const LoginScreen = () => {
     endpoint: API.Login,
   });
 
+  console.log(signinError)
+
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       setSubmitting(true);
@@ -63,6 +65,7 @@ const LoginScreen = () => {
         role: tab,
       };
       const response = await signInMutation(payload);
+      console.log(response)
 
       if (response?.data?.data) {
         const { accessToken, refreshToken, role } = response?.data?.data;

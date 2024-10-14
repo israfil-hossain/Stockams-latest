@@ -1,6 +1,6 @@
 // Import necessary components and styles
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,18 +13,17 @@ import { useNavigation } from "@react-navigation/native";
 import NotificationCard from "../Card/NotificationCard";
 import ReviewComponent from "../../host_rental_panel/components/ReviewComponent";
 import { StatusBar } from "expo-status-bar";
-import Popover from "react-native-popover-view";
-import { useTranslation } from "react-multi-lang";
+
 import {
   Menu,
   MenuOptions,
   MenuOption,
   MenuTrigger,
 } from "react-native-popup-menu";
+import LanguageSelect from "./LanguageSelect";
 
 // Create your ExploreHeader component
 const MainHeader = () => {
-  const { setLanguage } = useTranslation();
   const { userFound } = useAuthUserContext();
   const { userData, userRefetch, userLoading, userRole } = useAuthUserContext();
   const navigation = useNavigation();
@@ -66,33 +65,7 @@ const MainHeader = () => {
 
           <View style={styles.rightHeader}>
             <View className="mr-4">
-              <Menu>
-                <MenuTrigger
-                  text={
-                    <View style={[styles.Btn]}>
-                      <Ionicons name="language-outline" size={20} />
-                    </View>
-                  }
-                />
-                <MenuOptions>
-                  <MenuOption
-                    onSelect={() => setLanguage("en")}
-                    text="English"
-                  />
-                  <MenuOption
-                    onSelect={() => setLanguage("es")}
-                    text="Spanish"
-                  />
-                  <MenuOption
-                    onSelect={() => setLanguage("fr")}
-                    text="France"
-                  />
-                  <MenuOption
-                    onSelect={() => setLanguage("pl")}
-                    text="Polish"
-                  />
-                </MenuOptions>
-              </Menu>
+             <LanguageSelect />
             </View>
 
             {userFound && (

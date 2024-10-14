@@ -12,6 +12,7 @@ import AuthUserProvider from "./Apps/context/AuthUserProvider";
 import CommonProgress from "./Apps/components/global/progress/CommonProgress";
 import { adminQueryClient } from "./api";
 import { StripeProvider } from "@stripe/stripe-react-native";
+import { LanguageProvider } from "./Apps/context/LanguageProvider";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -37,33 +38,35 @@ export default function App() {
 
   return (
     <SafeAreaView style={{ flex: 1, marginTop: 20 }}>
-      <QueryClientProvider client={adminQueryClient}>
-        <AuthUserProvider>
-          <MenuProvider>
-            <ToastProvider
-              renderType={{
-                custom_type: (toast) => (
-                  <View style={{ padding: 15, backgroundColor: "grey" }}>
-                    <Text>{toast.message}</Text>
-                  </View>
-                ),
-              }}
-            >
-              <StripeProvider
-                publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISH_KEY}
-                // merchantIdentifier = {Platform.OS === 'ios' ? 'merchant.identifier' : undefined }
+      <LanguageProvider>
+        <QueryClientProvider client={adminQueryClient}>
+          <AuthUserProvider>
+            <MenuProvider>
+              <ToastProvider
+                renderType={{
+                  custom_type: (toast) => (
+                    <View style={{ padding: 15, backgroundColor: "grey" }}>
+                      <Text>{toast.message}</Text>
+                    </View>
+                  ),
+                }}
               >
-                {/* <SplashScreen /> */}
-                <NavigationContainer>
-                  <MainNavigator />
-                </NavigationContainer>
-              </StripeProvider>
-            </ToastProvider>
-          </MenuProvider>
-        </AuthUserProvider>
-      </QueryClientProvider>
+                <StripeProvider
+                  publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISH_KEY}
+                  // merchantIdentifier = {Platform.OS === 'ios' ? 'merchant.identifier' : undefined }
+                >
+                  {/* <SplashScreen /> */}
+                  <NavigationContainer>
+                    <MainNavigator />
+                  </NavigationContainer>
+                </StripeProvider>
+              </ToastProvider>
+            </MenuProvider>
+          </AuthUserProvider>
+        </QueryClientProvider>
 
-      <StatusBar style="dark" />
+        <StatusBar style="dark" />
+      </LanguageProvider>
     </SafeAreaView>
   );
 }

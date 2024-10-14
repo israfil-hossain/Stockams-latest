@@ -34,16 +34,16 @@
     "have_account": "¿Ya tienes una cuenta?",
     "login_here": "Inicia sesión aquí"
   },
-    "profile": {
-      "hello": "Hola",
-      "profile_info": "Información de perfil",
-      "change_pass": "Cambiar la contraseña",
-      "fav": "Favorito",
-      "manage_pay": "Administrar pago",
-      "terms": "Términos y condiciones",
-      "policy": "política de privacidad"
-    },
-    "tab": {
+  "profile": {
+    "hello": "Hola",
+    "profile_info": "Información de perfil",
+    "change_pass": "Cambiar la contraseña",
+    "fav": "Favorito",
+    "manage_pay": "Administrar pago",
+    "terms": "Términos y condiciones",
+    "policy": "política de privacidad"
+  },
+  "tab": {
     "near_me": "cerca de mí",
     "massage": "Masaje",
     "booking": "Reserva",
@@ -52,7 +52,6 @@
     "rental": "Alquiler",
     "payment": "Pago"
   },
-
   "profile_info": {
     "fullName": "nombre completo",
     "phoneNumber": "Teléfono",
