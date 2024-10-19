@@ -9,7 +9,8 @@ import {
 } from "../Apps/utils/localStorageUtils";
 import { adminQueryClient } from ".";
 
-const ADMIN_BASE_URL = "https://space-rental-api.vercel.app";
+// const ADMIN_BASE_URL = "https://space-rental-api.vercel.app";
+const ADMIN_BASE_URL = "https://spacerental-backend.onrender.com"; 
 
 const adminAPI = axios.create({ baseURL: ADMIN_BASE_URL });
 

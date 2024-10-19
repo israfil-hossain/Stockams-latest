@@ -13,14 +13,16 @@ import NodataFound from "../../components/global/common/ui/NodataFound";
 
 const SpaceReviewScreen = () => {
   const route = useRoute();
-  const { id } = route.params; // Destructure the 'id' param
+  const { id } = route.params;
+  
   const spaceReviewAPI = `${API.GetSpaceReviewByID}/${id}`;
-  const { data: { data: reviewData = {} } = {}, isLoading: ReviewLoading } =
+  const { data: { data: reviewData = [] } = {}, isLoading: ReviewLoading } =
     useGet({ endpoint: spaceReviewAPI });
+
   console.log("Review Data : =>>>> ", reviewData);
 
   const totalRating = useMemo(() => {
-    return reviewData?.data?.reduce((acc, item) => acc + item.rating, 0);
+    return reviewData?.data?.reduce((acc, item) => acc + item?.rating, 0);
   }, [reviewData]);
 
   const averageRating = useMemo(() => {
@@ -30,7 +32,7 @@ const SpaceReviewScreen = () => {
   // Initialize a count object to store the occurrences of each rating
   const ratingCount = reviewData?.data?.reduce((acc, review) => {
     // Increment the count for the current rating
-    acc[review.rating] = (acc[review.rating] || 0) + 1;
+    acc[review?.rating] = (acc[review?.rating] || 0) + 1;
     return acc;
   }, {});
 
@@ -40,7 +42,7 @@ const SpaceReviewScreen = () => {
   return (
     <View>
       <BackHeader Headertext="Back" />
-      {reviewData?.data?.length < 0 ? (
+      {reviewData?.length === 0 ? (
         <NodataFound />
       ) : (
         <>

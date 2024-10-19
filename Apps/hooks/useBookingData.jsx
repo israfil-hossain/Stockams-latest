@@ -1,98 +1,98 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { adminAPI } from "../../api";
+import { adminAPI } from "../../api"; // Replace with your actual API import
 
+const useBookingData = (initialFilters = {}, endpoint = "api/SpaceForRent/GetAll") => {
+  const [queryParams, setQueryParams] = useState({
+    page: 1,
+    pageSize: 10,
+    filters: initialFilters,
+  });
 
-// Assuming your API endpoint for fetching bookings:
-const API_ENDPOINT = "api/SpaceForRent/GetAll";
-
-const useBookingData = (initialFilters,endpoint) => {
-  const [page, setPage] = useState(1); // Start on page 1
-  const [pageSize] = useState(10); // Fixed page size
-  const [filters, setFilters] = useState(initialFilters ? initialFilters : ""); 
-  // console.log({filters})
-
-  const buildUrl = (filters, page, pageSize) => {
+  // Build URL with query params
+  const buildUrl = (queryParams) => {
+    const { page, pageSize, filters } = queryParams;
     const urlParams = new URLSearchParams({
       Page: page,
       PageSize: pageSize,
-      ...filters, // Include all filter parameters
     });
-    return `${API_ENDPOINT || endpoint }?${urlParams.toString()}`;
+
+    // Conditionally add filters to the URL if present
+    if (filters.BookingStatus) {
+      urlParams.append("BookingStatus", filters.BookingStatus);
+    }
+
+    return `${endpoint}?${urlParams.toString()}`;
   };
 
-
-  const fetchBookingStore = async (page, pageSize,filters) => {
+  // Fetch function with dynamic query params
+  const fetchBookingStore = async (queryParams) => {
     try {
-      const response = await adminAPI.get(buildUrl(filters, page, pageSize));
+      const response = await adminAPI.get(buildUrl(queryParams));
       if (!response) {
         throw new Error(`API request failed with status ${response.status}`);
       }
-      return response.data; // Assuming your API response data structure
+      return response.data;
     } catch (error) {
       console.error("Error fetching booking data:", error);
-      throw error; // Re-throw the error for useQuery handling
+      throw error;
     }
   };
 
-  const {
-    isLoading, 
-    isError, 
-    error, 
-    data: bookingData = [],
-    isFetching, 
-    isPreviousData, 
-    refetch, 
-  } = useQuery({
-    queryKey: ["bookinginfo", page, pageSize,filters],
-    queryFn: () => fetchBookingStore(page, pageSize,filters),
-    //initialData: { data: [] }, // Set initial empty array to avoid empty state issues
-    keepPreviousData: true, // Maintain previous data on subsequent page changes
+  // UseQuery from react-query
+  const { data: bookingData, isLoading, isError, error, isFetching, refetch, isPlaceholderData } = useQuery({
+    queryKey: ["bookingData", queryParams], // Ensure query key contains filters
+    queryFn: () => fetchBookingStore(queryParams),
     onError: (error) => {
-      // Handle errors here, e.g., display an error message to the user
       console.error("Error fetching booking data:", error);
     },
+    keepPreviousData: true, // Optionally keep previous data while fetching new data
   });
 
-
-
-  // Function to load the next page of data
+  // Function to load the next page
   const loadNextPage = () => {
-    
     if (bookingData?.hasNextPage) {
-        setPage(page + 1); // Update page state to trigger a new query 
-        refetch();
-      }
+      setQueryParams((prev) => ({
+        ...prev,
+        page: prev.page + 1,
+      }));
+    }
+    refetch();
   };
 
+  // Function to load the previous page
   const loadPreviousPage = () => {
     if (bookingData?.hasPreviousPage) {
-      setPage(page - 1); // Update page state to trigger a new query
+      setQueryParams((prev) => ({
+        ...prev,
+        page: prev.page - 1,
+      }));
     }
+    refetch();
   };
 
-    // Function to update filters and fetch data accordingly
-    const updateFilters = (newFilters) => {
-      setPage(1); // Reset page to 1 when filters change
-      setFilters(newFilters); // Update local filters state
-      refetch(newFilters); // Refetch data with updated filters
-    };
-
-
+  // Function to update filters and reset pagination
+  const updateFilters = (newFilters) => {
+    setQueryParams((prev) => ({
+      page: 1, // Reset to first page when filters are updated
+      pageSize: prev.pageSize,
+      filters: newFilters,
+    }));
+    refetch();
+  };
 
   return {
-    bookingData : bookingData?.data || [],
+    bookingData: bookingData?.data || [], // Provide data fallback
     isLoading,
     isError,
     error,
     isFetching,
-    isPreviousData,
+    hasNextPage: bookingData?.hasNextPage,
+    hasPreviousPage: bookingData?.hasPreviousPage,
     loadNextPage,
     loadPreviousPage,
-    hasNextPage : bookingData?.hasNextPage,
-    hasPreviousPage: bookingData?.hasPreviousPage,
-    refetch, // Expose refetch function for manual updates (optional)
-    updateFilters
+    updateFilters,
+    refetch, // Expose refetch for manual trigger if necessary
   };
 };
 

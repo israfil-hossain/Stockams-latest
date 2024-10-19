@@ -72,7 +72,6 @@ const SpaceOverviewScreen = () => {
     isLoading: spaceTypeLoading,
   } = useGet({ endpoint: spaceOverViewAPI });
 
-  console.log("Data : ===> ", spaceRentData?.data);
 
   return (
     <View>
@@ -109,7 +108,7 @@ const SpaceOverviewScreen = () => {
             </Text>
           </View>
 
-          <Access />
+          <Access data={spaceRentData?.data}/>
           <FeatureCard spaceRentData={spaceRentData} />
 
           <View className="flex flex-col mt-5 w-full h-auto mb-4 space-y-4">

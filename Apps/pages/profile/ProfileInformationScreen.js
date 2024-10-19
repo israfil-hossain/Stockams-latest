@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
-import { useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 
 import { Formik } from "formik";
@@ -123,7 +122,11 @@ const ProfileInformationScreen = () => {
       const { type, name, size } = await getImageFileData(uri);
 
       let payload = new FormData();
-      payload?.append("profilePicture", uri,type,name,size);
+      payload.append("profilePicture", {
+        uri: uri,
+        name: name,  // The name of the file
+        type: type,  // The MIME type of the file
+      });
 
       console.log({ payload });
 

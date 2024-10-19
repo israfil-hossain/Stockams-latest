@@ -1,13 +1,39 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-const Access = () => {
+import { adminAPI } from "../../../../api";
+import { API } from "../../../../api/endpoints";
+import { useToast } from "react-native-toast-notifications";
+const Access = ({data}) => {
+  const [isFavorite, setIsFavorite] = useState(data?.isFavorite ||  false);
+  const toast = useToast();
+  
+  const toggleFavorite = async () => {
+    try {
+      const response = await adminAPI.patch(API.AddFavorite, {
+        SpaceId: data._id,
+      });
+      
+      if (response.status === 200) {
+        setIsFavorite(!isFavorite); // Toggle favorite state
+        toast.show(`Item has been ${isFavorite ? 'removed from' : 'added to'} favorites.`, { type: "success" });
+      } else {
+        toast.show('Something went wrong. Please try again later.', {type: "danger"})
+      }
+    } catch (error) {
+      console.error('API Error:', error);
+      toast.show('Failed to update favorite status.', {type: "danger"})
+    }
+  };
+
   return (
     <View>
       <View className="flex flex-row justify-between items-center ">
-        <Text className="text-[14px] font-[600]">Access 24/7</Text>
-        <Ionicons name="heart" size={27} color="#FF7354" />
+        <Text className="text-[14px] font-[600]">{data?.accessMethod || "Access 24/7"}</Text>
+        <TouchableOpacity onPress={toggleFavorite}>
+          <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={27} color="#FF7354" />
+        </TouchableOpacity>
       </View>
       <View className="w-full flex flex-row justify-between items-center p-1 mt-3 space-x-2">
         <TouchableOpacity>
@@ -44,19 +70,11 @@ const Access = () => {
         </TouchableOpacity>
       </View>
       <View className="w-full mt-4 flex flex-col space-y-3">
-        <Text className="text-[18px] font-bold">Secure Center </Text>
-        <Text className="text-[14px] font-[300] text-justify">
-          Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-          sint. Velit officia consequat duis enim velit mollit. Exercitation
-          veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
-          ullamco est sit aliqua dolor do amet sint.
+        <Text className="text-[18px] font-[outfit-medium]">Description</Text>
+        <Text className="text-[14px] font-[300] text-justify font-[outfit]">
+         {data?.description}
         </Text>
-        <Text className="text-[14px] font-[300] text-justify">
-          Velit officia consequat duis enim velit mollit. Exercitation veniam
-          consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco
-          est sit aliqua dolor do amet sint. Velit officia consequat duis enim
-          velit mollit. Exercitation veniam consequat sunt nostrud amet.
-        </Text>
+        
       </View>
     </View>
   );

@@ -76,6 +76,7 @@ export const API = {
 
   // Booking
   SpaceBooking: "/api/SpaceBooking/Book", // Post for Booking Space.
+  GetAllSpaceBooking : "/api/SpaceBooking/GetAll", 
 
   // Supports
   GetAllTicket: "/api/Support/GetAllTickets",
@@ -84,4 +85,7 @@ export const API = {
   UpdateTicketById: "/api/Support/UpdateTicketById/",
   GetAllMessage: "/api/Support/GetAllMessagesById/",
   AddMessage: "/api/Support/AddMessageById/",
+
+  // Favorites 
+  AddFavorite : "/api/SpaceForRent/AddOrRemoveFavoriteItem"
 };

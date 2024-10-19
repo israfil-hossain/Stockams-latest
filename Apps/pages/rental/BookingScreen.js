@@ -1,105 +1,78 @@
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, ActivityIndicator, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
-import StoreCard from "../../components/global/Card/Card";
-import { useQuery } from "@tanstack/react-query";
-import adminAPI from "../../../api/adminAPI";
-import { API } from "../../../api/endpoints";
-import useBookingData from "../../hooks/useBookingData";
 import CustomButton from "../../components/global/common/ui/Button";
 import Colors from "../../constants/Colors";
-import CommonProgress from "../../components/global/progress/CommonProgress";
+import NodataFound from "../../components/global/common/ui/NodataFound";
+import adminAPI from "../../../api/adminAPI";
+import { API } from "../../../api/endpoints";
+import BookingCard from "../../components/global/Card/BookingCard";
 
 const BookingScreen = () => {
-  const {
-    bookingData,
-    hasNextPage,
-    hasPreviousPage,
-    loadNextPage,
-    loadPreviousPage,
-    isLoading,
-    isFetching,
-    isError,
-    error,
-    refetch,
-  } = useBookingData();
+  const [tab, setTab] = useState("BookingApproved");
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState();
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const res = await adminAPI.get(
+        API.GetAllSpaceBooking + `?Page=1&PageSize=100&BookingStatus=${tab}`
+      );
+      setData(res?.data?.data || []);
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    refetch();
-  }, []);
-  const [tab, setTab] = useState("Active");
+    fetchData();
+  }, [tab]);
+
 
   return (
-    <View className="flex-col justify-start w-full  h-full items-center">
+    <View className="flex-col justify-start w-full h-full items-center">
       <View className="flex flex-row justify-start pt-4 pb-3">
         <CustomButton
-          bg={tab === "Active" ? Colors.akcent : Colors.gray2}
+          bg={tab === "BookingApproved" ? Colors.akcent : Colors.gray2}
           size={140}
           text="Active Booking"
           height={45}
-          // icon={renter}
           showIcon={true}
-          onPress={() => setTab("Active")}
-          // type="image"
-          className={` ${tab === "Active" ? "bg-primary" : "bg-gray-200"} w-36 font-[outfit] rounded-l-lg`}
+          onPress={() => setTab("BookingApproved")}
+          className={` ${
+            tab === "BookingApproved" ? "bg-primary" : "bg-gray-200"
+          } w-36 font-[outfit] rounded-l-lg`}
         />
         <CustomButton
-          bg={tab === "Request" ? Colors.akcent : Colors.gray2}
+          bg={tab === "PendingActions" ? Colors.akcent : Colors.gray2}
           size={150}
           text="Booking Request"
           height={45}
-          // icon={space_owner}
           showIcon={true}
-          onPress={() => setTab("Request")}
-          // type="image"
-          className={` ${tab === "Request" ? "bg-primary" : "bg-gray-200"} w-40 font-[outfit] rounded-r-lg`}
+          onPress={() => setTab("PendingActions")}
+          className={` ${
+            tab === "PendingActions" ? "bg-primary" : "bg-gray-200"
+          } w-40 font-[outfit] rounded-r-lg`}
         />
       </View>
-      {isFetching || isLoading ? (
-        <CommonProgress />
+
+      {isLoading ? (
+        <ActivityIndicator size={"large"} color={Colors.primary}/>
       ) : (
-        bookingData?.length > 0 && (
-          <View className="mb-5">
+        <View className="mb-16">
+          {data && data.length > 0 ? (
             <FlatList
               className="px-3 mb-5"
-              data={bookingData}
-              key={bookingData?._id}
-              renderItem={({ item }) => (
-                <StoreCard data={item} type="booking" />
-              )}
+              data={data}
+              key={data?._id}
+              renderItem={({ item }) => <BookingCard data={item} />}
             />
-            <View className="flex-row justify-between items-center">
-              <View>
-                {hasPreviousPage && (
-                  <View className="h-8 items-center ">
-                    <CustomButton
-                      bg={Colors.primary}
-                      size={60}
-                      text="Prev"
-                      height={30}
-                      // icon={renter}
-                      showIcon={false}
-                      onPress={() => loadPreviousPage()}
-                    />
-                  </View>
-                )}
-              </View>
-
-              {hasNextPage && (
-                <View className="h-8 items-center ">
-                  <CustomButton
-                    bg={Colors.primary}
-                    size={60}
-                    text="Next"
-                    height={30}
-                    // icon={renter}
-                    showIcon={false}
-                    onPress={() => loadNextPage()}
-                  />
-                </View>
-              )}
-            </View>
-          </View>
-        )
+          ) : (
+            <NodataFound />
+          )}
+        </View>
       )}
     </View>
   );
