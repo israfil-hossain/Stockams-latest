@@ -5,6 +5,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { adminAPI } from "../../../../api";
 import { API } from "../../../../api/endpoints";
 import { useToast } from "react-native-toast-notifications";
+import { useNavigation,CommonActions } from "@react-navigation/native";
+
 const Access = ({data}) => {
   const [isFavorite, setIsFavorite] = useState(data?.isFavorite ||  false);
   const toast = useToast();

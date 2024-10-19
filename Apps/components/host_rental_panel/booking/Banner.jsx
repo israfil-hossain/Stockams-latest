@@ -14,6 +14,7 @@ const Banner = ({ spaceRentData }) => {
   const handleImageClick = (index) => {
     setActiveImage(index);
   };
+  console.log("space rent : ", spaceRentData);
   return (
     <View>
       <Image
@@ -33,8 +34,8 @@ const Banner = ({ spaceRentData }) => {
       </TouchableOpacity>
       <TouchableOpacity className="w-32 h-[37px] p-2 right-5 top-5 absolute bg-white rounded-lg justify-between flex flex-row items-center">
         <AntDesign name="staro" size={18} color="orange" />
-        <Text className="text-md font-medium">4.8</Text>
-        <Text className="text-[10px] text-gray-400">345 reviews</Text>
+        <Text className="text-md font-medium">{spaceRentData?.data?.averageRating || 0}</Text>
+        <Text className="text-[10px] text-gray-400">{spaceRentData?.data?.reviewCount || 0} reviews</Text>
       </TouchableOpacity>
 
       <ScrollView

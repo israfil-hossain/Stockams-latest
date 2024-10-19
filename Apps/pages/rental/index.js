@@ -12,9 +12,12 @@ import { API } from "../../../api/endpoints";
 import useBookingData from "../../hooks/useBookingData";
 import CustomButton from "../../components/global/common/ui/Button";
 import Colors from "../../constants/Colors";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 
 const NearMeScreen = () => {
+  const navigation = useNavigation();
+  const route = useRoute(); 
+
   const {
     bookingData,
     hasNextPage,
@@ -33,6 +36,7 @@ const NearMeScreen = () => {
       refetch();
     }, [])
   );
+
 
   return (
     <View className="flex-col justify-start w-full  h-full items-center">

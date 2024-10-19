@@ -79,7 +79,7 @@ const SpaceOverviewScreen = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
-        style={[{ backgroundColor: isOpen ? "transfarent" : "white" }]}
+        // style={[{ backgroundColor: isOpen ? "transfarent" : "white" }]}
       >
         <View style={styles.container}>
           {/* For Banner and Image Section  */}
