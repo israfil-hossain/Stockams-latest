@@ -9,7 +9,6 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { noimage } from "../../../../assets/images";
 import { truncateString } from "../../../utils/commonFunction";
 import { useNavigation } from "@react-navigation/native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const StoreCard = ({ data, type }) => {
   const navigation = useNavigation();

@@ -87,5 +87,6 @@ export const API = {
   AddMessage: "/api/Support/AddMessageById/",
 
   // Favorites 
-  AddFavorite : "/api/SpaceForRent/AddOrRemoveFavoriteItem"
+  AddFavorite : "/api/SpaceForRent/AddOrRemoveFavoriteItem", 
+  GetAllFavorite : "/api/SpaceForRent/GetFavoriteItems"
 };

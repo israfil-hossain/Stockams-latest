@@ -1,15 +1,8 @@
 import React, { Children, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import {
-  Octicons,
-} from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Text,
-} from "react-native";
+import { View, ScrollView, StyleSheet, Text, ActivityIndicator } from "react-native";
 
 import BackHeader from "../../components/global/header/BackHeader";
 import CustomButton from "../../components/global/common/ui/Button";
@@ -19,19 +12,18 @@ import { API } from "../../../api/endpoints";
 import { useGet } from "../../hooks";
 import CommonBottomSheet from "../../components/modals/CommonBottomSheet";
 import { useSharedValue } from "react-native-reanimated";
-import BookingBottomCard from "../../components/host_rental_panel/components/BookingBottomCard";
+import BookingBottomCard from "../../components/host_rental_panel/bookingover_view_components/BookingBottomCard";
 import Banner from "../../components/host_rental_panel/booking/Banner";
 import FeatureCard from "../../components/host_rental_panel/booking/Feature";
 import Access from "../../components/host_rental_panel/booking/Access";
-import CongratulationBottomCard from "../../components/host_rental_panel/components/CongratulationBottomCard";
-import PackingBottomCard from "../../components/host_rental_panel/components/PackingBottomCard";
-import PickupFormBottomCard from "../../components/host_rental_panel/components/PickupFormBottomCard";
-import CostModal from "../../components/host_rental_panel/components/CostModal";
+import CongratulationBottomCard from "../../components/host_rental_panel/bookingover_view_components/CongratulationBottomCard";
+import PackingBottomCard from "../../components/host_rental_panel/bookingover_view_components/PackingBottomCard";
+import PickupFormBottomCard from "../../components/host_rental_panel/bookingover_view_components/PickupFormBottomCard";
+import CostModal from "../../components/host_rental_panel/bookingover_view_components/CostModal";
+import Colors from "../../constants/Colors";
 
 const SpaceOverviewScreen = () => {
   const navigation = useNavigation();
-  const [isOpen, setIssOpen] = useState(true);
-
   const route = useRoute();
   const { id } = route.params;
 
@@ -39,7 +31,7 @@ const SpaceOverviewScreen = () => {
   const congratulationOpen = useSharedValue(false);
   const packingStufOpen = useSharedValue(false);
   const pickFormOpen = useSharedValue(false);
-  const pickUpTimeOpen = useSharedValue(false); 
+  const pickUpTimeOpen = useSharedValue(false);
   const costOpen = useSharedValue(false);
 
   const toggleSheet = () => {
@@ -58,8 +50,8 @@ const SpaceOverviewScreen = () => {
     pickFormOpen.value = !pickFormOpen.value;
   };
   const pickUpTimeOpenSheet = () => {
-    pickUpTimeOpen.value = !pickUpTimeOpen.value; 
-  }
+    pickUpTimeOpen.value = !pickUpTimeOpen.value;
+  };
   const costOpenSheet = () => {
     pickFormOpen.value = !pickFormOpen.value;
     costOpen.value = !costOpen.value;
@@ -72,6 +64,13 @@ const SpaceOverviewScreen = () => {
     isLoading: spaceTypeLoading,
   } = useGet({ endpoint: spaceOverViewAPI });
 
+  if (spaceTypeLoading) {
+    return (
+      <View className="flex flex-col justify-center items-center h-full ">
+        <ActivityIndicator size={"large"} color={Colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <View>
@@ -108,7 +107,7 @@ const SpaceOverviewScreen = () => {
             </Text>
           </View>
 
-          <Access data={spaceRentData?.data}/>
+          <Access data={spaceRentData?.data} />
           <FeatureCard spaceRentData={spaceRentData} />
 
           <View className="flex flex-col mt-5 w-full h-auto mb-4 space-y-4">
@@ -160,15 +159,15 @@ const SpaceOverviewScreen = () => {
               size={"100%"}
               height={45}
               bg={Colors.primary}
-              onPress={pickUpTimeOpenSheet}
+              onPress={toggleSheet}
             />
           </View>
         </View>
-        
+
         {/* Booking Modal  */}
-        {/* <CommonBottomSheet isOpen={issOpen} toggleSheet={toggleSheet}>
+        <CommonBottomSheet isOpen={issOpen} toggleSheet={toggleSheet}>
           <BookingBottomCard data={spaceRentData?.data} toggleSheet={toggleSheet} congratulationSheet={congratulationSheet}/>
-        </CommonBottomSheet> */}
+        </CommonBottomSheet>
 
         {/* Congratulation Modal  */}
         {/* <CommonBottomSheet
@@ -186,31 +185,29 @@ const SpaceOverviewScreen = () => {
           <PackingBottomCard  toggleSheet={pickTimeOpenSheet}  />
         </CommonBottomSheet> */}
 
-       {/* Pickup Form  Modal*/}
-       <CommonBottomSheet
+        {/* Pickup Form  Modal*/}
+        <CommonBottomSheet
           isOpen={pickFormOpen}
-          toggleSheet={pickFormOpenSheet} 
+          toggleSheet={pickFormOpenSheet}
         >
-          <PickupFormBottomCard  toggleSheet={""} />
+          <PickupFormBottomCard toggleSheet={""} />
         </CommonBottomSheet>
 
         {/* PickupTime  Form  Modal*/}
-       <CommonBottomSheet
+        <CommonBottomSheet
           isOpen={pickUpTimeOpen}
-          toggleSheet={pickUpTimeOpenSheet} 
+          toggleSheet={pickUpTimeOpenSheet}
         >
-          <PickupFormBottomCard  toggleSheet={""} />
+          <PickupFormBottomCard toggleSheet={""} />
         </CommonBottomSheet>
 
-
         {/* Cost  Modal  */}
-       {/* <CommonBottomSheet
+        {/* <CommonBottomSheet
           isOpen={costOpen}
           toggleSheet={costOpenSheet}
         >
           <CostModal  toggleSheet={costOpenSheet}/>
         </CommonBottomSheet> */}
-
       </ScrollView>
     </View>
   );

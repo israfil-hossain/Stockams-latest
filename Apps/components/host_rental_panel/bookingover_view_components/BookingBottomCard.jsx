@@ -19,7 +19,7 @@ const bookingSchema = Yup.object().shape({
   // toDate: Yup.number().required("Rental Duration is required"),
 });
 
-const BookingBottomCard = ({ data,toggleSheet,congratulationSheet}) => {
+const BookingBottomCard = ({ data, toggleSheet, congratulationSheet }) => {
   const toast = useToast();
   // console.log("data", data);
   const [options, setOptions] = useState([
@@ -61,35 +61,39 @@ const BookingBottomCard = ({ data,toggleSheet,congratulationSheet}) => {
     },
   ]);
 
-  const { mutateAsync: bookingMutation, isLoading: bookingLoading,isError } =
-    useMutation({
-      mutationFn: (payload) => {
-        return adminAPI.post(API.SpaceBooking, payload);
-      },
-    });
+  const {
+    mutateAsync: bookingMutation,
+    isLoading: bookingLoading,
+    isError,
+  } = useMutation({
+    mutationFn: (payload) => {
+      return adminAPI.post(API.SpaceBooking, payload);
+    },
+  });
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       setSubmitting(true);
-      const toDateValue = dayjs(values?.fromDate, "DD/MM/YYYY", true)
-        .add(values?.toDate || 30, "day");
+      const toDateValue = dayjs(values?.fromDate, "DD/MM/YYYY", true).add(
+        values?.toDate || 30,
+        "day"
+      );
 
       const payload = {
         spaceId: data?._id,
         fromDate: dayjs(values?.fromDate, "DD/MM/YYYY", true).toISOString(),
         toDate: toDateValue.toISOString(),
       };
-      console.log("payload: ", payload)
+      console.log("payload: ", payload);
       const response = await bookingMutation(payload);
-      console.log("response : ", response)
+      console.log("response : ", response);
       if (response?.data?.data) {
         toast.show("Booking Successfully ! 👋", { type: "success" });
         // navigation.navigate("");
         toggleSheet();
         congratulationSheet();
-      }
-      else{
-        console.log(response?.error)
+      } else {
+        console.log(response?.error);
       }
       setSubmitting(false);
     } catch (err) {
@@ -105,7 +109,7 @@ const BookingBottomCard = ({ data,toggleSheet,congratulationSheet}) => {
   return (
     <View className="w-full  flex flex-col items-center justify-center px-4 mb-20 mt-5">
       <View className="w-full items-center mt-5 mb-5">
-        <Text className="text-[20px] font-bold font-[outfit-medium]">
+        <Text className="text-[20px] font-bold font-[outfit-medium] pb-2">
           From ${data?.pricePerMonth}/month Including Tax
         </Text>
         <Text className="text-[14px] self-center font-outfit">
@@ -138,39 +142,43 @@ const BookingBottomCard = ({ data,toggleSheet,congratulationSheet}) => {
           setFieldValue,
         }) => (
           <View className="w-full ">
-            <View className="flex-row space-x-5 w-full">
-              <CustomInput
-                icon=""
-                placeholder="Start Date"
-                autoCapitalize="none"
-                keyboardAppearance="dark"
-                returnKeyType="next"
-                returnKeyLabel="next"
-                label="Start Date"
-                onBlur={handleBlur("fromDate")}
-                error={errors.fromDate}
-                touched={touched.fromDate}
-                onChangeText={handleChange("fromDate")}
-                value={values.fromDate}
-                type="date"
-                isEditable={true}
-                className="w-full "
-                width={"49%"}
-              />
-              <CustomInput
-                label="Rental Duration"
-                placeholder="Select Rental Period"
-                onBlur={handleBlur("toDate")}
-                error={errors.toDate}
-                touched={touched.toDate}
-                onChangeText={(value) => setFieldValue("toDate", value)}
-                value={values.toDate}
-                values={values}
-                isEditable={!!values?.formDate}
-                type="dropdown"
-                options={options}
-                width={"50%"}
-              />
+            <View className="flex-row space-x-3 w-[100%]">
+              <View className="w-[48%]">
+                <CustomInput
+                  icon=""
+                  placeholder="Start Date"
+                  autoCapitalize="none"
+                  keyboardAppearance="dark"
+                  returnKeyType="next"
+                  returnKeyLabel="next"
+                  label="Start Date"
+                  onBlur={handleBlur("fromDate")}
+                  error={errors.fromDate}
+                  touched={touched.fromDate}
+                  onChangeText={handleChange("fromDate")}
+                  value={values.fromDate}
+                  type="date"
+                  isEditable={true}
+                  className="w-full "
+                  width={"100%"}
+                />
+              </View>
+              <View className="w-[50%">
+                <CustomInput
+                  label="Rental Duration"
+                  placeholder="Select Rental Period"
+                  onBlur={handleBlur("toDate")}
+                  error={errors.toDate}
+                  touched={touched.toDate}
+                  onChangeText={(value) => setFieldValue("toDate", value)}
+                  value={values.toDate}
+                  values={values}
+                  isEditable={!!values?.formDate}
+                  type="dropdown"
+                  options={options}
+                  width={160}
+                />
+              </View>
             </View>
 
             <View className="mt-5 self-center">

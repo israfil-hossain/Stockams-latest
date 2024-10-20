@@ -11,7 +11,7 @@ import { profile } from "../../../../assets/images";
 import PopUpBottomModal from "../../modals/BottomCenterModal";
 import { useNavigation } from "@react-navigation/native";
 import NotificationCard from "../Card/NotificationCard";
-import ReviewComponent from "../../host_rental_panel/components/ReviewComponent";
+import ReviewComponent from "../../host_rental_panel/bookingover_view_components/ReviewComponent";
 import { StatusBar } from "expo-status-bar";
 
 import {

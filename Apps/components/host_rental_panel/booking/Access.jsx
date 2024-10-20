@@ -8,6 +8,7 @@ import { useToast } from "react-native-toast-notifications";
 import { useNavigation,CommonActions } from "@react-navigation/native";
 
 const Access = ({data}) => {
+  console.log("Data ==> ", data);
   const [isFavorite, setIsFavorite] = useState(data?.isFavorite ||  false);
   const toast = useToast();
   
