@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { adminAPI } from "../../api"; // Replace with your actual API import
 
-const useBookingData = (initialFilters = {}, endpoint = "api/SpaceForRent/GetAll") => {
+const useBookingData = ({initialFilters = {}, endpoint = "api/SpaceForRent/GetAll"}) => {
   const [queryParams, setQueryParams] = useState({
     page: 1,
     pageSize: 10,
@@ -18,8 +18,12 @@ const useBookingData = (initialFilters = {}, endpoint = "api/SpaceForRent/GetAll
     });
 
     // Conditionally add filters to the URL if present
-    if (filters.BookingStatus) {
-      urlParams.append("BookingStatus", filters.BookingStatus);
+    if (filters) {
+      Object.keys(filters).forEach((key) => {
+        if (filters[key]) {
+          urlParams.append(key, filters[key]);
+        }
+      });
     }
 
     return `${endpoint}?${urlParams.toString()}`;
@@ -28,11 +32,11 @@ const useBookingData = (initialFilters = {}, endpoint = "api/SpaceForRent/GetAll
   // Fetch function with dynamic query params
   const fetchBookingStore = async (queryParams) => {
     try {
-      const response = await adminAPI.get(buildUrl(queryParams));
-      if (!response) {
+      const {data } = await adminAPI.get(buildUrl(queryParams));
+      if (!data) {
         throw new Error(`API request failed with status ${response.status}`);
       }
-      return response.data;
+      return data;
     } catch (error) {
       console.error("Error fetching booking data:", error);
       throw error;

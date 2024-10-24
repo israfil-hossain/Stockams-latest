@@ -88,5 +88,8 @@ export const API = {
 
   // Favorites 
   AddFavorite : "/api/SpaceForRent/AddOrRemoveFavoriteItem", 
-  GetAllFavorite : "/api/SpaceForRent/GetFavoriteItems"
+  GetAllFavorite : "/api/SpaceForRent/GetFavoriteItems", 
+
+  // Payment : 
+  PaymentAPI : "/api/PaymentReceive/GetIntentByBookingId/"
 };

@@ -17,9 +17,9 @@ import { API } from "../../../api/endpoints";
 import Colors from "../../constants/Colors";
 import { adminAPI } from "../../../api";
 import { useToast } from "react-native-toast-notifications";
+import NodataFound from "../../components/global/common/ui/NodataFound";
 
 const FavouritePageScreen = () => {
-  
   const {
     data: { data: allFavorites = {} } = {},
     isLoading: favoriteLoading,
@@ -42,12 +42,18 @@ const FavouritePageScreen = () => {
     <View className="  w-[100%] h-[100%]">
       <BackHeader Headertext="Back to Profile" />
       <View className="flex-col justify-center items-center w-[100%] mb-5 pr-3">
-        <FlatList
-          className="px-3 mb-10 "
-          data={allFavorites?.data}
-          key={allFavorites?.data?._id}
-          renderItem={({ item }) => <FavouriteCard data={item} refetch={refetch}/>}
-        />
+        {allFavorites?.data?.length > 0 ? (
+          <FlatList
+            className="px-3 mb-10 "
+            data={allFavorites?.data}
+            key={allFavorites?.data?._id}
+            renderItem={({ item }) => (
+              <FavouriteCard data={item} refetch={refetch} />
+            )}
+          />
+        ) : (
+          <NodataFound />
+        )}
       </View>
     </View>
   );

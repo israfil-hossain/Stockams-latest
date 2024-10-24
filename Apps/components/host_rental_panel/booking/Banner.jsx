@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { noimage } from "../../../../assets/images";
 
 const Banner = ({ spaceRentData }) => {
   const [activeImage, setActiveImage] = useState(0);
@@ -17,12 +18,22 @@ const Banner = ({ spaceRentData }) => {
   console.log("space rent : ", spaceRentData);
   return (
     <View>
-      <Image
-        source={{
-          uri: spaceRentData?.data?.spaceImages[activeImage]?.url,
-        }}
-        style={styles.banner}
-      />
+      {spaceRentData?.data?.spaceImages[activeImage]?.url ? (
+        <>
+          <Image
+            source={{
+              uri: spaceRentData?.data?.spaceImages[activeImage]?.url,
+            }}
+            style={styles.banner}
+          />
+        </>
+      ) : (
+        <View style={styles.banner} className=" flex-col space-y-2 justify-center items-center rounded-lg bg-white w-full h-40 ">
+          <Image className="w-16 h-16" source={noimage}  />
+          <Text className="font-[outfit-medium] text-[14px] ">No Image Data.</Text>
+        </View>
+      )}
+
       <TouchableOpacity className="w-[100px] h-[37px] px-2 left-5 top-5 absolute bg-tertiary rounded-xl justify-around flex flex-row items-center">
         <Ionicons
           name="person-circle-sharp"
@@ -34,8 +45,12 @@ const Banner = ({ spaceRentData }) => {
       </TouchableOpacity>
       <TouchableOpacity className="w-32 h-[37px] p-2 right-5 top-5 absolute bg-white rounded-lg justify-between flex flex-row items-center">
         <AntDesign name="staro" size={18} color="orange" />
-        <Text className="text-md font-medium">{spaceRentData?.data?.averageRating || 0}</Text>
-        <Text className="text-[10px] text-gray-400">{spaceRentData?.data?.reviewCount || 0} reviews</Text>
+        <Text className="text-md font-medium">
+          {spaceRentData?.data?.averageRating || 0}
+        </Text>
+        <Text className="text-[10px] text-gray-400">
+          {spaceRentData?.data?.reviewCount || 0} reviews
+        </Text>
       </TouchableOpacity>
 
       <ScrollView

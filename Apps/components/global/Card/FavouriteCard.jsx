@@ -1,4 +1,10 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState } from "react";
 import { favourite } from "../../../../assets/images";
 import { AntDesign, Ionicons, Octicons } from "@expo/vector-icons";
@@ -6,24 +12,23 @@ import { useToast } from "react-native-toast-notifications";
 import { adminAPI } from "../../../../api";
 import { API } from "../../../../api/endpoints";
 import { useNavigation } from "@react-navigation/native";
+import Colors from "../../../constants/Colors";
 
 const FavouriteCard = ({ data, refetch }) => {
   const navigation = useNavigation();
-  const [isFavorite, setIsFavorite] = useState(data?.isFavorite || false);
   const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleFavorite = async () => {
     try {
+      setIsLoading(true);
       const response = await adminAPI.patch(API.AddFavorite, {
         SpaceId: data?._id,
       });
 
       if (response.status === 200) {
-        setIsFavorite(!isFavorite); // Toggle favorite state
         toast.show(
-          `Item has been ${
-            isFavorite ? "removed from" : "added to"
-          } favorites.`,
+          response?.data?.message,
           { type: "success" }
         );
         refetch();
@@ -32,6 +37,7 @@ const FavouriteCard = ({ data, refetch }) => {
           type: "danger",
         });
       }
+      setIsLoading(false);
     } catch (error) {
       console.error("API Error:", error);
       toast.show("Failed to update favorite status.", { type: "danger" });
@@ -78,11 +84,11 @@ const FavouriteCard = ({ data, refetch }) => {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={toggleFavorite} className="pr-5">
-                <Ionicons
-                  name={isFavorite ? "heart" : "heart-outline"}
-                  size={27}
-                  color="#FF7354"
-                />
+                {isLoading ? (
+                  <ActivityIndicator size={"small"} color={Colors.primary} />
+                ) : (
+                  <Ionicons name={"heart"} size={27} color="#FF7354" />
+                )}
               </TouchableOpacity>
             </View>
             <View className="flex flex-row items-center space-x-1 ">

@@ -2,7 +2,13 @@ import React, { Children, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Octicons } from "@expo/vector-icons";
 
-import { View, ScrollView, StyleSheet, Text, ActivityIndicator } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 
 import BackHeader from "../../components/global/header/BackHeader";
 import CustomButton from "../../components/global/common/ui/Button";
@@ -28,6 +34,7 @@ const SpaceOverviewScreen = () => {
   const { id } = route.params;
 
   const issOpen = useSharedValue(false);
+  const issCheckoutOpen = useSharedValue(false);
   const congratulationOpen = useSharedValue(false);
   const packingStufOpen = useSharedValue(false);
   const pickFormOpen = useSharedValue(false);
@@ -36,6 +43,10 @@ const SpaceOverviewScreen = () => {
 
   const toggleSheet = () => {
     issOpen.value = !issOpen.value;
+  };
+
+  const toggleCheckout = () => {
+    issCheckoutOpen.value = !issCheckoutOpen.value;
   };
 
   const congratulationSheet = () => {
@@ -166,16 +177,22 @@ const SpaceOverviewScreen = () => {
 
         {/* Booking Modal  */}
         <CommonBottomSheet isOpen={issOpen} toggleSheet={toggleSheet}>
-          <BookingBottomCard data={spaceRentData?.data} toggleSheet={toggleSheet} congratulationSheet={congratulationSheet}/>
+          <BookingBottomCard
+            data={spaceRentData?.data}
+            toggleSheet={toggleSheet}
+            congratulationSheet={congratulationSheet}
+            toggleCheckout={toggleCheckout}
+            issCheckoutOpen={issCheckoutOpen}
+          />
         </CommonBottomSheet>
 
         {/* Congratulation Modal  */}
-        {/* <CommonBottomSheet
+        <CommonBottomSheet
           isOpen={congratulationOpen}
           toggleSheet={congratulationSheet}
         >
-          <CongratulationBottomCard  toggleSheet={packOpenSheet}/>
-        </CommonBottomSheet> */}
+          <CongratulationBottomCard toggleSheet={packStuffOpenSheet} />
+        </CommonBottomSheet>
 
         {/* Packing Stuff Modal  */}
         {/* <CommonBottomSheet

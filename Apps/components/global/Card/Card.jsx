@@ -19,12 +19,12 @@ const StoreCard = ({ data, type }) => {
 
   return (
     <TouchableOpacity
-      activeOpacity={0.9}
+      activeOpacity={0.7}
       onPress={() =>
         navigation.navigate("spaceOverview", { id: `${data?._id}` })
       }
       className={`w-[320px]  shadow-lg shadow-gray-400 ${
-        type === "booking" ? "h-[360px]" : "h-[300px]"
+        type === "booking" ? "h-[360px]" : "min-h-[315px] max-h-[320px]"
       } bg-white border-primary border  rounded-xl mt-5 relative flex justify-center items-center `}
     >
       <View className="w-[94%] h-44 absolute top-4 items-center justify-center flex bg-white rounded-3xl shadow ">
@@ -39,7 +39,7 @@ const StoreCard = ({ data, type }) => {
           </>
         ) : (
           <View className="w-[99%]  h-44 absolute top-0 items-center justify-center flex bg-gray-100 rounded-2xl  shadow">
-            <Image className="w-20 h-20  mt-5 rounded-2xl" source={noimage} />
+            <Image className="w-16 h-16  mt-6" source={noimage} />
           </View>
         )}
       </View>
